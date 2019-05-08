@@ -53,7 +53,7 @@ namespace SistemaCatastralCholoma.Controllers
                 string pass = "";
 
                 MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand("select * from usuario where nombre = '" + nombre + "'", conn);
+                MySqlCommand cmd = new MySqlCommand("select * from usuario where nombre = '" + nomb + "'", conn);
                 reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
