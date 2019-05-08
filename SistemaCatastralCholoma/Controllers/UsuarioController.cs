@@ -42,7 +42,7 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         // GET: api/Usuario/5
-        public Usuario Get(string nombre)
+        public Usuario Get(string nomb)
         {
             MySqlConnection conn = new MySqlConnection(connectionString);
             try
@@ -53,7 +53,7 @@ namespace SistemaCatastralCholoma.Controllers
                 string pass = "";
 
                 MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand("select * from usuario where nombre = " + username, conn);
+                MySqlCommand cmd = new MySqlCommand("select * from usuario where nombre = '" + nombre + "'", conn);
                 reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {

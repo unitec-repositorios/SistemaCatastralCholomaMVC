@@ -52,7 +52,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand("select * from FichasCatastrales", conn);
+                MySqlCommand cmd = new MySqlCommand("select * from FichasCatastrales where cocata = '" + cocata + "'", conn);
                 reader = cmd.ExecuteReader();
                 FichaCatastral ficha = new FichaCatastral();
                 while (reader.Read())
@@ -166,7 +166,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 MySqlCommand cmd = conn.CreateCommand();
-                string query = "delete from FichasCatastrales where cocata = '@cocata'";
+                string query = "delete from FichasCatastrales where cocata = @cocata";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@cocata", cocata);
                 cmd.ExecuteNonQuery();
