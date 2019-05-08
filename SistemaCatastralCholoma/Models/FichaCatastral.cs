@@ -7,31 +7,53 @@ namespace SistemaCatastralCholoma.Models
 {
     public class FichaCatastral
     {
-        private String cocata { get; set; }
-        private String depto { get; set; }
-        private String municipio { get; set; }
-        private String aldea { get; set; }
-        private String mapa { get; set; }
-        private String bolque { get; set; }
-        private String predio { get; set; }
-        private String num { get; set; }
-        private String maq { get; set; }
-        private String st { get; set; }
-        private String codProp { get; set; }
-        private String codHab { get; set; }
-        private String noLinea { get; set; }
-        private String noFoto { get; set; }
-        private String poblacion { get; set; }
-        private String identidadPropietario { get; set; }
-        private String rtn { get; set; }
-        private String rp { get; set; }
-        private String tomo { get; set; }
-        private String asiento { get; set; }
-        private DateTime fechaInscripcion { get; set; }
+        public String cocata { get; set; }
+        public String depto { get; set; }
+        public String municipio { get; set; }
+        public String aldea { get; set; }
+        public String mapa { get; set; }
+        public String bolque { get; set; }
+        public String predio { get; set; }
+        public String num { get; set; }
+        public String maq { get; set; }
+        public String st { get; set; }
+        public String codProp { get; set; }
+        public String codHab { get; set; }
+        public String noLinea { get; set; }
+        public String noFoto { get; set; }
+        public String poblacion { get; set; }
+        public String identidadPropietario { get; set; }
+        public String tomo { get; set; }
+        public String asiento { get; set; }
 
         public FichaCatastral()
         {
 
+        }
+
+        public FichaCatastral(String cocata, String depto, String municipio, String aldea, 
+            String mapa, String bolque, String predio, String num, String maq, String st, 
+            String codProp, String codHab, String noLinea, String noFoto, String poblacion, 
+            String identidadPropietario, String tomo, String asiento)
+        {
+            this.cocata = cocata;
+            this.depto = depto;
+            this.municipio = municipio;
+            this.aldea = aldea;
+            this.mapa = mapa;
+            this.bolque = bolque;
+            this.predio = predio;
+            this.num = num;
+            this.maq = maq;
+            this.st = st;
+            this.codProp = codProp;
+            this.codHab = codHab;
+            this.noLinea = noLinea;
+            this.noFoto = noFoto;
+            this.poblacion = poblacion;
+            this.identidadPropietario = identidadPropietario;
+            this.tomo = tomo;
+            this.asiento = asiento;
         }
 
     }
