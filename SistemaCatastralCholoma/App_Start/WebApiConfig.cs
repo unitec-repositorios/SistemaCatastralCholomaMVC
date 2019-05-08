@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using MySql.Data.MySqlClient;
+using System.Web.Http.Cors;
+
 
 namespace SistemaCatastralCholoma
 {
@@ -20,6 +22,10 @@ namespace SistemaCatastralCholoma
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
+
         }
 
         public static MySqlConnection conn()
