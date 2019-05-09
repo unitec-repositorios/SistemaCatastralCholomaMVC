@@ -4,8 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using SistemaCatastralCholoma.Models;
 using MySql.Data.MySqlClient;
-
+ 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class UsuarioController : ApiController
@@ -53,7 +54,7 @@ namespace SistemaCatastralCholoma.Controllers
                 string pass = "";
 
                 MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand("select * from usuario where nombre = '" + nombre + "'", conn);
+                MySqlCommand cmd = new MySqlCommand("select * from usuario where nombre = '" + nomb + "'", conn);
                 reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
