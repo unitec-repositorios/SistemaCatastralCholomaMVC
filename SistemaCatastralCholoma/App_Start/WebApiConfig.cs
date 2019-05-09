@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web.Http;
 using MySql.Data.MySqlClient;
 using System.Web.Http.Cors;
+using WebApiContrib.Core.Formatter.Jsonp;
+using System.Net.Http.Headers;
 
 
 namespace SistemaCatastralCholoma
@@ -22,6 +24,9 @@ namespace SistemaCatastralCholoma
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.JsonFormatter.SupportedMediaTypes
+                .Add(new MediaTypeHeaderValue("text/html"));
 
             EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
