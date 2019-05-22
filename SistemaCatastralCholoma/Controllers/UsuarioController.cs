@@ -28,7 +28,8 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     string nombre = reader.GetString(0);
                     string pass = reader.GetString(1);
-                    users.Add(new Usuario(nombre, pass));
+                    string tip = reader.GetString(2);
+                    users.Add(new Usuario(nombre, pass, tip));
                 }
                 conn.Close();
                 return users;
@@ -52,6 +53,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 string username = "";
                 string pass = "";
+                string tip = "";
 
                 MySqlDataReader reader;
                 MySqlCommand cmd = new MySqlCommand("select * from usuario where nombre = '" + nomb + "'", conn);
@@ -60,8 +62,9 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     username = reader.GetString(0);
                     pass = reader.GetString(1);
+                    tip = reader.GetString(2);
                 }
-                Usuario nuevoUsuario = new Usuario(username, pass);
+                Usuario nuevoUsuario = new Usuario(username, pass, tip);
                 conn.Close();
                 return nuevoUsuario;
             }
@@ -82,10 +85,11 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 MySqlCommand cmd = conn.CreateCommand();
-                string query = "insert into usuario values (@nombre, @pass)";
+                string query = "insert into usuario values (@nombre, @pass, @tip)";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@nombre", n.nombre);
                 cmd.Parameters.AddWithValue("@pass", n.password);
+                cmd.Parameters.AddWithValue("@tip", n.tipo);
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
