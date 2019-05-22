@@ -55,10 +55,10 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from propietario where id = "+id+";";
+                query.CommandText = "Select * from propietario where id = '"+id+"'";
 
                 MySqlDataReader reader = query.ExecuteReader(); 
-                conn.Close();
+                
 
                 Propietario propietario = new Propietario();
                 while (reader.Read())
@@ -66,6 +66,7 @@ namespace SistemaCatastralCholoma.Controllers
                     propietario = new Propietario((string)reader["id"], (string)reader["nombres"], (string)reader["apellidos"],
                         (string)reader["telefono"], (string)reader["rtn"], reader.GetChar("sexo"), (string)reader["nacionalidad"]);
                 }
+                conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
                 return response;
 
