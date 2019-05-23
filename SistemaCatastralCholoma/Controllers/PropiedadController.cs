@@ -29,7 +29,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 while (reader.Read())
                 {
-                    propiedades.Add(new Propiedad((string)reader["mapa"],(string)reader["bloque"],(string)reader["predio"],(string)reader["propietario"]));
+                    propiedades.Add(new Propiedad((string)reader["claveCatastral"],(string)reader["propietario"], (string)reader["tipoPropiedad"]));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, propiedades);
@@ -38,46 +38,45 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (MySqlException e)
             {
-                var response = Request.CreateResponse(HttpStatusCode.NoContent);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest,e);
                 return response;
             }
         }
 
         // GET: api/Propietario/5
         [HttpGet]
-        public HttpResponseMessage getPropietario(string id)
+        public HttpResponseMessage getPropiedad(string id)
         {
             try
             {
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from propietario where id = '" + id + "'";
+                query.CommandText = "Select * from propiedad where claveCatastral = '" + id + "'";
 
                 MySqlDataReader reader = query.ExecuteReader();
 
 
-                Propietario propietario = new Propietario();
+                Propiedad propiedad = new Propiedad();
                 while (reader.Read())
                 {
-                    propietario = new Propietario((string)reader["id"], (string)reader["nombres"], (string)reader["apellidos"],
-                        (string)reader["telefono"], (string)reader["rtn"], reader.GetChar("sexo"), (string)reader["nacionalidad"]);
+                    propiedad = new Propiedad((string)reader["claveCatastral"], (string)reader["propietario"], (string)reader["tipoPropiedad"]);
                 }
                 conn.Close();
-                var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
+                var response = Request.CreateResponse(HttpStatusCode.OK, propiedad);
                 return response;
 
             }
             catch (MySqlException e)
             {
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest,e);
                 return response;
             }
         }
 
         // POST: api/Propietario
         [HttpPost]
-        public HttpResponseMessage crearPropietario(Propietario propietario)
+        public HttpResponseMessage crearPropiedad(Propiedad propiedad)
         {
             try
             {
@@ -85,21 +84,17 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO propietario VALUES (@id,@nombres,@apellidos,@telefono,@rtn,@sexo,@nacionalidad);";
+                query.CommandText = "INSERT INTO propiedad VALUES (@claveCatastral,@propietario,@tipoPropiedad);";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", propietario.id);
-                query.Parameters.AddWithValue("@nombres", propietario.nombres);
-                query.Parameters.AddWithValue("@apellidos", propietario.apellidos);
-                query.Parameters.AddWithValue("@telefono", propietario.telefono);
-                query.Parameters.AddWithValue("@rtn", propietario.rtn);
-                query.Parameters.AddWithValue("@sexo", propietario.sexo);
-                query.Parameters.AddWithValue("@nacionalidad", propietario.nacionalidad);
+                query.Parameters.AddWithValue("@claveCatastral", propiedad.claveCatastral);
+                query.Parameters.AddWithValue("@propietario", propiedad.propietario);
+                query.Parameters.AddWithValue("@tipoPropiedad", propiedad.tipoPropiedad);
                 query.ExecuteNonQuery();
 
                 conn.Close();
 
-                var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
+                var response = Request.CreateResponse(HttpStatusCode.OK, propiedad);
                 return response;
 
             }
@@ -113,7 +108,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/Propietario/5
         [HttpPut]
-        public HttpResponseMessage modificarPropietario(string id, Propietario propietario)
+        public HttpResponseMessage modificarPropiedad(string id, Propiedad propiedad)
         {
             try
             {
@@ -121,26 +116,17 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE propietario SET nombres=@nombres," +
-                                                            "apellidos = @apellidos," +
-                                                            "telefono = @telefono," +
-                                                            "rtn = @rtn," +
-                                                            "sexo = @sexo," +
-                                                            "nacionalidad = @nacionalidad where id = @id";
+                query.CommandText = "UPDATE propiedad SET propietario = @propietario, tipoPropiedad = @tipoPropiedad where claveCatastral = @claveCatastral";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", id);
-                query.Parameters.AddWithValue("@nombres", propietario.nombres);
-                query.Parameters.AddWithValue("@apellidos", propietario.apellidos);
-                query.Parameters.AddWithValue("@telefono", propietario.telefono);
-                query.Parameters.AddWithValue("@rtn", propietario.rtn);
-                query.Parameters.AddWithValue("@sexo", propietario.sexo);
-                query.Parameters.AddWithValue("@nacionalidad", propietario.nacionalidad);
+                query.Parameters.AddWithValue("@claveCatastral", id);
+                query.Parameters.AddWithValue("@propietario", propiedad.propietario);
+                query.Parameters.AddWithValue("@tipoPropiedad", propiedad.tipoPropiedad);
                 query.ExecuteNonQuery();
 
                 conn.Close();
-
-                var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
+                propiedad.claveCatastral = id;
+                var response = Request.CreateResponse(HttpStatusCode.OK, propiedad);
                 return response;
 
             }
@@ -154,16 +140,16 @@ namespace SistemaCatastralCholoma.Controllers
 
         // DELETE: api/Propietario/5
         [HttpDelete]
-        public HttpResponseMessage deletePropietario(string id)
+        public HttpResponseMessage eliminarPropiedad(string id)
         {
             try
             {
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from propietario where id = @id";
+                query.CommandText = "Delete from propiedad where claveCatastral = @claveCatastral";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", id);
+                query.Parameters.AddWithValue("@claveCatastral", id);
                 query.ExecuteNonQuery();
 
                 conn.Close();
