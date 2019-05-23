@@ -14,6 +14,11 @@ namespace SistemaCatastralCholoma.Models
         public string subUso { get; set; }
         public string sitio { get; set; }
 
+        public Predio()
+        {
+
+        }
+
         public Predio(string id, string barr, string caser, string use, string subUse, string site)
         {
             idpropietario = id;
