@@ -7,17 +7,20 @@ namespace SistemaCatastralCholoma.Models
 {
     public class Propiedad
     {
-        public string mapa { get; set; }
-        public string bloque { get; set; }
-        public string predio { get; set; }
+        public string claveCatastral { get; set; }
         public string propietario { get; set; }
+        public string tipoPropiedad { get; set; }
 
-        public Propiedad(string map, string bloq, string pred, string owner)
+
+        public Propiedad()
         {
-            mapa = map;
-            bloque = bloq;
-            predio = pred;
-            propietario = owner;
+
+        }
+        public Propiedad(string claveCatastral,string propietario, string tipoPropiedad)
+        {
+            this.claveCatastral = claveCatastral;
+            this.propietario = propietario;
+            this.tipoPropiedad = tipoPropiedad;
         }
     }
 }
