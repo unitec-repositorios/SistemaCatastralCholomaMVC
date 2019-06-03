@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SistemaCatastralCholoma.Models
 {
-    public class FichaCatastral
+    public class FichaCatastral 
     {
         public String cocata { get; set; }
         public String depto { get; set; }
