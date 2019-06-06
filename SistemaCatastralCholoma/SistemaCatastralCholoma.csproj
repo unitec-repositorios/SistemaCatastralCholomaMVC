@@ -357,7 +357,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AvaluoEdificaciones.cs" />
+    <Compile Include="Models\AvaluoRural.cs" />
+    <Compile Include="Models\AvaluoUrbano.cs" />
+    <Compile Include="Models\CaracteristicasPropiedad.cs" />
+    <Compile Include="Models\CaracteristicasVecindad.cs" />
+    <Compile Include="Models\ClasificacionSuelo.cs" />
+    <Compile Include="Models\Colindantes.cs" />
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\DatosComplementarios.cs" />
+    <Compile Include="Models\DatosDesarrollo.cs" />
+    <Compile Include="Models\DatosLegales.cs" />
     <Compile Include="Models\Empleado.cs" />
     <Compile Include="Models\FichaCatastral.cs" />
     <Compile Include="Models\Predio.cs" />
