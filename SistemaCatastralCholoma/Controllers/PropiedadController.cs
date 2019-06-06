@@ -68,7 +68,6 @@ namespace SistemaCatastralCholoma.Controllers
                     propiedad.estadoPredio = (ESTADO_PREDIO)reader["estadoPredio"];
                     propiedades.Add(propiedad);
                 }
-                conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, propiedades);
                 return response;
 
@@ -77,6 +76,10 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
+            }
+            finally
+            {
+                conn.Close();
             }
         }
 
@@ -94,7 +97,7 @@ namespace SistemaCatastralCholoma.Controllers
                 MySqlDataReader reader = query.ExecuteReader();
 
 
-                Propiedad propiedad = null;
+                Propiedad propiedad = new Propiedad();
                 while (reader.Read())
                 {
                     string claveCatastral = (string)reader["claveCatastral"];
@@ -134,8 +137,7 @@ namespace SistemaCatastralCholoma.Controllers
                     propiedad.impuesto = (double)reader["impuesto"];
                     propiedad.estadoPredio = (ESTADO_PREDIO)reader["estadoPredio"];
                 }
-                conn.Close();
-                if (propiedad == null)
+                if (propiedad.claveCatastral == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, propiedad);
@@ -146,6 +148,10 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
+            }
+            finally
+            {
+                conn.Close();
             }
         }
 
@@ -219,8 +225,6 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@estadoPredio", propiedad.estadoPredio);
                 query.ExecuteNonQuery();
 
-                conn.Close();
-
                 var response = Request.CreateResponse(HttpStatusCode.OK, propiedad);
                 return response;
 
@@ -230,6 +234,10 @@ namespace SistemaCatastralCholoma.Controllers
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
                 return response;
+            }
+            finally
+            {
+                conn.Close();
             }
         }
 
@@ -297,7 +305,6 @@ namespace SistemaCatastralCholoma.Controllers
                     query.ExecuteNonQuery();
                 }
 
-                conn.Close();
                 propiedad.claveCatastral = id;
                 var response = Request.CreateResponse(HttpStatusCode.OK, propiedad);
                 return response;
@@ -308,6 +315,10 @@ namespace SistemaCatastralCholoma.Controllers
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
                 return response;
+            }
+            finally
+            {
+                conn.Close();
             }
         }
 
@@ -325,16 +336,20 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@claveCatastral", id);
                 query.ExecuteNonQuery();
 
-                conn.Close();
 
                 var response = Request.CreateResponse(HttpStatusCode.NoContent);
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (MySqlException e)
             {
+                Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
                 return response;
+            }
+            finally
+            {
+                conn.Close();
             }
         }
     }

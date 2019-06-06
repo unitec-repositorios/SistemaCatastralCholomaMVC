@@ -75,7 +75,7 @@ namespace SistemaCatastralCholoma.Controllers
                 MySqlDataReader reader = query.ExecuteReader();
 
 
-                Predio predio = null;
+                Predio predio = new Predio();
                 while (reader.Read())
                 {
                     predio = new Predio();
@@ -97,7 +97,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 }
                 conn.Close();
-                if (predio == null)
+                if (predio.id == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, predio);
