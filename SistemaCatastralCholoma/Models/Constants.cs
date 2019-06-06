@@ -1400,6 +1400,13 @@ namespace SistemaCatastralCholoma.Models
 
     }
 
+
+    public enum TIPO_EMPLEADO
+    {
+        ADMIN,
+        NORMAL
+    }
+
     public enum ESTATUS_TRIBUTARIO
     {
         ACTIVO,
