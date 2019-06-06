@@ -27,10 +27,28 @@ namespace SistemaCatastralCholoma.Controllers
                 query.CommandText = "Select * from predio";
 
                 MySqlDataReader reader = query.ExecuteReader();
-
+                Predio predio;
                 while (reader.Read())
                 {
-                    predios.Add(new Predio((string)reader["idpropietario"], (string)reader["barrio"], (string)reader["caserio"], (string)reader["uso"], (string)reader["subUso"], (string)reader["sitio"]));
+                    predio = new Predio();
+                    predio.id = (string)reader["id"];
+                    predio.numeroPredio = (string)reader["numeroPredio"];
+                    predio.barrio = (string)reader["barrio"];
+                    predio.caserio = (string)reader["caserio"];
+                    predio.uso = (USO)reader["uso"];
+                    predio.subUso = (SUBUSO)reader["subUso"];
+                    predio.sitio = (string)reader["sitio"];
+                    predio.construccion = (string)reader["construccion"];
+                    predio.estatusTributario = (ESTATUS_TRIBUTARIO)reader["estatusTributario"];
+                    predio.codigoPropietario = (string)reader["codigoPropietario"];
+                    predio.codigoHabitacional = (string)reader["codigoHabitacional"];
+                    predio.porcentajeExencion = (double)reader["porcentajeExencion"];
+                    predio.tasaImpositiva = (double)reader["tasaImpositiva"];
+                    predio.futurasRevisiones = (int)reader["futurasRevisiones"];
+                    predio.porcentajeConcertacion = (double)reader["procentajeConcertacion"];
+
+
+                    predios.Add(predio);
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, predios);
@@ -52,7 +70,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from predio where idpropietario = '" + id + "'";
+                query.CommandText = "Select * from predio where id = '" + id + "'";
 
                 MySqlDataReader reader = query.ExecuteReader();
 
@@ -60,9 +78,28 @@ namespace SistemaCatastralCholoma.Controllers
                 Predio predio = new Predio();
                 while (reader.Read())
                 {
-                    predio = new Predio((string)reader["idpropietario"], (string)reader["barrio"], (string)reader["caserio"], (string)reader["uso"], (string)reader["subUso"], (string)reader["sitio"]);
+                    predio = new Predio();
+                    predio.id = (string)reader["id"];
+                    predio.numeroPredio = (string)reader["numeroPredio"];
+                    predio.barrio = (string)reader["barrio"];
+                    predio.caserio = (string)reader["caserio"];
+                    predio.uso = (USO)reader["uso"];
+                    predio.subUso = (SUBUSO)reader["subUso"];
+                    predio.sitio = (string)reader["sitio"];
+                    predio.construccion = (string)reader["construccion"];
+                    predio.estatusTributario = (ESTATUS_TRIBUTARIO)reader["estatusTributario"];
+                    predio.codigoPropietario = (string)reader["codigoPropietario"];
+                    predio.codigoHabitacional = (string)reader["codigoHabitacional"];
+                    predio.porcentajeExencion = (double)reader["porcentajeExencion"];
+                    predio.tasaImpositiva = (double)reader["tasaImpositiva"];
+                    predio.futurasRevisiones = (int)reader["futurasRevisiones"];
+                    predio.porcentajeConcertacion = (double)reader["procentajeConcertacion"];
+
                 }
                 conn.Close();
+                if (predio.id == null)
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
+
                 var response = Request.CreateResponse(HttpStatusCode.OK, predio);
                 return response;
 
@@ -84,15 +121,25 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO predio VALUES (@idpropietario,@barrio,@caserio,@uso,@subUso,@sitio);";
+                query.CommandText = "INSERT INTO predio VALUES (@id,@numeroPredio,@barrio,@caserio,@uso,@subUso,@sitio,@construccion,@estatusTributario,@codigoPropietario,@codigoHabitacional,@porcentajeExencion,@tasaImpositiva,@futurasRevisiones,@porcentajeConcertacion);";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@idpropietario", p.idpropietario);
+                query.Parameters.AddWithValue("@id", p.id);
+                query.Parameters.AddWithValue("@numeroPredio", p.numeroPredio);
                 query.Parameters.AddWithValue("@barrio", p.barrio);
                 query.Parameters.AddWithValue("@caserio", p.caserio);
-                query.Parameters.AddWithValue("@uso",p.uso);
+                query.Parameters.AddWithValue("@uso", p.uso);
                 query.Parameters.AddWithValue("@subUso", p.subUso);
                 query.Parameters.AddWithValue("@sitio", p.sitio);
+                query.Parameters.AddWithValue("@construccion",p.construccion);
+                query.Parameters.AddWithValue("@estatusTributario",p.estatusTributario);
+                query.Parameters.AddWithValue("@codigoPropietario",p.codigoPropietario);
+                query.Parameters.AddWithValue("@codigoHabitacional",p.codigoHabitacional);
+                query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExencion);
+                query.Parameters.AddWithValue("@tasaImpositiva",p.tasaImpositiva);
+                query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
+                query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
+
                 query.ExecuteNonQuery();
 
                 conn.Close();
@@ -111,66 +158,81 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT api/<controller>/5
         [HttpPut]
-        public HttpResponseMessage modificarPredio(string id, Predio p)
-        {
-            try
-            {
-                conn.Open();
+public HttpResponseMessage modificarPredio(string id, Predio p)
+{
+    try
+    {
+        conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+        MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE predio SET barrio = @barrio, caserio = @caserio, uso = @uso, subUso = @subUso, sitio = @sitio where idpropietario = @idpropietario";
+        query.CommandText = "UPDATE predio SET numeroPredio = @numeroPredio, barrio = @barrio,"
+                                            +  "caserio = @caserio, uso = @uso, subUso = @subUso,"
+                                            +  "sitio = @sitio, construccion = @construccion,"
+                                            +  "estatusTributario = @estatusTributario, codigoPropietario = @codigoPropietario,"
+                                            +  "codigoHabitacional = @codigoHabitacional, porcentajeExencion = @porcentajeExencion,"
+                                            +  "tasaImpositivo = @tasaImpositiva, futuraRevisiones = @futuraRevisiones,"
+                                            +  "porcentajeConcertacion = @porcentajeConcertacion where id = @id";
 
-                p.idpropietario = id;
+        p.id = id;
 
-                query.Prepare();
-                query.Parameters.AddWithValue("@idpropietario", p.idpropietario);
-                query.Parameters.AddWithValue("@barrio", p.barrio);
-                query.Parameters.AddWithValue("@caserio", p.caserio);
-                query.Parameters.AddWithValue("@uso", p.uso);
-                query.Parameters.AddWithValue("@subUso", p.subUso);
-                query.Parameters.AddWithValue("@sitio", p.sitio);
-                query.ExecuteNonQuery();
+        query.Prepare();
+        query.Parameters.AddWithValue("@id", p.id);
+        query.Parameters.AddWithValue("@numeroPredio", p.numeroPredio);
+        query.Parameters.AddWithValue("@barrio", p.barrio);
+        query.Parameters.AddWithValue("@caserio", p.caserio);
+        query.Parameters.AddWithValue("@uso", p.uso);
+        query.Parameters.AddWithValue("@subUso", p.subUso);
+        query.Parameters.AddWithValue("@sitio", p.sitio);
+        query.Parameters.AddWithValue("@construccion",p.construccion);
+        query.Parameters.AddWithValue("@estatusTributario",p.estatusTributario);
+        query.Parameters.AddWithValue("@codigoPropietario",p.codigoPropietario);
+        query.Parameters.AddWithValue("@codigoHabitacional",p.codigoHabitacional);
+        query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExencion);
+        query.Parameters.AddWithValue("@tasaImpositiva",p.tasaImpositiva);
+        query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
+        query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
+        query.ExecuteNonQuery();
 
-                conn.Close();
-         
-                var response = Request.CreateResponse(HttpStatusCode.OK, p);
-                return response;
+        conn.Close();
 
-            }
-            catch (MySql.Data.MySqlClient.MySqlException e)
-            {
-                Console.WriteLine(e.Message);
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                return response;
-            }
-        }
+        var response = Request.CreateResponse(HttpStatusCode.OK, p);
+        return response;
 
-        // DELETE api/<controller>/5
-        [HttpDelete]
-        public HttpResponseMessage eliminarPredio(string id)
-        {
-            try
-            {
-                conn.Open();
-                MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from predio where idpropietario = @idpropietario";
+    }
+    catch (MySql.Data.MySqlClient.MySqlException e)
+    {
+        Console.WriteLine(e.Message);
+        var response = Request.CreateResponse(HttpStatusCode.BadRequest);
+        return response;
+    }
+}
 
-                query.Prepare();
-                query.Parameters.AddWithValue("@idpropietario", id);
-                query.ExecuteNonQuery();
+// DELETE api/<controller>/5
+[HttpDelete]
+public HttpResponseMessage eliminarPredio(string id)
+{
+    try
+    {
+        conn.Open();
+        MySqlCommand query = conn.CreateCommand();
+        query.CommandText = "Delete from predio where id = @id";
 
-                conn.Close();
+        query.Prepare();
+        query.Parameters.AddWithValue("@id", id);
+        query.ExecuteNonQuery();
 
-                var response = Request.CreateResponse(HttpStatusCode.NoContent);
-                return response;
+        conn.Close();
 
-            }
-            catch (MySql.Data.MySqlClient.MySqlException e)
-            {
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                return response;
-            }
-        }
+        var response = Request.CreateResponse(HttpStatusCode.NoContent);
+        return response;
+
+    }
+    catch (MySql.Data.MySqlClient.MySqlException e)
+    {
+        var response = Request.CreateResponse(HttpStatusCode.BadRequest);
+        return response;
+    }
+}
     }
 }
