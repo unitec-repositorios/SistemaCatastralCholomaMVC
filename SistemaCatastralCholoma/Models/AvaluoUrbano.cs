@@ -15,9 +15,9 @@ namespace SistemaCatastralCholoma.Models
 
         public AvaluoUrbano(string id, double esquina, double topografia)
         {
-            this->idavaluourbano = id;
-            this->Esquina = esquina;
-            this->Topografia = topografia;
+            this.idavaluourbano = id;
+            this.Esquina = esquina;
+            this.Topografia = topografia;
         }
     }
 }

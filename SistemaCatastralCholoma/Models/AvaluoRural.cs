@@ -14,8 +14,8 @@ namespace SistemaCatastralCholoma.Models
 
         public AvaluoRural(string id, double valor)
         {
-            this->idavaluorural = id;
-            this->valorTerrenoRural = valor;
+            this.idavaluorural = id;
+            this.valorTerrenoRural = valor;
         }
     }
 }

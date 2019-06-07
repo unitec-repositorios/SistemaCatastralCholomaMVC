@@ -18,12 +18,12 @@ namespace SistemaCatastralCholoma.Models
 
         public Colindantes(int id, string n, string s, string e, string o, string idDC)
         {
-            this->idcolindantes = id;
-            this->Norte = n;
-            this->Sur = s;
-            this->Este = e;
-            this->Oeste = o;
-            this->idDatosComplementarios = idDC;
+            this.idcolindantes = id;
+            this.Norte = n;
+            this.Sur = s;
+            this.Este = e;
+            this.Oeste = o;
+            this.idDatosComplementarios = idDC;
         }
     }
 }

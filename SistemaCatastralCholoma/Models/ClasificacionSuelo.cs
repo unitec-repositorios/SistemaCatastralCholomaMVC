@@ -17,11 +17,11 @@ namespace SistemaCatastralCholoma.Models
 
         public ClasificacionSuelo(string id, double friego, int cod, double area, string idcc)
         {
-            this->idclasificacionsuelo = id;
-            this->fRiego = friego;
-            this->codigo = cod;
-            this->area = area;
-            this->idClaveCatastral = idcc;
+            this.idclasificacionsuelo = id;
+            this.fRiego = friego;
+            this.codigo = cod;
+            this.area = area;
+            this.idClaveCatastral = idcc;
         }
     }
 }

@@ -17,11 +17,11 @@ namespace SistemaCatastralCholoma.Models
 
         public DatosDesarrollo(string id, double area, double serv, double top, double config)
         {
-            this->iddatosdesarrollo = id;
-            this->area = area;
-            this->servicios = serv;
-            this->topgrafia = top;
-            this->configuracion = config;
+            this.iddatosdesarrollo = id;
+            this.area = area;
+            this.servicios = serv;
+            this.topgrafia = top;
+            this.configuracion = config;
         }
     }
 }

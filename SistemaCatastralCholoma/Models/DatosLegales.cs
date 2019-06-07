@@ -28,23 +28,23 @@ namespace SistemaCatastralCholoma.Models
         public DatosLegales(string id, string propiedad, string tomo, string folio,
                             string asiento, DateTime inscripcion, string matricula,
                             string linea, string foto, string predio, string naturaleza,
-                            string tipo, double area, string unidad, string tipo)
+                            string tipo, double area, string unidad)
         {
-            this->idclaveCatastral = id;
-            this->propiedad = propiedad;
-            this->tomo = tomo;
-            this->folio = folio;
-            this->asiento = asiento;
-            this->inscripcion = inscripcion;
-            this->matricula = matricula;
-            this->linea = linea;
-            this->foto = foto;
-            this->predio = predio;
-            this->naturalezaJuridica = naturaleza;
-            this->tipoDocumento = tipo;
-            this->areas = area;
-            this->unidadArea = unidad;
-            this->tipoMedida = tipo;
+            this.idclaveCatastral = id;
+            this.propiedad = propiedad;
+            this.tomo = tomo;
+            this.folio = folio;
+            this.asiento = asiento;
+            this.inscripcion = inscripcion;
+            this.matricula = matricula;
+            this.linea = linea;
+            this.foto = foto;
+            this.predio = predio;
+            this.naturalezaJuridica = naturaleza;
+            this.tipoDocumento = tipo;
+            this.area = area;
+            this.unidadArea = unidad;
+            this.tipoMedida = tipo;
         }
     }
 }
