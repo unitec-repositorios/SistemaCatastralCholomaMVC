@@ -19,13 +19,13 @@ namespace SistemaCatastralCholoma.Models
 
         public CaracteristicasPropiedad(string id, double area, string explotacion, string topografia, string caudal, string poza, string viasComunicacion)
         {
-            this->idcaracRural = id;
-            this->area = area;
-            this->explotacion = explotacion;
-            this->topografia = topografia;
-            this->caudal = caudal;
-            this->pozo = poza;
-            this->viasComunicacion = viasComunicacion;
+            this.idcaracRural = id;
+            this.area = area;
+            this.explotacion = explotacion;
+            this.topografia = topografia;
+            this.caudal = caudal;
+            this.pozo = poza;
+            this.viasComunicacion = viasComunicacion;
         }
     }
 }

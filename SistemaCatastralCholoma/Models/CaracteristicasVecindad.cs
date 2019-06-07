@@ -17,11 +17,11 @@ namespace SistemaCatastralCholoma.Models
 
         public CaracteristicasVecindad(string id, string iglesia, string escuela, double sitio, double mercado)
         {
-            this->idcaracteristicasvecindad = id;
-            this->Iglesia = iglesia;
-            this->Escuela = escuela;
-            this->sitioEmbarque = sitio;
-            this->mercadoCercano = mercado;
+            this.idcaracteristicasvecindad = id;
+            this.Iglesia = iglesia;
+            this.Escuela = escuela;
+            this.sitioEmbarque = sitio;
+            this.mercadoCercano = mercado;
         }
 
     }

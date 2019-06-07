@@ -15,9 +15,9 @@ namespace SistemaCatastralCholoma.Models
 
         public AvaluoEdificaciones(string id, double total, double edificaciones)
         {
-            this->idavaluoedificacione = id;
-            this->totalEdificaciones = total;
-            this->edificaciones = edificaciones;
+            this.idavaluoedificacione = id;
+            this.totalEdificaciones = total;
+            this.edificaciones = edificaciones;
         }
 
     }

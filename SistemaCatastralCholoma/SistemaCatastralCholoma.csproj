@@ -368,11 +368,18 @@
     <Compile Include="Models\DatosComplementarios.cs" />
     <Compile Include="Models\DatosDesarrollo.cs" />
     <Compile Include="Models\DatosLegales.cs" />
+    <Compile Include="Models\EdificacionesEspeciales.cs" />
     <Compile Include="Models\Empleado.cs" />
+    <Compile Include="Models\FactoresRurales.cs" />
     <Compile Include="Models\FichaCatastral.cs" />
+    <Compile Include="Models\Fraccion.cs" />
+    <Compile Include="Models\Piso.cs" />
     <Compile Include="Models\Predio.cs" />
     <Compile Include="Models\Propiedad.cs" />
     <Compile Include="Models\Propietario.cs" />
+    <Compile Include="Models\RecursosHidricos.cs" />
+    <Compile Include="Models\ServiciosPublicos.cs" />
+    <Compile Include="Models\UsoTierra.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
