@@ -68,18 +68,16 @@ namespace SistemaCatastralCholoma.Controllers
                     propiedad.estadoPredio = (ESTADO_PREDIO)reader["estadoPredio"];
                     propiedades.Add(propiedad);
                 }
+                conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, propiedades);
                 return response;
 
             }
             catch (MySqlException e)
             {
+                conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
-            }
-            finally
-            {
-                conn.Close();
             }
         }
 
@@ -139,19 +137,16 @@ namespace SistemaCatastralCholoma.Controllers
                 }
                 if (propiedad.claveCatastral == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
-
+                conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, propiedad);
                 return response;
 
             }
             catch (MySqlException e)
             {
+                conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
-            }
-            finally
-            {
-                conn.Close();
             }
         }
 
@@ -224,20 +219,16 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@impuesto", propiedad.impuesto);
                 query.Parameters.AddWithValue("@estadoPredio", propiedad.estadoPredio);
                 query.ExecuteNonQuery();
-
+                conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, propiedad);
                 return response;
 
             }
             catch (MySql.Data.MySqlClient.MySqlException e)
             {
-                Console.WriteLine(e.Message);
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                return response;
-            }
-            finally
-            {
                 conn.Close();
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
+                return response;
             }
         }
 
@@ -304,7 +295,7 @@ namespace SistemaCatastralCholoma.Controllers
                     query.Parameters.AddWithValue("@propietario",codigo);
                     query.ExecuteNonQuery();
                 }
-
+                conn.Close();
                 propiedad.claveCatastral = id;
                 var response = Request.CreateResponse(HttpStatusCode.OK, propiedad);
                 return response;
@@ -312,13 +303,9 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (MySql.Data.MySqlClient.MySqlException e)
             {
-                Console.WriteLine(e.Message);
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                return response;
-            }
-            finally
-            {
                 conn.Close();
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
+                return response;
             }
         }
 
@@ -336,21 +323,18 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@claveCatastral", id);
                 query.ExecuteNonQuery();
 
-
+                conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.NoContent);
                 return response;
 
             }
             catch (MySqlException e)
             {
-                Console.WriteLine(e.Message);
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                conn.Close();
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
                 return response;
             }
-            finally
-            {
-                conn.Close();
-            }
+
         }
     }
 }
