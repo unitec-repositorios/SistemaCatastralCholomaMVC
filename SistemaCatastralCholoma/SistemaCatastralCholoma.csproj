@@ -350,6 +350,7 @@
     <Compile Include="Controllers\AvaluoEdificacionesController.cs" />
     <Compile Include="Controllers\AvaluoRuralController.cs" />
     <Compile Include="Controllers\AvaluoUrbanoController.cs" />
+    <Compile Include="Controllers\DatosLegalesController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\FichaCatastralController.cs" />
     <Compile Include="Controllers\FraccionController.cs" />
@@ -386,6 +387,7 @@
     <Compile Include="Models\Propiedad.cs" />
     <Compile Include="Models\Propietario.cs" />
     <Compile Include="Models\RecursosHidricos.cs" />
+    <Compile Include="Models\RequestModels\DatosLegalesRequestModel.cs" />
     <Compile Include="Models\ServiciosPublicos.cs" />
     <Compile Include="Models\UsoTierra.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
