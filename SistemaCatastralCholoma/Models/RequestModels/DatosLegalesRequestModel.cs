@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SistemaCatastralCholoma.Models
+namespace SistemaCatastralCholoma.Models.RequestModels
 {
-    public class DatosLegales
+    public class DatosLegalesRequestModel
     {
         public string idclaveCatastral { get; set; }
-        public string propiedad { get; set; }//enum
+        public string propiedad { get; set; }
         public string tomo { get; set; }
         public string folio { get; set; }
         public string asiento { get; set; }
-        public DateTime inscripcion { get; set; }
+        public string inscripcion { get; set; }
         public string matricula { get; set; }
         public string linea { get; set; }
         public string foto { get; set; }
@@ -23,10 +23,10 @@ namespace SistemaCatastralCholoma.Models
         public string unidadArea { get; set; }
         public string tipoMedida { get; set; }
 
-        public DatosLegales() { }
+        public DatosLegalesRequestModel() { }
 
-        public DatosLegales(string id, string propiedad, string tomo, string folio,
-                            string asiento, DateTime inscripcion, string matricula,
+        public DatosLegalesRequestModel(string id, string propiedad, string tomo, string folio,
+                            string asiento, string inscripcion, string matricula,
                             string linea, string foto, string predio, string naturaleza,
                             string tipo, double area, string unidad)
         {
@@ -47,4 +47,6 @@ namespace SistemaCatastralCholoma.Models
             this.tipoMedida = tipo;
         }
     }
+
+    
 }
