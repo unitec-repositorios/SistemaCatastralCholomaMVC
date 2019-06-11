@@ -356,6 +356,8 @@
     <Compile Include="Controllers\PredioController.cs" />
     <Compile Include="Controllers\PropiedadController.cs" />
     <Compile Include="Controllers\PropietarioController.cs" />
+    <Compile Include="Controllers\RecursosHidricosController.cs" />
+    <Compile Include="Controllers\UsoTierraController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -440,6 +442,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\UsoTierra\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

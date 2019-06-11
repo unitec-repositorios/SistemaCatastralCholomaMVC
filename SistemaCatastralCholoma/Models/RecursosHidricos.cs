@@ -7,7 +7,7 @@ namespace SistemaCatastralCholoma.Models
 {
     public class RecursosHidricos
     {
-        public int idRecursosHidricos { get; set; }
+        public int idrecursoshidricos { get; set; }
         public string fuente { get; set; }
         public string riego { get; set; }
         public string sistemaIrrigacion { get; set; }
@@ -17,10 +17,10 @@ namespace SistemaCatastralCholoma.Models
 
         public RecursosHidricos() { }
 
-        public RecursosHidricos(int idRecursosHidricos, string fuente, string riego, string sistemaIrrigacion,
+        public RecursosHidricos(int idrecursoshidricos, string fuente, string riego, string sistemaIrrigacion,
             double distancia, double area, int idCaracRural)
         {
-            this.idRecursosHidricos = idRecursosHidricos;
+            this.idrecursoshidricos = idrecursoshidricos;
             this.fuente = fuente;
             this.riego = riego;
             this.sistemaIrrigacion = sistemaIrrigacion;
