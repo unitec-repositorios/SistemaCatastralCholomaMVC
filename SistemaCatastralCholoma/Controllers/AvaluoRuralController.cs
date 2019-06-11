@@ -70,7 +70,7 @@ namespace SistemaCatastralCholoma.Controllers
                 }
                 conn.Close();
                 if (avaluo.idavaluorural == null)
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, new KeyNotFoundException("No se encontro avaluoUrbano con codigo " + id));
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, avaluo);
                 return response;
