@@ -7,16 +7,16 @@ namespace SistemaCatastralCholoma.Models
 {
     public class UsoTierra
     {
-        public int idUsoTierra { get; set; }
+        public int idusotierra { get; set; }
         public string uso { get; set; }
         public string codigo { get; set; }
         public int idCaracRural { get; set; }
 
         public UsoTierra() { }
 
-        public UsoTierra(int idUsoTierra, string uso, string codigo, int idCaracRural)
+        public UsoTierra(int idusotierra, string uso, string codigo, int idCaracRural)
         {
-            this.idUsoTierra = idUsoTierra;
+            this.idusotierra = idusotierra;
             this.uso = uso;
             this.codigo = codigo;
             this.idCaracRural = idCaracRural;
