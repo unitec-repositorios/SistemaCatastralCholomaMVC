@@ -347,6 +347,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AvaluoEdificacionesController.cs" />
+    <Compile Include="Controllers\AvaluoRuralController.cs" />
+    <Compile Include="Controllers\AvaluoUrbanoController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\FichaCatastralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
