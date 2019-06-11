@@ -7,12 +7,12 @@ namespace SistemaCatastralCholoma.Models
 {
     public class Fraccion
     {
-        public int idFraccion { get; set; }
-        public double valor { get; set; }
-        public double area { get; set; }
+        public int idfraccion { get; set; }
+        public double Valor { get; set; }
+        public double Area { get; set; }
         public double parecelaTipica { get; set; }
         public double factorModificado { get; set; }
-        public double frente { get; set; }
+        public double Frente { get; set; }
         public int idAvaluoUrbano { get; set; }
 
         public Fraccion() { }
@@ -20,12 +20,12 @@ namespace SistemaCatastralCholoma.Models
         public Fraccion(int idFraccion, double valor, double area, double parecelaTipica,
             double factorModificado, double frente, int idAvaluoUrbano)
         {
-            this.idFraccion = idFraccion;
-            this.valor = valor;
-            this.area = area;
+            this.idfraccion = idFraccion;
+            this.Valor = valor;
+            this.Area = area;
             this.parecelaTipica = parecelaTipica;
             this.factorModificado = factorModificado;
-            this.frente = frente;
+            this.Frente = frente;
             this.idAvaluoUrbano = idAvaluoUrbano;
         }
     }
