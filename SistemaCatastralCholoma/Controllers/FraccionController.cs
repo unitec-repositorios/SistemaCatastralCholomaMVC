@@ -15,7 +15,7 @@ namespace SistemaCatastralCholoma.Controllers
         private MySqlConnection conn = WebApiConfig.conn();
         // GET: api/
         [HttpGet]
-        public HttpResponseMessage GetAllFraccion()
+        public HttpResponseMessage listFraccion()
         {
             try
             {
@@ -75,7 +75,7 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage crearFraccion(Fraccion f)
+        public HttpResponseMessage createFraccion(Fraccion f)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/Propietario/5
         [HttpPut]
-        public HttpResponseMessage modificarFraccion(int id,Fraccion f)
+        public HttpResponseMessage modifyFraccion(int id,Fraccion f)
         {
             try
             {

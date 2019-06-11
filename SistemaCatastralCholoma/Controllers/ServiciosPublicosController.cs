@@ -15,7 +15,7 @@ namespace SistemaCatastralCholoma.Controllers
         private MySqlConnection conn = WebApiConfig.conn();
         // GET: api/
         [HttpGet]
-        public HttpResponseMessage GetAllServiciosPublicos()
+        public HttpResponseMessage listServiciosPublicos()
         {
             try
             {
@@ -75,7 +75,7 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage crearServiciosPublicos(ServiciosPublicos sp)
+        public HttpResponseMessage createServiciosPublicos(ServiciosPublicos sp)
         {
             try
             {
@@ -112,7 +112,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/Propietario/5
         [HttpPut]
-        public HttpResponseMessage modificarServicioPublico(int id, ServiciosPublicos sp)
+        public HttpResponseMessage modifyServicioPublico(int id, ServiciosPublicos sp)
         {
             try
             {

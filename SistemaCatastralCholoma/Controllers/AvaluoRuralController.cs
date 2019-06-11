@@ -97,7 +97,9 @@ namespace SistemaCatastralCholoma.Controllers
                                                                "@valorTerrenoRural";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@idavaluoedificaciones", avaluoRural.idavaluorural);
+
+                //Arreglar
+                query.Parameters.AddWithValue("@idavaluorural", avaluoRural.idavaluorural);
                 query.Parameters.AddWithValue("@valorTerrenoRural", avaluoRural.valorTerrenoRural);
 
                 query.ExecuteNonQuery();
