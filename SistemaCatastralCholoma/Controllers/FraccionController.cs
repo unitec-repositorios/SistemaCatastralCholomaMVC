@@ -27,7 +27,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     f.Add(new Fraccion((int)reader["idfraccion"], (double)reader["Valor"], (double)reader["Area"],
-                        (double)reader["parecelaTipica"], (double)reader["factorModificado"], (double)reader["Frente"],
+                        (double)reader["parcelaTipica"], (double)reader["factorModificado"], (double)reader["Frente"],
                         (int)reader["idAvaluoUrbano"]));
                 }
                 conn.Close();
@@ -60,7 +60,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     f = new Fraccion((int)reader["idfraccion"], (double)reader["Valor"], (double)reader["Area"],
-                        (double)reader["parecelaTipica"], (double)reader["factorModificado"], (double)reader["Frente"], (int)reader["idAvaluoUrbano"]);
+                        (double)reader["parcelaTipica"], (double)reader["factorModificado"], (double)reader["Frente"], (int)reader["idAvaluoUrbano"]);
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, f);
@@ -83,13 +83,13 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO fraccion VALUES (@idfraccion,@Valor,@Area,@parecelaTipica,@factorModificado,@Frente,@idAvaluoUrbano);";
+                query.CommandText = "INSERT INTO fraccion VALUES (@idfraccion,@Valor,@Area,@parcelaTipica,@factorModificado,@Frente,@idAvaluoUrbano);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idfraccion", f.idfraccion );
                 query.Parameters.AddWithValue("@Valor", f.Valor);
                 query.Parameters.AddWithValue("@Area", f.Area);
-                query.Parameters.AddWithValue("@parecelaTipica", f.parecelaTipica);
+                query.Parameters.AddWithValue("@parcelaTipica", f.parcelaTipica);
                 query.Parameters.AddWithValue("@factorModificado", f.factorModificado);
                 query.Parameters.AddWithValue("@Frente", f.Frente);
                 query.Parameters.AddWithValue("@idAvaluoUrbano", f.idAvaluoUrbano);
@@ -121,7 +121,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 query.CommandText = "UPDATE fraccion SET Valor=@Valor," +
                                                             "Area = @Area," +
-                                                            "parecelaTipica = @parecelaTipica," +
+                                                            "parcelaTipica = @parcelaTipica," +
                                                             "factorModificado = @factorModificado," +
                                                             "Frente = @Frente," +
                                                             "idAvaluoUrbano = @idAvaluoUrbano " +
@@ -131,7 +131,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@idfraccion", id);
                 query.Parameters.AddWithValue("@Valor", f.Valor);
                 query.Parameters.AddWithValue("@Area", f.Area);
-                query.Parameters.AddWithValue("@parecelaTipica", f.parecelaTipica);
+                query.Parameters.AddWithValue("@parcelaTipica", f.parcelaTipica);
                 query.Parameters.AddWithValue("@factorModificado", f.factorModificado);
                 query.Parameters.AddWithValue("@Frente", f.Frente);
                 query.Parameters.AddWithValue("@idAvaluoUrbano", f.idAvaluoUrbano);

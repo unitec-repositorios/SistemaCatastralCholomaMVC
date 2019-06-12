@@ -132,7 +132,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
-                query.Parameters.AddWithValue("@edificaciones", avaluoRural.valorTerrenoRural);
+                query.Parameters.AddWithValue("@valorTerrenoRural", avaluoRural.valorTerrenoRural);
                 query.ExecuteNonQuery();
                 avaluoRural.idavaluorural = id;
                 conn.Close();
