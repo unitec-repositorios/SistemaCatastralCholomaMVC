@@ -94,7 +94,7 @@ namespace SistemaCatastralCholoma.Controllers
                 MySqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "INSERT INTO avaluorural VALUES (@idavaluorural," +
-                                                               "@valorTerrenoRural";
+                                                               "@valorTerrenoRural)";
 
                 query.Prepare();
 
