@@ -347,7 +347,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\CaracteristicasPropiedadController.cs" />
+    <Compile Include="Controllers\ColindantesController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
+    <Compile Include="Controllers\FactoresRuralesController.cs" />
     <Compile Include="Controllers\FichaCatastralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PredioController.cs" />

@@ -51,20 +51,7 @@ namespace SistemaCatastralCholoma.Controllers
                     propiedad.predio = (string)reader["predio"];
                     propiedad.propietarioPrincipal = (string)reader["propietarioPrincipal"];
                     propiedad.propietarios = codigoPropitarios;
-                    propiedad.informacionLegalPredio = (bool)reader["inforamcionLegalPredio"];
-                    propiedad.caracteristicasPredio = (bool)reader["caracteristicasPredio"];
-                    propiedad.datosComplementarios = (bool)reader["datosComplementarios"];
-                    propiedad.terreno = (double)reader["terreno"];
-                    propiedad.terrenoId = (string)reader["terrenoId"];
-                    propiedad.edificaciones = (double)reader["edificaciones"];
-                    propiedad.edificacionesId = (string)reader["edificacionesId"];
-                    propiedad.detallesAdicionales = (double)reader["detallesAdicionales"];
-                    propiedad.cultivosPermanentes = (double)reader["cultivosPermanentes"];
-                    propiedad.valorDeclarado = (double)reader["valorDeclarado"];
-                    propiedad.avaluoTotal = (double)reader["avaluoTotal"];
-                    propiedad.exencion = (double)reader["exencion"];
-                    propiedad.valorGrabable = (double)reader["valorGrabable"];
-                    propiedad.impuesto = (double)reader["impuesto"];
+                    propiedad.tipo = (string)reader["tipo"];
                     propiedad.estadoPredio = (ESTADO_PREDIO)reader["estadoPredio"];
                     propiedades.Add(propiedad);
                 }
@@ -121,20 +108,7 @@ namespace SistemaCatastralCholoma.Controllers
                     propiedad.predio = (string)reader["predio"];
                     propiedad.propietarioPrincipal = (string)reader["propietarioPrincipal"];
                     propiedad.propietarios = codigoPropitarios;
-                    propiedad.informacionLegalPredio = (bool)reader["inforamcionLegalPredio"];
-                    propiedad.caracteristicasPredio = (bool)reader["caracteristicasPredio"];
-                    propiedad.datosComplementarios = (bool)reader["datosComplementarios"];
-                    propiedad.terreno = (double)reader["terreno"];
-                    propiedad.terrenoId = (string)reader["terrenoId"];
-                    propiedad.edificaciones = (double)reader["edificaciones"];
-                    propiedad.edificacionesId = (string)reader["edificacionesId"];
-                    propiedad.detallesAdicionales = (double)reader["detallesAdicionales"];
-                    propiedad.cultivosPermanentes = (double)reader["cultivosPermanentes"];
-                    propiedad.valorDeclarado = (double)reader["valorDeclarado"];
-                    propiedad.avaluoTotal = (double)reader["avaluoTotal"];
-                    propiedad.exencion = (double)reader["exencion"];
-                    propiedad.valorGrabable = (double)reader["valorGrabable"];
-                    propiedad.impuesto = (double)reader["impuesto"];
+                    propiedad.tipo = (string)reader["tipo"];
                     propiedad.estadoPredio = (ESTADO_PREDIO)reader["estadoPredio"];
                 }
                 if (propiedad.claveCatastral == null)
@@ -162,6 +136,33 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
+                MySqlCommand my = conn.CreateCommand();
+                my.CommandText = "SELECT  predio from propiedad where mapa = '" + propiedad.mapa + "' AND bloque = '" + propiedad.bloque+"';";
+
+                MySqlDataReader redm = my.ExecuteReader();
+                // Concatenar numeros para que sea de 4 digitos
+                int cant = 0;
+                string str1 = "000";//1 digito
+                string str2 = "00";//2 digitos
+                string str3 = "0";// 3 digitos
+                string strca = "";// variable final
+                while (redm.Read())
+                {
+                    cant++;
+                }
+                string scant = cant.ToString();
+                if (cant < 10)
+                {
+                    strca = string.Concat(str1,scant);
+                }
+                else if (cant < 100)
+                {
+                    strca = string.Concat(str2, scant);
+                }
+                else if (cant < 1000)
+                {
+                    strca = string.Concat(str3, scant);
+                }
 
                 MySqlCommand query = conn.CreateCommand();
                 query.CommandText = "SELECT numeroPredio FROM predio WHERE mapa = '"+propiedad.mapa+"' AND bloque = '"+propiedad.bloque+"' ORDER BY numeroPredio DESC LIMIT 1;";
@@ -186,42 +187,16 @@ namespace SistemaCatastralCholoma.Controllers
                                                                 + "@predio,"
                                                                 + "@propietarioPrincipal,"
                                                                 + "@propietarios,"
-                                                                + "@informacionLegalPredio,"
-                                                                + "@caracteristicasPredio,"
-                                                                + "@datosComplementarios,"
-                                                                + "@terreno,"
-                                                                + "@terrenoId,"
-                                                                + "@edificaciones,"
-                                                                + "@edificacionesId,"
-                                                                + "@detallesAdicionales,"
-                                                                + "@cultivosPermanentes,"
-                                                                + "@valorDeclarado,"
-                                                                + "@avaluoTotal,"
-                                                                + "@exencion,"
-                                                                + "@valorGrabable,"
-                                                                + "@impuesto,"
+                                                                + "@tipo,"
                                                                 + "@estadoPredio);";
                 query.Prepare();
                 query.Parameters.AddWithValue("@claveCatastral", claveCatastral);
                 query.Parameters.AddWithValue("@mapa", propiedad.mapa);
                 query.Parameters.AddWithValue("@bloque", propiedad.bloque);
-                query.Parameters.AddWithValue("@predio", numeroPredio);
+                query.Parameters.AddWithValue("@predio", strca);
                 query.Parameters.AddWithValue("@propietarioPrincipal", propiedad.propietarioPrincipal);
                 query.Parameters.AddWithValue("@propietarios", null);
-                query.Parameters.AddWithValue("@informacionLegalPredio", propiedad.informacionLegalPredio);
-                query.Parameters.AddWithValue("@caracteristicasPredio", propiedad.caracteristicasPredio);
-                query.Parameters.AddWithValue("@datosComplementarios", propiedad.datosComplementarios);
-                query.Parameters.AddWithValue("@terreno", propiedad.terreno);
-                query.Parameters.AddWithValue("@terrenoId", propiedad.terrenoId);
-                query.Parameters.AddWithValue("@edificaciones", propiedad.edificaciones);
-                query.Parameters.AddWithValue("@edificacionesId", propiedad.edificacionesId);
-                query.Parameters.AddWithValue("@detallesAdicionales", propiedad.detallesAdicionales);
-                query.Parameters.AddWithValue("@cultivosPermanentes", propiedad.cultivosPermanentes);
-                query.Parameters.AddWithValue("@valorDeclarado", propiedad.valorDeclarado);
-                query.Parameters.AddWithValue("@avaluoTotal", propiedad.avaluoTotal);
-                query.Parameters.AddWithValue("@exencion", propiedad.exencion);
-                query.Parameters.AddWithValue("@valorGrabable", propiedad.valorGrabable);
-                query.Parameters.AddWithValue("@impuesto", propiedad.impuesto);
+                query.Parameters.AddWithValue("@tipo", propiedad.tipo);
                 query.Parameters.AddWithValue("@estadoPredio", propiedad.estadoPredio);
                 query.ExecuteNonQuery();
 
@@ -253,20 +228,6 @@ namespace SistemaCatastralCholoma.Controllers
 
                 query.CommandText = "UPDATE propiedad SET propietarioPrincipal = @propietarioPrincipal,"
                                                         + "propietarios = @propietarios,"
-                                                        + "informacionLegalPredio = @informacionLegalPredio,"
-                                                        + "caracteristicasPredio = @caracteristicasPredio,"
-                                                        + "datosComplementarios = @datosComplementarios,"
-                                                        + "terreno = @terreno,"
-                                                        + "terrenoId = @terrenoId,"
-                                                        + "edificaciones = @edificaciones,"
-                                                        + "edificacionesId = @edificacionesId,"
-                                                        + "detallesAdicionales = @detallesAdicionales,"
-                                                        + "cultivosPermanentes = @cultivosPermanentes,"
-                                                        + "valorDeclarado = @valorDeclarado,"
-                                                        + "avaluoTotal = @avaluoTotal,"
-                                                        + "exencion = @exencion,"
-                                                        + "valorGrabable = @valorGrabable,"
-                                                        + "impuesto = @impuesto,"
                                                         + "estadoPredio = @estadoPredio"
                                                         +"WHERE claveCatastral = @claveCatastral";
 
@@ -274,20 +235,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@claveCatastral", id);
                 query.Parameters.AddWithValue("@propietarioPrincipal", propiedad.propietarioPrincipal);
                 query.Parameters.AddWithValue("@propietarios", null);
-                query.Parameters.AddWithValue("@informacionLegalPredio", propiedad.informacionLegalPredio);
-                query.Parameters.AddWithValue("@caracteristicasPredio", propiedad.caracteristicasPredio);
-                query.Parameters.AddWithValue("@datosComplementarios", propiedad.datosComplementarios);
-                query.Parameters.AddWithValue("@terreno", propiedad.terreno);
-                query.Parameters.AddWithValue("@terrenoId", propiedad.terrenoId);
-                query.Parameters.AddWithValue("@edificaciones", propiedad.edificaciones);
-                query.Parameters.AddWithValue("@edificacionesId", propiedad.edificacionesId);
-                query.Parameters.AddWithValue("@detallesAdicionales", propiedad.detallesAdicionales);
-                query.Parameters.AddWithValue("@cultivosPermanentes", propiedad.cultivosPermanentes);
-                query.Parameters.AddWithValue("@valorDeclarado", propiedad.valorDeclarado);
-                query.Parameters.AddWithValue("@avaluoTotal", propiedad.avaluoTotal);
-                query.Parameters.AddWithValue("@exencion", propiedad.exencion);
-                query.Parameters.AddWithValue("@valorGrabable", propiedad.valorGrabable);
-                query.Parameters.AddWithValue("@impuesto", propiedad.impuesto);
+                query.Parameters.AddWithValue("@tipo", propiedad.tipo);
                 query.Parameters.AddWithValue("@estadoPredio", propiedad.estadoPredio);
                 query.ExecuteNonQuery();
 
