@@ -15,7 +15,7 @@ namespace SistemaCatastralCholoma.Controllers
         private MySqlConnection conn = WebApiConfig.conn();
         // GET: api/
         [HttpGet]
-        public HttpResponseMessage GetAllPiso()
+        public HttpResponseMessage listPiso()
         {
             try
             {
@@ -75,7 +75,7 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage crearPiso(Piso piso)
+        public HttpResponseMessage createPiso(Piso piso)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/Propietario/5
         [HttpPut]
-        public HttpResponseMessage modificarPiso(int id, Piso piso)
+        public HttpResponseMessage modifyPiso(int id, Piso piso)
         {
             try
             {

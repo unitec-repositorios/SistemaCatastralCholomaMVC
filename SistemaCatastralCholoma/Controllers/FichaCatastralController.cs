@@ -14,7 +14,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         private MySqlConnection conn = WebApiConfig.conn();
         // GET: api/
-        public List<FichaCatastral> GetAllFichaCatastral()
+        public List<FichaCatastral> listFichaCatastral()
         {
             try
             {
@@ -46,7 +46,7 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         // GET: api/FichaCatastral/5
-        public FichaCatastral Get(string cocata)
+        public FichaCatastral getFichaCatastral(string cocata)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace SistemaCatastralCholoma.Controllers
     
 
         // POST: api/FichaCatastral
-        public void Post(FichaCatastral ficha)
+        public void createFichaCatastral(FichaCatastral ficha)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         // PUT: api/FichaCatastral/5
-        public void Put(FichaCatastral ficha)
+        public void modifyFichaCatastral(FichaCatastral ficha)
         {
             try
             {
@@ -160,7 +160,7 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         // DELETE: api/FichaCatastral/5
-        public void Delete(string cocata)
+        public void deleteFichaCatastral(string cocata)
         {
             try
             {

@@ -10,7 +10,7 @@ namespace SistemaCatastralCholoma.Models
         public string iddatosdesarrollo { get; set; }
         public double area { get; set; }
         public double servicios { get; set; }
-        public double topgrafia { get; set; }
+        public double topografia { get; set; }
         public double configuracion { get; set; }
 
         public DatosDesarrollo() { }

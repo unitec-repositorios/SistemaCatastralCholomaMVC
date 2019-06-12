@@ -70,7 +70,7 @@ namespace SistemaCatastralCholoma.Controllers
                 }
                 conn.Close();
                 if (avaluo.idavaluorural == null)
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, new KeyNotFoundException("No se encontro avaluoUrbano con codigo " + id));
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, avaluo);
                 return response;
@@ -94,10 +94,12 @@ namespace SistemaCatastralCholoma.Controllers
                 MySqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "INSERT INTO avaluorural VALUES (@idavaluorural," +
-                                                               "@valorTerrenoRural";
+                                                               "@valorTerrenoRural)";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@idavaluoedificaciones", avaluoRural.idavaluorural);
+
+                //Arreglar
+                query.Parameters.AddWithValue("@idavaluorural", avaluoRural.idavaluorural);
                 query.Parameters.AddWithValue("@valorTerrenoRural", avaluoRural.valorTerrenoRural);
 
                 query.ExecuteNonQuery();
