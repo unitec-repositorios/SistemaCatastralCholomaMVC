@@ -7,10 +7,10 @@ namespace SistemaCatastralCholoma.Models
 {
     public class EdificacionesEspeciales
     {
-        public int idEdificacionesEspeciales { get; set; }
-        public string nivel { get; set; }
-        public double area { get; set; }
-        public double costo { get; set; }
+        public int idedificacionesespeciales { get; set; }
+        public string Nivel { get; set; }
+        public double Area { get; set; }
+        public double Costo { get; set; }
         public int idDatosComplementarios { get; set; }
 
         public EdificacionesEspeciales() { }
@@ -18,10 +18,10 @@ namespace SistemaCatastralCholoma.Models
         public EdificacionesEspeciales(int idEdificacionesEspeciales, string nivel, double area, double costo,
             int idDatosComplementarios)
         {
-            this.idEdificacionesEspeciales = idEdificacionesEspeciales;
-            this.nivel = nivel;
-            this.area = area;
-            this.costo = costo;
+            this.idedificacionesespeciales = idEdificacionesEspeciales;
+            this.Nivel = nivel;
+            this.Area = area;
+            this.Costo = costo;
             this.idDatosComplementarios = idDatosComplementarios;
         }
     }
