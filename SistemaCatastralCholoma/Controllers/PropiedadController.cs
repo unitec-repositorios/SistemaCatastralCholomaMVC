@@ -219,10 +219,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 query.CommandText = "UPDATE propiedad SET propietarioPrincipal = @propietarioPrincipal,"
                                                         + "propietarios = @propietarios,"
-<<<<<<< HEAD
-=======
                                                         + "tipo = @tipo,"
->>>>>>> develop
                                                         + "estadoPredio = @estadoPredio"
                                                         +"WHERE claveCatastral = @claveCatastral";
 
