@@ -350,6 +350,7 @@
     <Compile Include="Controllers\AvaluoEdificacionesController.cs" />
     <Compile Include="Controllers\AvaluoRuralController.cs" />
     <Compile Include="Controllers\AvaluoUrbanoController.cs" />
+    <Compile Include="Controllers\CaracteristicasVecindadController.cs" />
     <Compile Include="Controllers\DatosLegalesController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\FichaCatastralController.cs" />
