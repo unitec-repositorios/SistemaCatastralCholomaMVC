@@ -140,7 +140,7 @@ namespace SistemaCatastralCholoma.Controllers
                 
                 string claveCatastral = propiedad.mapa+propiedad.bloque+numeroPredio;
 
-                query.CommandText = "INSERT INTO propiedades_propietarios VALUES (@clavecatastral, @propietario);";
+                query.CommandText = "INSERT INTO propiedad_propietario VALUES (@clavecatastral, @propietario);";
                 foreach (string codigo in propiedad.propietarios)
                 {
                     query.Prepare();
