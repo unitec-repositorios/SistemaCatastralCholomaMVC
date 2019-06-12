@@ -20,7 +20,7 @@ namespace SistemaCatastralCholoma.Models
             this.iddatosdesarrollo = id;
             this.area = area;
             this.servicios = serv;
-            this.topgrafia = top;
+            this.topografia = top;
             this.configuracion = config;
         }
     }
