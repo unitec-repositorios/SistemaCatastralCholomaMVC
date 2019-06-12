@@ -61,7 +61,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from edificacionesespeciales where idDatosComplementarios = '" + id + "'";
+                query.CommandText = "Select * from edificacionesespeciales where idedificacionesespeciales = '" + id + "'";
 
                 MySqlDataReader reader = query.ExecuteReader();
 
@@ -69,7 +69,7 @@ namespace SistemaCatastralCholoma.Controllers
                 EdificacionesEspeciales edificacion = new EdificacionesEspeciales();
                 while (reader.Read())
                 {
-                    edificacion.idedificacionesespeciales = (int)reader["idEdificacionesEspeciales"];
+                    edificacion.idedificacionesespeciales = (int)reader["idedificacionesespeciales"];
                     edificacion.Nivel = (string)reader["Nivel"];
                     edificacion.Area = (Double)reader["Area"];
                     edificacion.Area = (Double)reader["Costo"];

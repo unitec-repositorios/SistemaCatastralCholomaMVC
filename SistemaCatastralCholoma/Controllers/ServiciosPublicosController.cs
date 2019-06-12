@@ -69,7 +69,7 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (MySqlException e)
             {
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
         }
@@ -175,7 +175,7 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (MySql.Data.MySqlClient.MySqlException e)
             {
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
         }
