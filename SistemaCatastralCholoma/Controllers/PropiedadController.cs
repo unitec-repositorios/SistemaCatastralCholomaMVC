@@ -182,11 +182,7 @@ namespace SistemaCatastralCholoma.Controllers
                                                                 + "@predio,"
                                                                 + "@propietarioPrincipal,"
                                                                 + "@propietarios,"
-<<<<<<< HEAD
                                                                 + "@tipo,"
-=======
-                                                                + "@tipo"
->>>>>>> develop
                                                                 + "@estadoPredio);";
                 query.Prepare();
                 query.Parameters.AddWithValue("@claveCatastral", claveCatastral);

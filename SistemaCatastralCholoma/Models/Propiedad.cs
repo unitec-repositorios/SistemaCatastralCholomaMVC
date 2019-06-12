@@ -21,12 +21,7 @@ namespace SistemaCatastralCholoma.Models
         }
 
         public Propiedad(string claveCatastral, string mapa, string bloque, string predio, string propietarioPrincipal, List<string> propietarios,
-<<<<<<< HEAD
                          string tipo, ESTADO_PREDIO estadoPredio)
-=======
-                         string tip,
-                         ESTADO_PREDIO estadoPredio)
->>>>>>> develop
         {
             this.claveCatastral = claveCatastral;
             this.mapa = mapa;
@@ -34,11 +29,7 @@ namespace SistemaCatastralCholoma.Models
             this.predio = predio;
             this.propietarioPrincipal = propietarioPrincipal;
             this.propietarios = propietarios;
-<<<<<<< HEAD
             this.tipo = tipo;
-=======
-            this.tipo = tip;
->>>>>>> develop
             this.estadoPredio = estadoPredio;
         }
     }
