@@ -131,6 +131,33 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
+                MySqlCommand my = conn.CreateCommand();
+                my.CommandText = "SELECT  predio from propiedad where mapa = '" + propiedad.mapa + "' AND bloque = '" + propiedad.bloque+"';";
+
+                MySqlDataReader redm = my.ExecuteReader();
+                // Concatenar numeros para que sea de 4 digitos
+                int cant = 0;
+                string str1 = "000";//1 digito
+                string str2 = "00";//2 digitos
+                string str3 = "0";// 3 digitos
+                string strca = "";// variable final
+                while (redm.Read())
+                {
+                    cant++;
+                }
+                string scant = cant.ToString();
+                if (cant < 10)
+                {
+                    strca = string.Concat(str1,scant);
+                }
+                else if (cant < 100)
+                {
+                    strca = string.Concat(str2, scant);
+                }
+                else if (cant < 1000)
+                {
+                    strca = string.Concat(str3, scant);
+                }
 
                 MySqlCommand query = conn.CreateCommand();
                 query.CommandText = "SELECT numeroPredio FROM predio WHERE mapa = '"+propiedad.mapa+"' AND bloque = '"+propiedad.bloque+"' ORDER BY numeroPredio DESC LIMIT 1;";
@@ -155,13 +182,17 @@ namespace SistemaCatastralCholoma.Controllers
                                                                 + "@predio,"
                                                                 + "@propietarioPrincipal,"
                                                                 + "@propietarios,"
+<<<<<<< HEAD
+                                                                + "@tipo,"
+=======
                                                                 + "@tipo"
+>>>>>>> develop
                                                                 + "@estadoPredio);";
                 query.Prepare();
                 query.Parameters.AddWithValue("@claveCatastral", claveCatastral);
                 query.Parameters.AddWithValue("@mapa", propiedad.mapa);
                 query.Parameters.AddWithValue("@bloque", propiedad.bloque);
-                query.Parameters.AddWithValue("@predio", numeroPredio);
+                query.Parameters.AddWithValue("@predio", strca);
                 query.Parameters.AddWithValue("@propietarioPrincipal", propiedad.propietarioPrincipal);
                 query.Parameters.AddWithValue("@propietarios", null);
                 query.Parameters.AddWithValue("@tipo", propiedad.tipo);
@@ -192,7 +223,10 @@ namespace SistemaCatastralCholoma.Controllers
 
                 query.CommandText = "UPDATE propiedad SET propietarioPrincipal = @propietarioPrincipal,"
                                                         + "propietarios = @propietarios,"
+<<<<<<< HEAD
+=======
                                                         + "tipo = @tipo,"
+>>>>>>> develop
                                                         + "estadoPredio = @estadoPredio"
                                                         +"WHERE claveCatastral = @claveCatastral";
 
