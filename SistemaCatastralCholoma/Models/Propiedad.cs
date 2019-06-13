@@ -14,14 +14,14 @@ namespace SistemaCatastralCholoma.Models
         public string propietarioPrincipal {get;set;}
         public List<string> propietarios {get;set;}
         public string tipo { get; set; }
-        public ESTADO_PREDIO estadoPredio {get;set;}
+        public string estadoPredio {get;set;}
 
         public Propiedad()
         {
         }
 
         public Propiedad(string claveCatastral, string mapa, string bloque, string predio, string propietarioPrincipal, List<string> propietarios,
-                         string tipo, ESTADO_PREDIO estadoPredio)
+                         string tipo, string estadoPredio)
         {
             this.claveCatastral = claveCatastral;
             this.mapa = mapa;

@@ -32,27 +32,14 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     string claveCatastral = (string)reader["claveCatastral"];
 
-                    MySqlCommand queryPropietarios = conn.CreateCommand();
-
-                    query.CommandText = "Select propietario from propietarios_propiedad where claveCatastral = '" + claveCatastral + "'";
-
-                    MySqlDataReader readerPropietarios = query.ExecuteReader();
-
-                    List<string> codigoPropitarios = new List<string>();
-                    while (readerPropietarios.Read())
-                    {
-                        codigoPropitarios.Add((string)readerPropietarios["propietario"]);
-                    }
-
                     propiedad = new Propiedad();
                     propiedad.claveCatastral = claveCatastral;
                     propiedad.mapa = (string)reader["mapa"];
                     propiedad.bloque = (string)reader["bloque"];
                     propiedad.predio = (string)reader["predio"];
                     propiedad.propietarioPrincipal = (string)reader["propietarioPrincipal"];
-                    propiedad.propietarios = codigoPropitarios;
                     propiedad.tipo = (string)reader["tipo"];
-                    propiedad.estadoPredio = (ESTADO_PREDIO)reader["estadoPredio"];
+                    propiedad.estadoPredio = (string)reader["estadoPredio"];
                     propiedades.Add(propiedad);
                 }
                 conn.Close();
@@ -87,27 +74,14 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     string claveCatastral = (string)reader["claveCatastral"];
 
-                    MySqlCommand queryPropietarios = conn.CreateCommand();
-
-                    query.CommandText = "Select propietario from propiedades_propietarios where claveCatastral = '" + claveCatastral + "'";
-
-                    MySqlDataReader readerPropietarios = query.ExecuteReader();
-
-                    List<string> codigoPropitarios = new List<string>();
-                    while (readerPropietarios.Read())
-                    {
-                        codigoPropitarios.Add((string)readerPropietarios["propietario"]);
-                    }
-
                     propiedad = new Propiedad();
                     propiedad.claveCatastral = claveCatastral;
                     propiedad.mapa = (string)reader["mapa"];
                     propiedad.bloque = (string)reader["bloque"];
                     propiedad.predio = (string)reader["predio"];
                     propiedad.propietarioPrincipal = (string)reader["propietarioPrincipal"];
-                    propiedad.propietarios = codigoPropitarios;
                     propiedad.tipo = (string)reader["tipo"];
-                    propiedad.estadoPredio = (ESTADO_PREDIO)reader["estadoPredio"];
+                    propiedad.estadoPredio = (string)reader["estadoPredio"];
                 }
                 if (propiedad.claveCatastral == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
@@ -132,19 +106,15 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 MySqlCommand my = conn.CreateCommand();
-                my.CommandText = "SELECT  predio from propiedad where mapa = '" + propiedad.mapa + "' AND bloque = '" + propiedad.bloque+"';";
+                my.CommandText = "SELECT count(predio) from propiedad where mapa = '" + propiedad.mapa + "' AND bloque = '" + propiedad.bloque + "';";
 
-                MySqlDataReader redm = my.ExecuteReader();
-                // Concatenar numeros para que sea de 4 digitos
-                int cant = 0;
+
+                int cant = Convert.ToInt32(my.ExecuteScalar());
                 string str1 = "000";//1 digito
                 string str2 = "00";//2 digitos
                 string str3 = "0";// 3 digitos
                 string strca = "";// variable final
-                while (redm.Read())
-                {
-                    cant++;
-                }
+
                 string scant = cant.ToString();
                 if (cant < 10)
                 {
@@ -159,22 +129,10 @@ namespace SistemaCatastralCholoma.Controllers
                     strca = string.Concat(str3, scant);
                 }
 
+                string claveC = propiedad.claveCatastral + strca;
+
                 MySqlCommand query = conn.CreateCommand();
                 query.CommandText = "SELECT numeroPredio FROM predio WHERE mapa = '"+propiedad.mapa+"' AND bloque = '"+propiedad.bloque+"' ORDER BY numeroPredio DESC LIMIT 1;";
-                MySqlDataReader readPredio = query.ExecuteReader();
-
-                int numeroPredio = (int)readPredio["numeroPredio"] + 1;
-                
-                string claveCatastral = propiedad.mapa+propiedad.bloque+numeroPredio;
-
-                query.CommandText = "INSERT INTO propiedad_propietario VALUES (@clavecatastral, @propietario);";
-                foreach (string codigo in propiedad.propietarios)
-                {
-                    query.Prepare();
-                    query.Parameters.AddWithValue("@claveCatastral",claveCatastral);
-                    query.Parameters.AddWithValue("@propietario",codigo);
-                    query.ExecuteNonQuery();
-                }
 
                 query.CommandText = "INSERT INTO propiedad VALUES (@claveCatastral,"
                                                                 + "@mapa,"
@@ -185,7 +143,7 @@ namespace SistemaCatastralCholoma.Controllers
                                                                 + "@tipo,"
                                                                 + "@estadoPredio);";
                 query.Prepare();
-                query.Parameters.AddWithValue("@claveCatastral", claveCatastral);
+                query.Parameters.AddWithValue("@claveCatastral", claveC);
                 query.Parameters.AddWithValue("@mapa", propiedad.mapa);
                 query.Parameters.AddWithValue("@bloque", propiedad.bloque);
                 query.Parameters.AddWithValue("@predio", strca);
@@ -215,12 +173,14 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
+                propiedad.claveCatastral = id;
+
                 MySqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "UPDATE propiedad SET propietarioPrincipal = @propietarioPrincipal,"
                                                         + "propietarios = @propietarios,"
                                                         + "tipo = @tipo,"
-                                                        + "estadoPredio = @estadoPredio"
+                                                        + "estadoPredio = @estadoPredio "
                                                         +"WHERE claveCatastral = @claveCatastral";
 
                 query.Prepare();
@@ -231,21 +191,8 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@estadoPredio", propiedad.estadoPredio);
                 query.ExecuteNonQuery();
 
-                query.CommandText = "DELETE FROM propiedades_propietarios WHERE claveCatastral = @clavecatastral;";
-                query.Prepare();
-                query.Parameters.AddWithValue("@claveCatastral",id);
-                query.ExecuteNonQuery();
-
-                query.CommandText = "INSERT INTO propiedades_propietarios VALUES (@clavecatastral, @propietario);";
-                foreach (string codigo in propiedad.propietarios)
-                {
-                    query.Prepare();
-                    query.Parameters.AddWithValue("@claveCatastral",id);
-                    query.Parameters.AddWithValue("@propietario",codigo);
-                    query.ExecuteNonQuery();
-                }
                 conn.Close();
-                propiedad.claveCatastral = id;
+
                 var response = Request.CreateResponse(HttpStatusCode.OK, propiedad);
                 return response;
 
