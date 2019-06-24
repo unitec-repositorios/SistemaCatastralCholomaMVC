@@ -17,7 +17,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // POST: api/Auth
         [HttpPost]
-        public HttpResponseMessage Post(Empleado empleado)
+        public HttpResponseMessage login(Empleado empleado)
         {
             try {
                 conn.Open();
