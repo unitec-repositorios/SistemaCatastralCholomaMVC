@@ -26,7 +26,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.CommandText = "Select * from datosdesarrollo";
 
                 MySqlDataReader reader = query.ExecuteReader();
-                DatosDesarrollo datosDes;
+                DatosDesarrollo datosDes = new DatosDesarrollo();
                 while (reader.Read())
                 {
                     datosDes = new DatosDesarrollo();
@@ -36,7 +36,7 @@ namespace SistemaCatastralCholoma.Controllers
                     datosDes.topografia = (Double)reader["topografia"];
                     datosDes.configuracion = (Double)reader["configuracion"];
 
-                    datosDes.Add(datosDes);
+                    datosDesarrollo.Add(datosDes);
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, datosDesarrollo);
@@ -67,12 +67,12 @@ namespace SistemaCatastralCholoma.Controllers
                 DatosDesarrollo datosDesarrollo = new DatosDesarrollo();
                 while (reader.Read())
                 {
-                    datosDes = new DatosDesarrollo();
-                    datosDes.iddatosdesarrollo = (string)reader["iddatosdesarrollo"];
-                    datosDes.area = (Double)reader["area"];
-                    datosDes.servicios = (Double)reader["servicios"];
-                    datosDes.topografia = (Double)reader["topografia"];
-                    datosDes.configuracion = (Double)reader["configuracion"];
+                    datosDesarrollo = new DatosDesarrollo();
+                    datosDesarrollo.iddatosdesarrollo = (string)reader["iddatosdesarrollo"];
+                    datosDesarrollo.area = (Double)reader["area"];
+                    datosDesarrollo.servicios = (Double)reader["servicios"];
+                    datosDesarrollo.topografia = (Double)reader["topografia"];
+                    datosDesarrollo.configuracion = (Double)reader["configuracion"];
                 }
                 conn.Close();
                 if (datosDesarrollo.iddatosdesarrollo == null)
@@ -109,7 +109,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@area", datosDesarrollo.area);
                 query.Parameters.AddWithValue("@servicios", datosDesarrollo.servicios);
                 query.Parameters.AddWithValue("@topografia", datosDesarrollo.topografia);
-                query.Parameters.AddWithValue("@configuracion", configuracion);
+                query.Parameters.AddWithValue("@configuracion", datosDesarrollo.configuracion);
 
                 query.ExecuteNonQuery();
 

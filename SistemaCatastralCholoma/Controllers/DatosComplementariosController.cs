@@ -31,9 +31,9 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     datosComplementarios = new DatosComplementarios();
                     datosComplementarios.idClaveCatastral = (string)reader["idClaveCatastral"];
-                    datosComplementarios.adquisicion = reader.GetMySqlDateTime(5).GetDateTime();
+                    datosComplementarios.adquicicion= reader.GetMySqlDateTime(5).GetDateTime();
                     datosComplementarios.montoTransaccion = (Double)reader["montoTransaccion"];
-                    datosComplementarios.claseTransacción = (string)reader["montoTransaccion"];
+                    datosComplementarios.claseTransaccion = (string)reader["montoTransaccion"];
                     datosComplementarios.maquinaria = (string)reader["maquinaria"];
                     datosComplementarios.delineador = (string)reader["delineador"];
                     datosComplementarios.fecha = reader.GetMySqlDateTime(5).GetDateTime();
@@ -47,7 +47,7 @@ namespace SistemaCatastralCholoma.Controllers
                     datosComplementarios.idServiciosPublicos = (int)reader["idServiciosPublicos"];
                     datosComplementarios.valorDatosComplementarios = (Double)reader["valorDatosComplementarios"];
                     
-                    datosComplementariosList.add(datosComplementarios);
+                    datosComplementariosList.Add(datosComplementarios);
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, datosComplementariosList);
@@ -74,13 +74,13 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlDataReader reader = query.ExecuteReader();
 
-                DatosComplementarios datosComplementarios;
+                DatosComplementarios datosComplementarios = new DatosComplementarios();
                 while (reader.Read())
                 {
                     datosComplementarios.idClaveCatastral = (string)reader["idClaveCatastral"];
-                    datosComplementarios.adquisicion = reader.GetMySqlDateTime(5).GetDateTime();
+                    datosComplementarios.adquicicion = reader.GetMySqlDateTime(5).GetDateTime();
                     datosComplementarios.montoTransaccion = (Double)reader["montoTransaccion"];
-                    datosComplementarios.claseTransacción = (string)reader["montoTransaccion"];
+                    datosComplementarios.claseTransaccion = (string)reader["montoTransaccion"];
                     datosComplementarios.maquinaria = (string)reader["maquinaria"];
                     datosComplementarios.delineador = (string)reader["delineador"];
                     datosComplementarios.fecha = reader.GetMySqlDateTime(5).GetDateTime();
@@ -139,7 +139,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idClaveCatastral", datosComplementarios.idClaveCatastral);
-                query.Parameters.AddWithValue("@adquisicion", datosComplementarios.adquisicion);
+                query.Parameters.AddWithValue("@adquisicion", datosComplementarios.adquicicion);
                 query.Parameters.AddWithValue("@montoTransaccion", datosComplementarios.montoTransaccion);
                 query.Parameters.AddWithValue("@claseTransaccion", datosComplementarios.claseTransaccion);
                 query.Parameters.AddWithValue("@maquinaria", datosComplementarios.maquinaria);
@@ -199,7 +199,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idClaveCatastral", datosComplementarios.idClaveCatastral);
-                query.Parameters.AddWithValue("@adquisicion", datosComplementarios.adquisicion);
+                query.Parameters.AddWithValue("@adquisicion", datosComplementarios.adquicicion);
                 query.Parameters.AddWithValue("@montoTransaccion", datosComplementarios.montoTransaccion);
                 query.Parameters.AddWithValue("@claseTransaccion", datosComplementarios.claseTransaccion);
                 query.Parameters.AddWithValue("@maquinaria", datosComplementarios.maquinaria);
