@@ -71,7 +71,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from predio where id = '" + id + "'";
+                query.CommandText = "Select * from predio where idPredio = '" + id + "'";
 
                 MySqlDataReader reader = query.ExecuteReader();
 
@@ -79,12 +79,13 @@ namespace SistemaCatastralCholoma.Controllers
                 Predio predio = new Predio();
                 while (reader.Read())
                 {
-                    predio = new Predio();
-                    predio.idPredio = (string)reader["id"];
+                    predio.idPredio = (string)reader["idPredio"];
+                    predio.mapa = reader.GetString("mapa");
+                    predio.bloque = reader.GetString("bloque");
                     predio.numeroPredio = (string)reader["numeroPredio"];
                     predio.barrio = (string)reader["barrio"];
                     predio.caserio = (string)reader["caserio"];
-                    predio.uso = (USO)reader["uso"];
+                    predio.uso = (USO)reader.GetInt32("uso");
                     predio.subUso = (SUBUSO)reader["subUso"];
                     predio.sitio = (string)reader["sitio"];
                     predio.construccion = (string)reader["construccion"];
@@ -95,7 +96,6 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.tasaImpositiva = (double)reader["tasaImpositiva"];
                     predio.futurasRevisiones = (int)reader["futurasRevisiones"];
                     predio.porcentajeConcertacion = (double)reader["procentajeConcertacion"];
-
                 }
                 conn.Close();
                 if (predio.idPredio == null)
@@ -122,10 +122,12 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO predio VALUES (@id,@numeroPredio,@barrio,@caserio,@uso,@subUso,@sitio,@construccion,@estatusTributario,@codigoPropietario,@codigoHabitacional,@porcentajeExencion,@tasaImpositiva,@futurasRevisiones,@porcentajeConcertacion);";
+                query.CommandText = "INSERT INTO predio VALUES (@id,@mapa,@bloque,@numeroPredio,@barrio,@caserio,@uso,@subUso,@sitio,@construccion,@estatusTributario,@codigoPropietario,@codigoHabitacional,@porcentajeExencion,@tasaImpositiva,@futurasRevisiones,@porcentajeConcertacion);";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", p.idPredio);
+                query.Parameters.AddWithValue("@id", null);
+                query.Parameters.AddWithValue("@mapa", p.mapa);
+                query.Parameters.AddWithValue("@bloque", p.bloque);
                 query.Parameters.AddWithValue("@numeroPredio", p.numeroPredio);
                 query.Parameters.AddWithValue("@barrio", p.barrio);
                 query.Parameters.AddWithValue("@caserio", p.caserio);
