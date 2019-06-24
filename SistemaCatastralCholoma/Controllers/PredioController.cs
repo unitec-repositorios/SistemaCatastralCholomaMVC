@@ -217,46 +217,49 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE predios SET numeroPredio = @numeroPredio, " +
-                                                        "mapa = @mapa, " +
-                                                        "bloque = @bloque, " +
-                                                        "barrio = @barrio,"
-                                                    +   "caserio = @caserio, " +
+                query.CommandText = "UPDATE predios SET barrio = @barrio,"+
+                                                        "caserio = @caserio, " +
                                                         "uso = @uso, " +
                                                         "subUso = @subUso, " +
-                                                        "ubicacion = @ubicacion,"
-                                                    +   "sitio = @sitio, " +
-                                                        "construccion = @construccion,"
-                                                    +   "estatusTributario = @estatusTributario, " +
-                                                        "codigoPropietario = @codigoPropietario,"
-                                                    +   "codigoHabitacional = @codigoHabitacional, " +
-                                                        "porcentajeExtencion = @porcentajeExencion,"
-                                                    +   "tasaImpositivo = @tasaImpositiva, " +
-                                                        "futuraRevisiones = @futuraRevisiones,"
-                                                    +   "porcentajeConcertacion = @porcentajeConcertacion where idPredio = @id";
+                                                        "ubicacion = @ubicacion," +
+                                                        "sitio = @sitio, " +
+                                                        "construccion = @construccion," +
+                                                        "estatusTributario = @estatusTributario, " +
+                                                        "codigoPropietario = @codigoPropietario," +
+                                                        "codigoHabitacional = @codigoHabitacional, " +
+                                                        "porcentajeExtencion = @porcentajeExencion," +
+                                                        "tasaImpositiva = @tasaImpositiva, " +
+                                                        "futurasRevisiones = @futurasRevisiones, " +
+                                                        "porcentajeConcertacion = @porcentajeConcertacion " +
+                                                        "where idPredio = @id;";
 
                 p.idPredio = id;
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
-                query.Parameters.AddWithValue("@mapa", p.mapa);
-                query.Parameters.AddWithValue("@bloque", p.bloque);
-                query.Parameters.AddWithValue("@numeroPredio", p.numeroPredio);
                 query.Parameters.AddWithValue("@barrio", p.barrio);
                 query.Parameters.AddWithValue("@caserio", p.caserio);
                 query.Parameters.AddWithValue("@uso", p.uso);
                 query.Parameters.AddWithValue("@subUso", p.subUso);
                 query.Parameters.AddWithValue("@ubicacion", p.ubicacion);
                 query.Parameters.AddWithValue("@sitio", p.sitio);
-                query.Parameters.AddWithValue("@construccion",p.construccion);
-                query.Parameters.AddWithValue("@estatusTributario",p.estatusTributario);
-                query.Parameters.AddWithValue("@codigoPropietario",p.codigoPropietario);
-                query.Parameters.AddWithValue("@codigoHabitacional",p.codigoHabitacional);
-                query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExencion);
-                query.Parameters.AddWithValue("@tasaImpositiva",p.tasaImpositiva);
-                query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
-                query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
+                query.Parameters.AddWithValue("@construccion", p.construccion);
+                query.Parameters.AddWithValue("@estatusTributario", p.estatusTributario);
+                query.Parameters.AddWithValue("@codigoPropietario", p.codigoPropietario);
+                query.Parameters.AddWithValue("@codigoHabitacional", p.codigoHabitacional);
+                query.Parameters.AddWithValue("@porcentajeExencion", p.porcentajeExencion);
+                query.Parameters.AddWithValue("@tasaImpositiva", p.tasaImpositiva);
+                query.Parameters.AddWithValue("@futurasRevisiones", p.futurasRevisiones);
+                query.Parameters.AddWithValue("@porcentajeConcertacion", p.porcentajeConcertacion);
                 query.ExecuteNonQuery();
+
+                query.CommandText = "Select * from predios where idPredio = "+id;
+                MySqlDataReader reader = query.ExecuteReader();
+                reader.Read();
+                p.idPredio = id;
+                p.mapa = reader.GetString("mapa");
+                p.bloque = reader.GetString("bloque");
+                p.numeroPredio = reader.GetString("numeroPredio");
 
                 conn.Close();
 
