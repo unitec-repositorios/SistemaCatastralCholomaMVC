@@ -113,7 +113,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public HttpResponseMessage crearPredio(Predio p)
+        public HttpResponseMessage createPredio(Predio p)
         {
             try
             {
@@ -151,88 +151,88 @@ namespace SistemaCatastralCholoma.Controllers
             catch (MySql.Data.MySqlClient.MySqlException e)
             {
                 Console.WriteLine(e.Message);
-                var response = Request.CreateResponse(HttpStatusCode.BadGateway, p);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, p);
                 return response;
             }
         }
 
         // PUT api/<controller>/5
         [HttpPut]
-public HttpResponseMessage modificarPredio(string id, Predio p)
-{
-    try
-    {
-        conn.Open();
+        public HttpResponseMessage modifyPredio(string id, Predio p)
+        {
+            try
+            {
+                conn.Open();
 
-        MySqlCommand query = conn.CreateCommand();
+                MySqlCommand query = conn.CreateCommand();
 
-        query.CommandText = "UPDATE predio SET numeroPredio = @numeroPredio, barrio = @barrio,"
-                                            +  "caserio = @caserio, uso = @uso, subUso = @subUso,"
-                                            +  "sitio = @sitio, construccion = @construccion,"
-                                            +  "estatusTributario = @estatusTributario, codigoPropietario = @codigoPropietario,"
-                                            +  "codigoHabitacional = @codigoHabitacional, porcentajeExencion = @porcentajeExencion,"
-                                            +  "tasaImpositivo = @tasaImpositiva, futuraRevisiones = @futuraRevisiones,"
-                                            +  "porcentajeConcertacion = @porcentajeConcertacion where id = @id";
+                query.CommandText = "UPDATE predio SET numeroPredio = @numeroPredio, barrio = @barrio,"
+                                                    +  "caserio = @caserio, uso = @uso, subUso = @subUso,"
+                                                    +  "sitio = @sitio, construccion = @construccion,"
+                                                    +  "estatusTributario = @estatusTributario, codigoPropietario = @codigoPropietario,"
+                                                    +  "codigoHabitacional = @codigoHabitacional, porcentajeExencion = @porcentajeExencion,"
+                                                    +  "tasaImpositivo = @tasaImpositiva, futuraRevisiones = @futuraRevisiones,"
+                                                    +  "porcentajeConcertacion = @porcentajeConcertacion where id = @id";
 
-        p.id = id;
+                p.id = id;
 
-        query.Prepare();
-        query.Parameters.AddWithValue("@id", p.id);
-        query.Parameters.AddWithValue("@numeroPredio", p.numeroPredio);
-        query.Parameters.AddWithValue("@barrio", p.barrio);
-        query.Parameters.AddWithValue("@caserio", p.caserio);
-        query.Parameters.AddWithValue("@uso", p.uso);
-        query.Parameters.AddWithValue("@subUso", p.subUso);
-        query.Parameters.AddWithValue("@sitio", p.sitio);
-        query.Parameters.AddWithValue("@construccion",p.construccion);
-        query.Parameters.AddWithValue("@estatusTributario",p.estatusTributario);
-        query.Parameters.AddWithValue("@codigoPropietario",p.codigoPropietario);
-        query.Parameters.AddWithValue("@codigoHabitacional",p.codigoHabitacional);
-        query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExencion);
-        query.Parameters.AddWithValue("@tasaImpositiva",p.tasaImpositiva);
-        query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
-        query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
-        query.ExecuteNonQuery();
+                query.Prepare();
+                query.Parameters.AddWithValue("@id", p.id);
+                query.Parameters.AddWithValue("@numeroPredio", p.numeroPredio);
+                query.Parameters.AddWithValue("@barrio", p.barrio);
+                query.Parameters.AddWithValue("@caserio", p.caserio);
+                query.Parameters.AddWithValue("@uso", p.uso);
+                query.Parameters.AddWithValue("@subUso", p.subUso);
+                query.Parameters.AddWithValue("@sitio", p.sitio);
+                query.Parameters.AddWithValue("@construccion",p.construccion);
+                query.Parameters.AddWithValue("@estatusTributario",p.estatusTributario);
+                query.Parameters.AddWithValue("@codigoPropietario",p.codigoPropietario);
+                query.Parameters.AddWithValue("@codigoHabitacional",p.codigoHabitacional);
+                query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExencion);
+                query.Parameters.AddWithValue("@tasaImpositiva",p.tasaImpositiva);
+                query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
+                query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
+                query.ExecuteNonQuery();
 
-        conn.Close();
+                conn.Close();
 
-        var response = Request.CreateResponse(HttpStatusCode.OK, p);
-        return response;
+                var response = Request.CreateResponse(HttpStatusCode.OK, p);
+                return response;
 
-    }
-    catch (MySql.Data.MySqlClient.MySqlException e)
-    {
-        Console.WriteLine(e.Message);
-        var response = Request.CreateResponse(HttpStatusCode.BadRequest);
-        return response;
-    }
-}
+            }
+            catch (MySql.Data.MySqlClient.MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                return response;
+            }
+        }
 
-// DELETE api/<controller>/5
-[HttpDelete]
-public HttpResponseMessage eliminarPredio(string id)
-{
-    try
-    {
-        conn.Open();
-        MySqlCommand query = conn.CreateCommand();
-        query.CommandText = "Delete from predio where id = @id";
+        // DELETE api/<controller>/5
+        [HttpDelete]
+        public HttpResponseMessage deletePredio(string id)
+        {
+            try
+            {
+                conn.Open();
+                MySqlCommand query = conn.CreateCommand();
+                query.CommandText = "Delete from predio where id = @id";
 
-        query.Prepare();
-        query.Parameters.AddWithValue("@id", id);
-        query.ExecuteNonQuery();
+                query.Prepare();
+                query.Parameters.AddWithValue("@id", id);
+                query.ExecuteNonQuery();
 
-        conn.Close();
+                conn.Close();
 
-        var response = Request.CreateResponse(HttpStatusCode.NoContent);
-        return response;
+                var response = Request.CreateResponse(HttpStatusCode.NoContent);
+                return response;
 
-    }
-    catch (MySql.Data.MySqlClient.MySqlException e)
-    {
-        var response = Request.CreateResponse(HttpStatusCode.BadRequest);
-        return response;
-    }
-}
+            }
+            catch (MySql.Data.MySqlClient.MySqlException e)
+            {
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
+                return response;
+            }
+        }
     }
 }

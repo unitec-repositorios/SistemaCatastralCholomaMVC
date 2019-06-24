@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using SistemaCatastralCholoma.Models;
 
-namespace SistemaCatastralCholoma
+namespace SistemaCatastralCholoma.Models
 {
     public class Empleado
     {
