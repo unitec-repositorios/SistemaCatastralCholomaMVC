@@ -25,13 +25,13 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from propietario";
+                query.CommandText = "Select * from propietarios";
 
                 MySqlDataReader reader = query.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    propietarios.Add(new Propietario((string)reader["id"], (string)reader["nombres"], (string)reader["apellidos"],
+                    propietarios.Add(new Propietario((int)reader["id"], (string)reader["nombres"], (string)reader["apellidos"], (string)reader["identidad"],
                         (string)reader["telefono"],(string)reader["rtn"],reader.GetChar("sexo"),(string)reader["nacionalidad"]));
                 }
                 conn.Close();
@@ -55,7 +55,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from propietario where id = '"+id+"'";
+                query.CommandText = "Select * from propietarios where id = '"+id+"'";
 
                 MySqlDataReader reader = query.ExecuteReader(); 
                 
@@ -63,7 +63,7 @@ namespace SistemaCatastralCholoma.Controllers
                 Propietario propietario = new Propietario();
                 while (reader.Read())
                 {
-                    propietario = new Propietario((string)reader["id"], (string)reader["nombres"], (string)reader["apellidos"],
+                    propietario = new Propietario((int)reader["id"], (string)reader["nombres"], (string)reader["apellidos"],(string)reader["identidad"],
                         (string)reader["telefono"], (string)reader["rtn"], reader.GetChar("sexo"), (string)reader["nacionalidad"]);
                 }
                 conn.Close();
@@ -92,20 +92,27 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO propietario VALUES (@id,@nombres,@apellidos,@telefono,@rtn,@sexo,@nacionalidad);";
+                query.CommandText = "INSERT INTO propietarios VALUES (@id,@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", propietario.id);
+                query.Parameters.AddWithValue("@id", null);
                 query.Parameters.AddWithValue("@nombres", propietario.nombres);
                 query.Parameters.AddWithValue("@apellidos", propietario.apellidos);
+                query.Parameters.AddWithValue("@identidad", propietario.identidad);
                 query.Parameters.AddWithValue("@telefono", propietario.telefono);
                 query.Parameters.AddWithValue("@rtn", propietario.rtn);
                 query.Parameters.AddWithValue("@sexo", propietario.sexo);
                 query.Parameters.AddWithValue("@nacionalidad", propietario.nacionalidad);
                 query.ExecuteNonQuery();
 
-                conn.Close();
+               
 
+                query.CommandText = "Select * from propietarios where identidad = '" + propietario.identidad + "'";
+                MySqlDataReader reader = query.ExecuteReader();
+                reader.Read();
+                propietario.id = reader.GetInt32("id");
+
+                conn.Close();
                 var response =  Request.CreateResponse(HttpStatusCode.OK, propietario);
                 return response;
 
@@ -120,7 +127,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/Propietario/5
         [HttpPut]
-        public HttpResponseMessage modificarPropietario(string id, Propietario propietario)
+        public HttpResponseMessage modificarPropietario(int id, Propietario propietario)
         {
             try
             {
@@ -128,9 +135,10 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE propietario SET nombres=@nombres," +
+                query.CommandText = "UPDATE propietarios SET nombres=@nombres," +
                                                             "apellidos = @apellidos," +
                                                             "telefono = @telefono," +
+                                                            "identidad = @identidad,"+
                                                             "rtn = @rtn," +
                                                             "sexo = @sexo," +
                                                             "nacionalidad = @nacionalidad where id = @id";
@@ -139,6 +147,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@id", id);
                 query.Parameters.AddWithValue("@nombres", propietario.nombres);
                 query.Parameters.AddWithValue("@apellidos", propietario.apellidos);
+                query.Parameters.AddWithValue("@identidad", propietario.identidad);
                 query.Parameters.AddWithValue("@telefono", propietario.telefono);
                 query.Parameters.AddWithValue("@rtn", propietario.rtn);
                 query.Parameters.AddWithValue("@sexo", propietario.sexo);
@@ -146,7 +155,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.ExecuteNonQuery();
 
                 conn.Close();
-
+                propietario.id = id;
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
                 return response;
 
@@ -161,14 +170,14 @@ namespace SistemaCatastralCholoma.Controllers
 
         // DELETE: api/Propietario/5
         [HttpDelete]
-        public HttpResponseMessage deletePropietario(string id)
+        public HttpResponseMessage deletePropietario(int id)
         {
             try
             {
                 conn.Open();
 
                 MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from propietario where id = @id";
+                query.CommandText = "Delete from propietarios where id = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
@@ -182,7 +191,7 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (MySql.Data.MySqlClient.MySqlException e)
             {
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest, "No se encontro propietario con codigo "+id);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, "No se encontro propietario con identidad "+id);
                 return response;
             }
         }
