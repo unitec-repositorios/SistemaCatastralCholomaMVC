@@ -67,7 +67,7 @@ namespace SistemaCatastralCholoma.Controllers
                         (string)reader["telefono"], (string)reader["rtn"], reader.GetChar("sexo"), (string)reader["nacionalidad"]);
                 }
                 conn.Close();
-                if (propietario.id == null)
+                if (propietario.id == 0)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
@@ -89,6 +89,11 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
+
+                if (propietario.nombres.Equals("") || propietario.apellidos.Equals("") || propietario.identidad.Equals(""))
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest,"El formulario esta incompleto");
+                }
 
                 MySqlCommand query = conn.CreateCommand();
 
@@ -120,7 +125,7 @@ namespace SistemaCatastralCholoma.Controllers
             catch (MySql.Data.MySqlClient.MySqlException e)
             {
                 Console.WriteLine(e.Message);
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest,"Ocurrio un error al enviar el formulario");
                 return response;
             }
         }
