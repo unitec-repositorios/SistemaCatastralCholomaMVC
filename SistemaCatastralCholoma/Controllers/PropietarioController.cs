@@ -67,8 +67,12 @@ namespace SistemaCatastralCholoma.Controllers
                         (string)reader["telefono"], (string)reader["rtn"], reader.GetChar("sexo"), (string)reader["nacionalidad"]);
                 }
                 conn.Close();
+                if (propietario.id == null)
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
+
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
                 return response;
+
 
             }
             catch (MySqlException e)
@@ -162,6 +166,7 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
+
                 MySqlCommand query = conn.CreateCommand();
                 query.CommandText = "Delete from propietario where id = @id";
 
@@ -177,7 +182,7 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (MySql.Data.MySqlClient.MySqlException e)
             {
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, "No se encontro propietario con codigo "+id);
                 return response;
             }
         }
