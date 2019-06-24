@@ -24,18 +24,19 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from predio";
+                query.CommandText = "Select * from predios";
 
                 MySqlDataReader reader = query.ExecuteReader();
-                Predio predio;
+                Predio predio = new Predio();
                 while (reader.Read())
                 {
-                    predio = new Predio();
-                    predio.id = (string)reader["id"];
+                    predio.idPredio = (string)reader["idPredio"];
+                    predio.mapa = reader.GetString("mapa");
+                    predio.bloque = reader.GetString("bloque");
                     predio.numeroPredio = (string)reader["numeroPredio"];
                     predio.barrio = (string)reader["barrio"];
                     predio.caserio = (string)reader["caserio"];
-                    predio.uso = (USO)reader["uso"];
+                    predio.uso = (USO)reader.GetInt32("uso");
                     predio.subUso = (SUBUSO)reader["subUso"];
                     predio.sitio = (string)reader["sitio"];
                     predio.construccion = (string)reader["construccion"];
@@ -79,7 +80,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     predio = new Predio();
-                    predio.id = (string)reader["id"];
+                    predio.idPredio = (string)reader["id"];
                     predio.numeroPredio = (string)reader["numeroPredio"];
                     predio.barrio = (string)reader["barrio"];
                     predio.caserio = (string)reader["caserio"];
@@ -97,7 +98,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 }
                 conn.Close();
-                if (predio.id == null)
+                if (predio.idPredio == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, predio);
@@ -124,7 +125,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.CommandText = "INSERT INTO predio VALUES (@id,@numeroPredio,@barrio,@caserio,@uso,@subUso,@sitio,@construccion,@estatusTributario,@codigoPropietario,@codigoHabitacional,@porcentajeExencion,@tasaImpositiva,@futurasRevisiones,@porcentajeConcertacion);";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", p.id);
+                query.Parameters.AddWithValue("@id", p.idPredio);
                 query.Parameters.AddWithValue("@numeroPredio", p.numeroPredio);
                 query.Parameters.AddWithValue("@barrio", p.barrio);
                 query.Parameters.AddWithValue("@caserio", p.caserio);
@@ -174,10 +175,10 @@ namespace SistemaCatastralCholoma.Controllers
                                                     +  "tasaImpositivo = @tasaImpositiva, futuraRevisiones = @futuraRevisiones,"
                                                     +  "porcentajeConcertacion = @porcentajeConcertacion where id = @id";
 
-                p.id = id;
+                p.idPredio = id;
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", p.id);
+                query.Parameters.AddWithValue("@id", p.idPredio);
                 query.Parameters.AddWithValue("@numeroPredio", p.numeroPredio);
                 query.Parameters.AddWithValue("@barrio", p.barrio);
                 query.Parameters.AddWithValue("@caserio", p.caserio);
