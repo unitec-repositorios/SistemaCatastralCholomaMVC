@@ -9,7 +9,7 @@ namespace SistemaCatastralCholoma.Models
 
     public class Predio
     {
-        public string idPredio { get; set; }
+        public int idPredio { get; set; }
         public string mapa { get; set; }
         public string bloque { get; set; }
         public string numeroPredio {get;set;}
@@ -17,6 +17,7 @@ namespace SistemaCatastralCholoma.Models
         public string caserio { get; set; }
         public USO uso { get; set; }
         public SUBUSO subUso { get; set; }
+        public string ubicacion { get; set; }
         public string sitio { get; set; }
         public string construccion {get;set;}
         public ESTATUS_TRIBUTARIO estatusTributario {get;set;}
@@ -24,13 +25,13 @@ namespace SistemaCatastralCholoma.Models
         public string codigoHabitacional {get;set;}
         public double porcentajeExencion {get;set;}
         public double tasaImpositiva {get;set;}
-        public int futurasRevisiones {get;set;}
+        public string futurasRevisiones {get;set;}
         public double porcentajeConcertacion {get;set;}
 
 
-        public Predio(string idPredio, string mapa, string bloque, string numeroPredio, string barrio, string caserio, USO uso, SUBUSO subUso, string sitio,
+        public Predio(int idPredio, string mapa, string bloque, string numeroPredio, string barrio, string caserio, USO uso, SUBUSO subUso, string sitio, string ubicacion,
                       string construccion, ESTATUS_TRIBUTARIO estatusTributario, string codigoPropietario,
-                      string codigoHabitacional, double porcentajeExencion, double tasaImpositiva, int futurasRevisiones,
+                      string codigoHabitacional, double porcentajeExencion, double tasaImpositiva, string futurasRevisiones,
                       double porcentajeConcertacion)
         {
             this.idPredio = idPredio;
@@ -41,6 +42,7 @@ namespace SistemaCatastralCholoma.Models
             this.caserio = caserio;
             this.uso = uso;
             this.subUso = subUso;
+            this.ubicacion = ubicacion;
             this.sitio = sitio;
             this.construccion = construccion;
             this.estatusTributario = estatusTributario;
