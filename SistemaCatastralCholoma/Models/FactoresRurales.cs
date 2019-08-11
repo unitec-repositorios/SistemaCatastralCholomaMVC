@@ -7,7 +7,7 @@ namespace SistemaCatastralCholoma.Models
 {
     public class FactoresRurales
     {
-        public int idFactoresRurales { get; set; }
+        public string idFactoresRurales { get; set; }
         public double area { get; set; }
         public double ubicacion { get; set; }
         public double servicios { get; set; }
@@ -16,7 +16,7 @@ namespace SistemaCatastralCholoma.Models
 
         public FactoresRurales() { }
 
-        public FactoresRurales(int idFactoresRurales, double area, double ubicacion, double servicios,
+        public FactoresRurales(string idFactoresRurales, double area, double ubicacion, double servicios,
             double acceso, double agua)
         {
             this.idFactoresRurales = idFactoresRurales;

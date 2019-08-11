@@ -32,11 +32,11 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     edificacion = new EdificacionesEspeciales();
-                    edificacion.idedificacionesespeciales = (int)reader["idedificacionesespeciales"];
+                    edificacion.idedificacionesespeciales = (string)reader["idedificacionesespeciales"];
                     edificacion.Nivel = (string)reader["Nivel"];
                     edificacion.Area = (Double)reader["Area"];
                     edificacion.Area = (Double)reader["Costo"];
-                    edificacion.idDatosComplementarios = (int)reader["idDatosComplementarios"];
+                    edificacion.idDatosComplementarios = (string)reader["idDatosComplementarios"];
 
                     edificaciones.Add(edificacion);
                 }
@@ -69,11 +69,11 @@ namespace SistemaCatastralCholoma.Controllers
                 EdificacionesEspeciales edificacion = new EdificacionesEspeciales();
                 while (reader.Read())
                 {
-                    edificacion.idedificacionesespeciales = (int)reader["idedificacionesespeciales"];
+                    edificacion.idedificacionesespeciales = (string)reader["idedificacionesespeciales"];
                     edificacion.Nivel = (string)reader["Nivel"];
                     edificacion.Area = (Double)reader["Area"];
                     edificacion.Area = (Double)reader["Costo"];
-                    edificacion.idDatosComplementarios = (int)reader["idDatosComplementarios"];
+                    edificacion.idDatosComplementarios = (string)reader["idDatosComplementarios"];
 
                 }
 
@@ -132,7 +132,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/EdificacionesEspeciales/5
         [HttpPut]
-        public HttpResponseMessage modifyEdificacionesEspeciales(int id, EdificacionesEspeciales edificaciones)
+        public HttpResponseMessage modifyEdificacionesEspeciales(string id, EdificacionesEspeciales edificaciones)
         {
             try
             {
@@ -168,7 +168,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // DELETE: api/EdificacionesEspeciales/5
         [HttpDelete]
-        public HttpResponseMessage Delete(int id)
+        public HttpResponseMessage Delete(string id)
         {
             try
             {
