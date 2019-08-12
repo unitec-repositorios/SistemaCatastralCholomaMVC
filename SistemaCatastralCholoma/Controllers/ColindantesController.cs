@@ -101,7 +101,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO colindantes VALUES (@idcolindante,@Norte,@Sur,@Este,@Oeste,@idDatosComplementarios);";
+                query.CommandText = "INSERT INTO colindantes VALUES (@idcolindantes,@Norte,@Sur,@Este,@Oeste,@idDatosComplementarios);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idcolindantes", p.idcolindantes);
@@ -136,9 +136,10 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE caracteristicaspropiedad SET idcolindantes = @idcolindantes, Norte = @Norte,"
+                query.CommandText = "UPDATE colindantes SET idcolindantes = @idcolindantes, Norte = @Norte,"
                                                     + "Sur = @Sur, Este = @Este, Oeste = @Oeste,"
-                                                    + "idDatosComplementarios = @idDatosComplementarios";
+                                                    + "idDatosComplementarios = @idDatosComplementarios " +
+                                                      "where idcolindantes = @idcolindantes";
 
                 p.idcolindantes = id;
 
@@ -173,7 +174,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from colindante where idcolindantes = @idcolindantes";
+                query.CommandText = "Delete from colindantes where idcolindantes = @idcolindantes";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idcolindantes", id);
