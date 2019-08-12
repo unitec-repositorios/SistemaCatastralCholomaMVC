@@ -30,7 +30,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     caracteristicas = new CaracteristicasPropiedad();
-                    caracteristicas.idcaracRural = (string)reader["id"];
+                    caracteristicas.idcaracRural = (string)reader["idcaracRural"];
                     caracteristicas.area = (double)reader["area"];
                     caracteristicas.explotacion = (string)reader["explotacion"];
                     caracteristicas.topografia = (string)reader["topografia"];
@@ -60,7 +60,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from caracteristicaspropiedad where id = '" + id + "'";
+                query.CommandText = "Select * from caracteristicaspropiedad where idcaracRural = '" + id + "'";
 
                 MySqlDataReader reader = query.ExecuteReader();
 
@@ -69,7 +69,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     caracteristicas = new CaracteristicasPropiedad();
-                    caracteristicas.idcaracRural = (string)reader["id"];
+                    caracteristicas.idcaracRural = (string)reader["idcaracRural"];
                     caracteristicas.area = (double)reader["area"];
                     caracteristicas.explotacion = (string)reader["explotacion"];
                     caracteristicas.topografia = (string)reader["topografia"];
@@ -139,7 +139,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE caracteristicaspropiedad SET idcaracRura = @idcaracRura, area = @area,"
+                query.CommandText = "UPDATE caracteristicaspropiedad SET idcaracRural = @idcaracRural, area = @area,"
                                                     + "explotacion = @explotacion, topografia = @topografia, caudal = @caudal,"
                                                     + "pozo = @pozo, viasComunicacion= @viasComunicacion";
 
@@ -177,10 +177,10 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from caracteristicaspropiedad where id = @id";
+                query.CommandText = "Delete from caracteristicaspropiedad where idcaracRural = @idcaracRural";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", id);
+                query.Parameters.AddWithValue("@idcaracRural", id);
                 query.ExecuteNonQuery();
 
                 conn.Close();
