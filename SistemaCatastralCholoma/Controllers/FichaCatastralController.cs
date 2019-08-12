@@ -46,6 +46,7 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         // GET: api/FichaCatastral/5
+        [HttpGet]
         public FichaCatastral getFichaCatastral(string cocata)
         {
             try

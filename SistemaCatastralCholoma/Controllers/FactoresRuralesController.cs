@@ -30,7 +30,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     factoresrurales = new FactoresRurales();
-                    factoresrurales.idFactoresRurales = (int)reader["id"];
+                    factoresrurales.idFactoresRurales = (string)reader["idfactoresrurales"];
                     factoresrurales.area = (double)reader["area"];
                     factoresrurales.ubicacion = (double)reader["ubicacion"];
                     factoresrurales.servicios = (double)reader["servicios"];
@@ -68,7 +68,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     factoresrurales = new FactoresRurales();
-                    factoresrurales.idFactoresRurales = (int)reader["id"];
+                    factoresrurales.idFactoresRurales = (string)reader["id"];
                     factoresrurales.area = (double)reader["area"];
                     factoresrurales.ubicacion = (double)reader["ubicacion"];
                     factoresrurales.servicios = (double)reader["servicios"];
@@ -77,7 +77,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 }
                 conn.Close();
-                if (factoresrurales.idFactoresRurales == 0)
+                if (factoresrurales.idFactoresRurales == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, factoresrurales);
@@ -101,10 +101,12 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO factoresrurales VALUES (@id,@area,@ubicacion,@servicios,@acceso,@agua);";
+                query.CommandText = "INSERT INTO factoresrurales VALUES (@idFactoresRurales," + "@area,"
+                                                                        +"@ubicacion,"+"@servicios,"+
+                                                                        "@acceso,"+"@agua);";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", p.idFactoresRurales);
+                query.Parameters.AddWithValue("@idFactoresRurales", p.idFactoresRurales);
                 query.Parameters.AddWithValue("@area", p.area);
                 query.Parameters.AddWithValue("@ubicacion", p.ubicacion);
                 query.Parameters.AddWithValue("@servicios", p.servicios);
@@ -121,14 +123,14 @@ namespace SistemaCatastralCholoma.Controllers
             catch (MySql.Data.MySqlClient.MySqlException e)
             {
                 Console.WriteLine(e.Message);
-                var response = Request.CreateResponse(HttpStatusCode.BadGateway, p);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
         }
 
         // PUT api/<controller>/5
         [HttpPut]
-        public HttpResponseMessage modificarfactoresrurales(int id, FactoresRurales p)
+        public HttpResponseMessage modificarfactoresrurales(string id, FactoresRurales p)
         {
             try
             {
@@ -166,13 +168,13 @@ namespace SistemaCatastralCholoma.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete]
-        public HttpResponseMessage eliminarfactoresrurales(int id)
+        public HttpResponseMessage eliminarfactoresrurales(string id)
         {
             try
             {
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from factoresrurales where id = @id";
+                query.CommandText = "Delete from factoresrurales where idFactoresRurales = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
