@@ -136,7 +136,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE datosdesarrollo SET area = @area, servicios = @servicios, topografia = @topografia, configuracion = @configuracion" +
+                query.CommandText = "UPDATE datosdesarrollo SET area = @area, servicios = @servicios, topografia = @topografia, configuracion = @configuracion " +
                                                       "where iddatosdesarrollo = @id";
 
                 query.Prepare();

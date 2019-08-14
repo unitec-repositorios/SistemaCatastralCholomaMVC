@@ -30,7 +30,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     colindante = new Colindantes();
-                    colindante.idcolindantes = (int)reader["id"];
+                    colindante.idcolindantes = (int)reader["idcolindantes"];
                     colindante.Norte = (string)reader["Norte"];
                     colindante.Sur = (string)reader["Sur"];
                     colindante.Este= (string)reader["Este"];
@@ -59,7 +59,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from colindantes where id = '" + id + "'";
+                query.CommandText = "Select * from colindantes where idcolindantes = '" + id + "'";
 
                 MySqlDataReader reader = query.ExecuteReader();
 
@@ -67,7 +67,7 @@ namespace SistemaCatastralCholoma.Controllers
                 Colindantes colindantes = new Colindantes();
                 while (reader.Read())
                 {
-                    colindantes.idcolindantes = (int)reader["id"];
+                    colindantes.idcolindantes = (int)reader["idcolindantes"];
                     colindantes.Norte = (string)reader["Norte"];
                     colindantes.Sur = (string)reader["Sur"];
                     colindantes.Este = (string)reader["Este"];
@@ -101,10 +101,10 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO colindantes VALUES (@idcolindante,@Norte,@Sur,@Este,@Oeste,@idDatosComplementarios);";
+                query.CommandText = "INSERT INTO colindantes VALUES (@idcolindantes,@Norte,@Sur,@Este,@Oeste,@idDatosComplementarios);";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", p.idcolindantes);
+                query.Parameters.AddWithValue("@idcolindantes", p.idcolindantes);
                 query.Parameters.AddWithValue("@Norte", p.Norte);
                 query.Parameters.AddWithValue("@Sur", p.Sur);
                 query.Parameters.AddWithValue("@Este", p.Este);
@@ -136,14 +136,15 @@ namespace SistemaCatastralCholoma.Controllers
 
                 MySqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE caracteristicaspropiedad SET id = @id, Norte = @Norte,"
+                query.CommandText = "UPDATE colindantes SET idcolindantes = @idcolindantes, Norte = @Norte,"
                                                     + "Sur = @Sur, Este = @Este, Oeste = @Oeste,"
-                                                    + "idDatosComplementarios = @idDatosComplementarios";
+                                                    + "idDatosComplementarios = @idDatosComplementarios " +
+                                                      "where idcolindantes = @idcolindantes";
 
                 p.idcolindantes = id;
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", p.idcolindantes);
+                query.Parameters.AddWithValue("@idcolindantes", p.idcolindantes);
                 query.Parameters.AddWithValue("@Norte", p.Norte);
                 query.Parameters.AddWithValue("@Sur", p.Sur);
                 query.Parameters.AddWithValue("@Este", p.Este);
@@ -173,10 +174,10 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from colindante where id = @id";
+                query.CommandText = "Delete from colindantes where idcolindantes = @idcolindantes";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", id);
+                query.Parameters.AddWithValue("@idcolindantes", id);
                 query.ExecuteNonQuery();
 
                 conn.Close();
@@ -193,3 +194,5 @@ namespace SistemaCatastralCholoma.Controllers
         }
     }
 }
+
+
