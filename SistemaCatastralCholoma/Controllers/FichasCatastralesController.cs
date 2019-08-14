@@ -9,12 +9,13 @@ using MySql.Data.MySqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
-    public class FichaCatastralController : ApiController
+    public class FichasCatastralesController : ApiController
     {
 
         private MySqlConnection conn = WebApiConfig.conn();
         // GET: api/
-        public List<FichaCatastral> listFichaCatastral()
+        [HttpGet]
+        public List<FichasCatastrales> listFichaCatastral()
         {
             try
             {
@@ -22,10 +23,10 @@ namespace SistemaCatastralCholoma.Controllers
                 MySqlDataReader reader;
                 MySqlCommand cmd = new MySqlCommand("select * from FichasCatastrales", conn);
                 reader = cmd.ExecuteReader();
-                List<FichaCatastral> fichas = new List<FichaCatastral>();
+                List<FichasCatastrales> fichas = new List<FichasCatastrales>();
                 while (reader.Read())
                 {
-                    fichas.Add(new FichaCatastral((String)reader["cocata"], (String)reader["depto"],
+                    fichas.Add(new FichasCatastrales((String)reader["cocata"], (String)reader["depto"],
                         (String)reader["municipio"], (String)reader["aldea"], (String)reader["mapa"], 
                         (String)reader["bolque"], (String)reader["predio"], (String)reader["num"], 
                         (String)reader["maq"], (String)reader["st"], (String)reader["codProp"], 
@@ -47,18 +48,18 @@ namespace SistemaCatastralCholoma.Controllers
 
         // GET: api/FichaCatastral/5
         [HttpGet]
-        public FichaCatastral getFichaCatastral(string cocata)
+        public FichasCatastrales getFichaCatastral(string cocata)
         {
             try
             {
                 conn.Open();
                 MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand("select * from FichasCatastrales where cocata = '" + cocata + "'", conn);
+                MySqlCommand cmd = new MySqlCommand("select * from FichasCatastrales where cocata = '" + cocata + "'");
                 reader = cmd.ExecuteReader();
-                FichaCatastral ficha = new FichaCatastral();
+                FichasCatastrales ficha = new FichasCatastrales();
                 while (reader.Read())
                 {
-                    ficha = new FichaCatastral((String)reader["cocata"], (String)reader["depto"],
+                    ficha = new FichasCatastrales((String)reader["cocata"], (String)reader["depto"],
                         (String)reader["municipio"], (String)reader["aldea"], (String)reader["mapa"],
                         (String)reader["bolque"], (String)reader["predio"], (String)reader["num"],
                         (String)reader["maq"], (String)reader["st"], (String)reader["codProp"],
@@ -80,14 +81,30 @@ namespace SistemaCatastralCholoma.Controllers
     
 
         // POST: api/FichaCatastral
-        public void createFichaCatastral(FichaCatastral ficha)
+        public HttpResponseMessage createFichaCatastral(FichasCatastrales ficha)
         {
             try
             {
                 conn.Open();
                 MySqlCommand cmd = conn.CreateCommand();
-                string query = "insert into FichasCatastrales values (@cocata, @depto,@municipio,@aldea,@mapa,@bolque,@predio,@num,@maq,@st,@codProp,@codHab," +
-                    "@noLinea,@noFoto,@poblacion,@identidadPropietario,@tomo,@asiento)";
+                string query = "INSERT INTO FichasCatastrales VALUES (@cocata," +
+                                                                    "@depto," +
+                                                                    "@municipio," +
+                                                                    "@aldea," +
+                                                                    "@mapa," +
+                                                                    "@bolque," +
+                                                                    "@predio," +
+                                                                    "@num," +
+                                                                    "@maq," +
+                                                                    "@st," +
+                                                                    "@codProp," +
+                                                                    "@codHab," +
+                                                                    "@noLinea," +
+                                                                    "@noFoto," +
+                                                                    "@poblacion," +
+                                                                    "@identidadPropietario," +
+                                                                    "@tomo," +
+                                                                    "@asiento)";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@cocata", ficha.depto+ficha.municipio+ficha.aldea+ficha.mapa+ficha.bolque+ficha.predio+ficha.num);
                 cmd.Parameters.AddWithValue("@depto", ficha.depto);
@@ -109,17 +126,20 @@ namespace SistemaCatastralCholoma.Controllers
                 cmd.Parameters.AddWithValue("@asiento", ficha.asiento);
                 cmd.ExecuteNonQuery();
                 conn.Close();
+
+                var response = Request.CreateResponse(HttpStatusCode.OK,ficha);
+                return response;
             }
             catch (MySqlException e)
             {
-                Console.WriteLine(e.Message);
-                conn.Close();
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+                return response;
             }
-            conn.Close();
+            
         }
 
         // PUT: api/FichaCatastral/5
-        public void modifyFichaCatastral(FichaCatastral ficha)
+        public void modifyFichaCatastral(FichasCatastrales ficha)
         {
             try
             {

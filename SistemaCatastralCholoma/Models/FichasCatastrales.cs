@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SistemaCatastralCholoma.Models
 {
-    public class FichaCatastral 
+    public class FichasCatastrales 
     {
         public String cocata { get; set; }
         public String depto { get; set; }
@@ -26,12 +26,12 @@ namespace SistemaCatastralCholoma.Models
         public String tomo { get; set; }
         public String asiento { get; set; }
 
-        public FichaCatastral()
+        public FichasCatastrales()
         {
 
         }
 
-        public FichaCatastral(String cocata, String depto, String municipio, String aldea, 
+        public FichasCatastrales(String cocata, String depto, String municipio, String aldea, 
             String mapa, String bolque, String predio, String num, String maq, String st, 
             String codProp, String codHab, String noLinea, String noFoto, String poblacion, 
             String identidadPropietario, String tomo, String asiento)
