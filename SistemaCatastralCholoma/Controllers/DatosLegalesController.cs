@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using SistemaCatastralCholoma.Models;
 using SistemaCatastralCholoma.Models.RequestModels;
 
@@ -14,7 +14,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class DatosLegalesController : ApiController
     {
 
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
         // GET: api/DatosLegales
         [HttpGet]
         public HttpResponseMessage listDatosLegales()
@@ -23,16 +23,16 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "Select * from datoslegales";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
                 DatosLegales datos;
                 while (reader.Read())
                 {
 
-                    MySql.Data.Types.MySqlDateTime date = reader.GetMySqlDateTime(5);
+                    Sql.Data.Types.SqlDateTime date = reader.GetSqlDateTime(5);
 
                     datos = new DatosLegales();
                     datos.idclaveCatastral = (string)reader["idclaveCatastral"];
@@ -40,7 +40,7 @@ namespace SistemaCatastralCholoma.Controllers
                     datos.tomo = (string)reader["tomo"];
                     datos.folio = (string)reader["folio"];
                     datos.asiento = (string)reader["asiento"];
-                    datos.inscripcion = reader.GetMySqlDateTime(5).GetDateTime();
+                    datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
                     datos.matricula = (string)reader["matricula"];
                     datos.linea = (string)reader["linea"];
                     datos.foto = (string)reader["foto"];
@@ -58,7 +58,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -72,11 +72,11 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "Select * from datoslegales where idclaveCatastral = '" + id + "'";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
 
                 DatosLegales datos = new DatosLegales();
@@ -88,7 +88,7 @@ namespace SistemaCatastralCholoma.Controllers
                     datos.tomo = (string)reader["tomo"];
                     datos.folio = (string)reader["folio"];
                     datos.asiento = (string)reader["asiento"];
-                    datos.inscripcion = reader.GetMySqlDateTime(5).GetDateTime();
+                    datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
                     datos.matricula = (string)reader["matricula"];
                     datos.linea = (string)reader["linea"];
                     datos.foto = (string)reader["foto"];
@@ -108,7 +108,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -123,7 +123,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "INSERT INTO datoslegales VALUES (@idclaveCatastral,"+
                                                                     "@propiedad," +
@@ -166,7 +166,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -181,7 +181,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "UPDATE datoslegales SET propiedad = @propiedad," +
                                                             "tomo = @tomo," +
@@ -222,7 +222,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, datos);
                 return response;
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -236,7 +236,7 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
                 query.CommandText = "Delete from datoslegales where idclaveCatastral = @id";
 
                 query.Prepare();
@@ -249,7 +249,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;

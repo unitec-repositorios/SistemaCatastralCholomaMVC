@@ -5,14 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SistemaCatastralCholoma.Models;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class FichasCatastralesController : ApiController
     {
 
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
         // GET: api/
         [HttpGet]
         public List<FichasCatastrales> listFichaCatastral()
@@ -20,8 +20,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand("select * from FichasCatastrales", conn);
+                SqlDataReader reader;
+                SqlCommand cmd = new SqlCommand("select * from FichasCatastrales", conn);
                 reader = cmd.ExecuteReader();
                 List<FichasCatastrales> fichas = new List<FichasCatastrales>();
                 while (reader.Read())
@@ -37,7 +37,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Close();
                 return fichas;
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 conn.Close();
@@ -53,8 +53,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand("select * from FichasCatastrales where cocata = '" + cocata + "'");
+                SqlDataReader reader;
+                SqlCommand cmd = new SqlCommand("select * from FichasCatastrales where cocata = '" + cocata + "'", conn);
                 reader = cmd.ExecuteReader();
                 FichasCatastrales ficha = new FichasCatastrales();
                 while (reader.Read())
@@ -70,7 +70,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Close();
                 return ficha;
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 conn.Close();
@@ -86,25 +86,9 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand cmd = conn.CreateCommand();
-                string query = "INSERT INTO FichasCatastrales VALUES (@cocata," +
-                                                                    "@depto," +
-                                                                    "@municipio," +
-                                                                    "@aldea," +
-                                                                    "@mapa," +
-                                                                    "@bolque," +
-                                                                    "@predio," +
-                                                                    "@num," +
-                                                                    "@maq," +
-                                                                    "@st," +
-                                                                    "@codProp," +
-                                                                    "@codHab," +
-                                                                    "@noLinea," +
-                                                                    "@noFoto," +
-                                                                    "@poblacion," +
-                                                                    "@identidadPropietario," +
-                                                                    "@tomo," +
-                                                                    "@asiento)";
+                SqlCommand cmd = conn.CreateCommand();
+                string query = "insert into FichasCatastrales values (@cocata, @depto,@municipio,@aldea,@mapa,@bolque,@predio,@num,@maq,@st,@codProp,@codHab," +
+                    "@noLinea,@noFoto,@poblacion,@identidadPropietario,@tomo,@asiento)";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@cocata", ficha.depto+ficha.municipio+ficha.aldea+ficha.mapa+ficha.bolque+ficha.predio+ficha.num);
                 cmd.Parameters.AddWithValue("@depto", ficha.depto);
@@ -130,7 +114,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK,ficha);
                 return response;
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -144,7 +128,7 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand cmd = conn.CreateCommand();
+                SqlCommand cmd = conn.CreateCommand();
                 string query = "UPDATE FichasCatastrales SET cocata = @cocata, depto = @depto, municipio = @municipio, aldea = @aldea," +
                     "mapa = @mapa, bolque = @bolque, predio = @predio, num = @num,maq = @maq,st = @st,codProp = @codProp, codHab = @codHab," +
                     " noLinea = @noLinea, noFoto = @noFoto, poblacion = @poblacion, identidadPropietario = @identidadPropietario, tomo = @tomo," +
@@ -172,7 +156,7 @@ namespace SistemaCatastralCholoma.Controllers
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 conn.Close();
@@ -186,14 +170,14 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand cmd = conn.CreateCommand();
+                SqlCommand cmd = conn.CreateCommand();
                 string query = "delete from FichasCatastrales where cocata = @cocata";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@cocata", cocata);
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 conn.Close();
