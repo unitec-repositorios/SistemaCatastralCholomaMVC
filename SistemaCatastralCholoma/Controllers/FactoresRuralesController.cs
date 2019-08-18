@@ -23,19 +23,19 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from factoresrurales";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.factoresrurales";
 
                 SqlDataReader reader = query.ExecuteReader();
                 FactoresRurales factoresrurales;
                 while (reader.Read())
                 {
                     factoresrurales = new FactoresRurales();
-                    factoresrurales.idFactoresRurales = (int)reader["id"];
-                    factoresrurales.area = (double)reader["area"];
-                    factoresrurales.ubicacion = (double)reader["ubicacion"];
-                    factoresrurales.servicios = (double)reader["servicios"];
-                    factoresrurales.acceso = (double)reader["acceso"];
-                    factoresrurales.agua = (double)reader["agua"];
+                    factoresrurales.idFactoresRurales = reader.GetInt32(0);
+                    factoresrurales.area = reader.GetDouble(1);
+                    factoresrurales.ubicacion = reader.GetDouble(2);
+                    factoresrurales.servicios = reader.GetDouble(3);
+                    factoresrurales.acceso = reader.GetDouble(4);
+                    factoresrurales.agua = reader.GetDouble(5);
 
                     factoresRurales.Add(factoresrurales);
                 }
@@ -59,7 +59,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from factoresrurales where id = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.factoresrurales where id = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -68,12 +68,12 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     factoresrurales = new FactoresRurales();
-                    factoresrurales.idFactoresRurales = (int)reader["id"];
-                    factoresrurales.area = (double)reader["area"];
-                    factoresrurales.ubicacion = (double)reader["ubicacion"];
-                    factoresrurales.servicios = (double)reader["servicios"];
-                    factoresrurales.acceso = (double)reader["acceso"];
-                    factoresrurales.agua = (double)reader["agua"];
+                    factoresrurales.idFactoresRurales = reader.GetInt32(0);
+                    factoresrurales.area = reader.GetDouble(1);
+                    factoresrurales.ubicacion = reader.GetDouble(2);
+                    factoresrurales.servicios = reader.GetDouble(3);
+                    factoresrurales.acceso = reader.GetDouble(4);
+                    factoresrurales.agua = reader.GetDouble(5);
 
                 }
                 conn.Close();
@@ -101,7 +101,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO factoresrurales VALUES (@id,@area,@ubicacion,@servicios,@acceso,@agua);";
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.factoresrurales VALUES (@id,@area,@ubicacion,@servicios,@acceso,@agua);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", p.idFactoresRurales);
@@ -136,7 +136,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE factoresrurales SET area = @area, ubicacion = @ubicacion,"
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.factoresrurales SET area = @area, ubicacion = @ubicacion,"
                                                     + "servicios = @servicios, acceso = @acceso, agua = @agua";
 
                 p.idFactoresRurales = id;
@@ -172,7 +172,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from factoresrurales where id = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.factoresrurales where id = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

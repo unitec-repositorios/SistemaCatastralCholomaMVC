@@ -23,18 +23,18 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from datosdesarrollo";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datosdesarrollo";
 
                 SqlDataReader reader = query.ExecuteReader();
                 DatosDesarrollo datosDes = new DatosDesarrollo();
                 while (reader.Read())
                 {
                     datosDes = new DatosDesarrollo();
-                    datosDes.iddatosdesarrollo = (string)reader["iddatosdesarrollo"];
-                    datosDes.area = (Double)reader["area"];
-                    datosDes.servicios = (Double)reader["servicios"];
-                    datosDes.topografia = (Double)reader["topografia"];
-                    datosDes.configuracion = (Double)reader["configuracion"];
+                    datosDes.iddatosdesarrollo = reader.GetString(0);
+                    datosDes.area = reader.GetDouble(1);
+                    datosDes.servicios = reader.GetDouble(2);
+                    datosDes.topografia = reader.GetDouble(3);
+                    datosDes.configuracion = reader.GetDouble(4);
 
                     datosDesarrollo.Add(datosDes);
                 }
@@ -59,7 +59,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from datosdesarrollo where iddatosdesarrollo = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datosdesarrollo where iddatosdesarrollo = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -68,11 +68,11 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     datosDesarrollo = new DatosDesarrollo();
-                    datosDesarrollo.iddatosdesarrollo = (string)reader["iddatosdesarrollo"];
-                    datosDesarrollo.area = (Double)reader["area"];
-                    datosDesarrollo.servicios = (Double)reader["servicios"];
-                    datosDesarrollo.topografia = (Double)reader["topografia"];
-                    datosDesarrollo.configuracion = (Double)reader["configuracion"];
+                    datosDesarrollo.iddatosdesarrollo = reader.GetString(0);
+                    datosDesarrollo.area = reader.GetDouble(1);
+                    datosDesarrollo.servicios = reader.GetDouble(2);
+                    datosDesarrollo.topografia = reader.GetDouble(3);
+                    datosDesarrollo.configuracion = reader.GetDouble(4);
                 }
                 conn.Close();
                 if (datosDesarrollo.iddatosdesarrollo == null)
@@ -99,7 +99,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO datosdesarrollo VALUES (@iddatosdesarrollo,"                                                           + "@area," 
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.datosdesarrollo VALUES (@iddatosdesarrollo," + "@area," 
                                                                         + "@servicios," 
                                                                         + "@topografia," +
                                                                         "@configuracion)";
@@ -136,7 +136,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE datosdesarrollo SET area = @area, servicios = @servicios, topografia = @topografia, configuracion = @configuracion" +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.datosdesarrollo SET area = @area, servicios = @servicios, topografia = @topografia, configuracion = @configuracion" +
                                                       "where iddatosdesarrollo = @id";
 
                 query.Prepare();
@@ -167,7 +167,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from datosdesarrollo where iddatosdesarrollo = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.datosdesarrollo where iddatosdesarrollo = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

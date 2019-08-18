@@ -14,7 +14,7 @@ namespace SistemaCatastralCholoma.Models
         public string maquinaria { get; set; }
         public string delineador { get; set; }
         public DateTime fecha { get; set; }
-        public string observacions { get; set; }
+        public string observaciones { get; set; }
         public string ocupante { get; set; }
         public string uso { get; set; }//enum
         public string clase { get; set; }//enum
@@ -39,7 +39,7 @@ namespace SistemaCatastralCholoma.Models
             this.maquinaria = maquinaria;
             this.delineador = delineador;
             this.fecha = fecha;
-            this.observacion = observaciones;
+            this.observaciones = observaciones;
             this.ocupante = ocupante;
             this.uso = uso;
             this.clase = clase;

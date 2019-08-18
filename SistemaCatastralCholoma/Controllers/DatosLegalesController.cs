@@ -25,7 +25,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from datoslegales";
+                query.CommandText = "Select * bkmilcp6nvs1hgkadyz6.from datoslegales";
 
                 SqlDataReader reader = query.ExecuteReader();
                 DatosLegales datos;
@@ -37,21 +37,21 @@ namespace SistemaCatastralCholoma.Controllers
                     
 
                     datos = new DatosLegales();
-                    datos.idclaveCatastral = (string)reader["idclaveCatastral"];
-                    datos.propiedad = (string)reader["propiedad"];
-                    datos.tomo = (string)reader["tomo"];
-                    datos.folio = (string)reader["folio"];
-                    datos.asiento = (string)reader["asiento"];
+                    datos.idclaveCatastral = reader.GetString(0);
+                    datos.propiedad = reader.GetString(1);
+                    datos.tomo = reader.GetString(2);
+                    datos.folio = reader.GetString(3);
+                    datos.asiento = reader.GetString(4);
                     //datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
-                    datos.matricula = (string)reader["matricula"];
-                    datos.linea = (string)reader["linea"];
-                    datos.foto = (string)reader["foto"];
-                    datos.predio = (string)reader["predio"];
-                    datos.naturalezaJuridica = (string)reader["naturalezaJuridica"];
-                    datos.tipoDocumento = (string)reader["tipoDocumento"];
-                    datos.area = (Double)reader["area"];
-                    datos.unidadArea = (string)reader["unidadArea"];
-                    datos.tipoMedida = (string)reader["tipoMedida"];
+                    datos.matricula = reader.GetString(6);
+                    datos.linea = reader.GetString(7);
+                    datos.foto = reader.GetString(8);
+                    datos.predio = reader.GetString(9);
+                    datos.naturalezaJuridica = reader.GetString(10);
+                    datos.tipoDocumento = reader.GetString(11);
+                    datos.area = reader.GetDouble(12);
+                    datos.unidadArea = reader.GetString(13);
+                    datos.tipoMedida = reader.GetString(14);
 
                     datosLegales.Add(datos);
                 }
@@ -76,7 +76,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from datoslegales where idclaveCatastral = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datoslegales where idclaveCatastral = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -85,21 +85,21 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     datos = new DatosLegales();
-                    datos.idclaveCatastral = (string)reader["idclaveCatastral"];
-                    datos.propiedad = (string)reader["propiedad"];
-                    datos.tomo = (string)reader["tomo"];
-                    datos.folio = (string)reader["folio"];
-                    datos.asiento = (string)reader["asiento"];
+                    datos.idclaveCatastral = reader.GetString(0);
+                    datos.propiedad = reader.GetString(1);
+                    datos.tomo = reader.GetString(2);
+                    datos.folio = reader.GetString(3);
+                    datos.asiento = reader.GetString(4);
                     //datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
-                    datos.matricula = (string)reader["matricula"];
-                    datos.linea = (string)reader["linea"];
-                    datos.foto = (string)reader["foto"];
-                    datos.predio = (string)reader["predio"];
-                    datos.naturalezaJuridica = (string)reader["naturalezaJuridica"];
-                    datos.tipoDocumento = (string)reader["tipoDocumento"];
-                    datos.area = (Double)reader["area"];
-                    datos.unidadArea = (string)reader["unidadArea"];
-                    datos.tipoMedida = (string)reader["tipoMedida"];
+                    datos.matricula = reader.GetString(6);
+                    datos.linea = reader.GetString(7);
+                    datos.foto = reader.GetString(8);
+                    datos.predio = reader.GetString(9);
+                    datos.naturalezaJuridica = reader.GetString(10);
+                    datos.tipoDocumento = reader.GetString(11);
+                    datos.area = reader.GetDouble(12);
+                    datos.unidadArea = reader.GetString(13);
+                    datos.tipoMedida = reader.GetString(14);
 
                 }
                 conn.Close();
@@ -127,7 +127,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO datoslegales VALUES (@idclaveCatastral,"+
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.datoslegales VALUES (@idclaveCatastral," +
                                                                     "@propiedad," +
                                                                     "@tomo," +
                                                                     "@folio," +
@@ -185,7 +185,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE datoslegales SET propiedad = @propiedad," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.datoslegales SET propiedad = @propiedad," +
                                                             "tomo = @tomo," +
                                                             "folio = @folio," +
                                                             "asiento = @asiento," +
@@ -239,7 +239,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from datoslegales where idclaveCatastral = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.datoslegales where idclaveCatastral = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
