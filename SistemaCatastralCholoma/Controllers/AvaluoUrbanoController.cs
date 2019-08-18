@@ -5,14 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SistemaCatastralCholoma.Models;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class AvaluoUrbanoController : ApiController
     {
 
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
 
         // GET: api/AvaluoUrbano
         [HttpGet]
@@ -22,11 +22,11 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "Select * from avaluourbano";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
                 AvaluoUrbano avaluo;
                 while (reader.Read())
                 {
@@ -42,7 +42,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -56,11 +56,11 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "Select * from avaluourbano where idavaluourbano = '" + id + "'";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
 
                 AvaluoUrbano avaluo = new AvaluoUrbano();
@@ -80,7 +80,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -95,7 +95,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "INSERT INTO avaluourbano VALUES (@id," +
                                                                "@esquina," +
@@ -114,7 +114,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -129,7 +129,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "UPDATE avaluourbano SET Esquina = @esquina," +
                                                       "Topografia = @topografia " +
@@ -146,7 +146,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, avaluo);
                 return response;
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -160,7 +160,7 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
                 query.CommandText = "Delete from avaluourbano where idavaluourbano = @id";
 
                 query.Prepare();
@@ -173,7 +173,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;

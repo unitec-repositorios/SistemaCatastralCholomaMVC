@@ -6,13 +6,13 @@ using System.Net.Http;
 using System.Web.Http;
 
 using SistemaCatastralCholoma.Models;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class FraccionController : ApiController
     {
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
         // GET: api/
         [HttpGet]
         public HttpResponseMessage listFraccion()
@@ -20,8 +20,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand("select * from fraccion", conn);
+                SqlDataReader reader;
+                SqlCommand cmd = new SqlCommand("select * from fraccion", conn);
                 reader = cmd.ExecuteReader();
                 List<Fraccion> f = new List<Fraccion>();
                 while (reader.Read())
@@ -34,7 +34,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, f);
                 return response;
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 conn.Close();
@@ -49,11 +49,11 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "Select * from fraccion where idfraccion = " + id;
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
 
                 Fraccion f = new Fraccion();
@@ -67,7 +67,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
                 return response;
@@ -81,7 +81,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "INSERT INTO fraccion VALUES (@idfraccion,@Valor,@Area,@parcelaTipica,@factorModificado,@Frente,@idAvaluoUrbano);";
 
@@ -101,7 +101,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
@@ -117,7 +117,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "UPDATE fraccion SET Valor=@Valor," +
                                                             "Area = @Area," +
@@ -143,7 +143,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
@@ -157,7 +157,7 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
                 query.CommandText = "Delete from fraccion where idfraccion = @id";
 
                 query.Prepare();
@@ -170,7 +170,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
                 return response;

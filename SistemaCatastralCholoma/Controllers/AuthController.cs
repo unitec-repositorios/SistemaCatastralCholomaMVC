@@ -4,16 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using MySql.Data.MySqlClient;
 using SistemaCatastralCholoma.Models;
-
+using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class AuthController : ApiController
     {
 
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
 
         // POST: api/Auth
         [HttpPost]
@@ -21,26 +20,26 @@ namespace SistemaCatastralCholoma.Controllers
         {
             try {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
                 query.CommandText = "select * from empleado where nombre = @nombre and password = @pass";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@nombre", empleado.nombre);
                 query.Parameters.AddWithValue("@pass", empleado.password);
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
                 
                 if (reader.HasRows) {
                     reader.Read();
-                    Empleado fetchedEmpleado = new Empleado(reader.GetString("nombre"), reader.GetString("password"), (TIPO_EMPLEADO)reader.GetInt32("tipo"));
+                    Empleado fetchedEmpleado = new Empleado((string)reader["nombre"], (string)reader["password"], (TIPO_EMPLEADO)reader["tipo"]);
                     if (reader.GetString(0).Equals(empleado.nombre) && reader.GetString(1).Equals(empleado.password))
                         return Request.CreateResponse(HttpStatusCode.OK, fetchedEmpleado);
                 }
                 conn.Close();
                 return Request.CreateResponse(HttpStatusCode.NotFound, "No se encontro empleado con esa combinacion de usuario y contraseña");
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;

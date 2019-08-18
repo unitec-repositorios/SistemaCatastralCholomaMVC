@@ -6,13 +6,13 @@ using System.Net.Http;
 using System.Web.Http;
 
 using SistemaCatastralCholoma.Models;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class ServiciosPublicosController : ApiController
     {
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
         // GET: api/
         [HttpGet]
         public HttpResponseMessage listServiciosPublicos()
@@ -20,8 +20,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand("select * from serviciospublicos", conn);
+                SqlDataReader reader;
+                SqlCommand cmd = new SqlCommand("select * from serviciospublicos", conn);
                 reader = cmd.ExecuteReader();
                 List<ServiciosPublicos> sp = new List<ServiciosPublicos>();
                 while (reader.Read())
@@ -34,7 +34,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, sp);
                 return response;
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 conn.Close();
@@ -49,11 +49,11 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "Select * from serviciospublicos where idserviciospublicos = " + id;
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
 
                 ServiciosPublicos sp = new ServiciosPublicos();
@@ -67,7 +67,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -81,7 +81,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "INSERT INTO serviciospublicos VALUES (@idserviciospublicos,@Agua,@Telefono,@Drenaje,@Calle,@Electricidad,@Acera,@Alumbrado);";
 
@@ -102,7 +102,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
@@ -118,7 +118,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "UPDATE serviciospublicos SET Agua=@Agua," +
                                                             "Telefono = @Telefono," +
@@ -146,7 +146,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
@@ -160,7 +160,7 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
                 query.CommandText = "Delete from serviciospublicos where idserviciospublicos = @id";
 
                 query.Prepare();
@@ -173,7 +173,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
