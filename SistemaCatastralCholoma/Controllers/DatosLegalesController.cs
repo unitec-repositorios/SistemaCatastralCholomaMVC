@@ -32,7 +32,9 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
 
-                    Sql.Data.Types.SqlDateTime date = reader.GetSqlDateTime(5);
+                    //Sql.Data.Types.SqlDateTime date = reader.GetSqlDateTime(5);
+
+                    
 
                     datos = new DatosLegales();
                     datos.idclaveCatastral = (string)reader["idclaveCatastral"];
@@ -40,7 +42,7 @@ namespace SistemaCatastralCholoma.Controllers
                     datos.tomo = (string)reader["tomo"];
                     datos.folio = (string)reader["folio"];
                     datos.asiento = (string)reader["asiento"];
-                    datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
+                    //datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
                     datos.matricula = (string)reader["matricula"];
                     datos.linea = (string)reader["linea"];
                     datos.foto = (string)reader["foto"];
@@ -88,7 +90,7 @@ namespace SistemaCatastralCholoma.Controllers
                     datos.tomo = (string)reader["tomo"];
                     datos.folio = (string)reader["folio"];
                     datos.asiento = (string)reader["asiento"];
-                    datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
+                    //datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
                     datos.matricula = (string)reader["matricula"];
                     datos.linea = (string)reader["linea"];
                     datos.foto = (string)reader["foto"];

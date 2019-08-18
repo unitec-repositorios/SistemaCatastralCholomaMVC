@@ -25,14 +25,14 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from propietario";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propietarios";
 
                 SqlDataReader reader = query.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    propietarios.Add(new Propietario((string)reader["id"], (string)reader["nombres"], (string)reader["apellidos"], 
-                        (string)reader["telefono"],(string)reader["rtn"],reader.GetChar("sexo"),(string)reader["nacionalidad"]));
+                    propietarios.Add(new Propietario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(5),
+                        reader.GetString(4), reader.GetString(6), reader.GetString(7)));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietarios);
@@ -63,8 +63,8 @@ namespace SistemaCatastralCholoma.Controllers
                 Propietario propietario = new Propietario();
                 while (reader.Read())
                 {
-                    propietario = new Propietario((string)reader["id"], (string)reader["nombres"], (string)reader["apellidos"],
-                        (string)reader["telefono"], (string)reader["rtn"], reader.GetChar("sexo"), (string)reader["nacionalidad"]);
+                    propietario = new Propietario((int)reader["id"], (string)reader["nombres"], (string)reader["apellidos"],(string)reader["identidad"],
+                        (string)reader["telefono"], (string)reader["rtn"], (string)reader["sexo"], (string)reader["nacionalidad"]);
                 }
                 conn.Close();
                 if (propietario.id == "")
@@ -114,7 +114,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.CommandText = "Select * from propietarios where identidad = '" + propietario.identidad + "'";
                 SqlDataReader reader = query.ExecuteReader();
                 reader.Read();
-                propietario.id = reader.GetString("id");
+                propietario.id = (int)reader["id"];
 
                 conn.Close();
                 var response =  Request.CreateResponse(HttpStatusCode.OK, propietario);

@@ -32,12 +32,12 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     predio = new Predio();
                     predio.idPredio = (int)reader["idPredio"];
-                    predio.mapa = reader.GetString("mapa");
-                    predio.bloque = reader.GetString("bloque");
+                    predio.mapa = (string)reader["mapa"];
+                    predio.bloque = (string)reader["bloque"];
                     predio.numeroPredio = (string)reader["numeroPredio"];
                     predio.barrio = (string)reader["barrio"];
                     predio.caserio = (string)reader["caserio"];
-                    predio.uso = (USO)reader.GetInt32("uso");
+                    predio.uso = (USO)reader["uso"];
                     predio.subUso = (SUBUSO)reader["subUso"];
                     predio.ubicacion = (string)reader["ubicacion"];
                     predio.sitio = (string)reader["sitio"];
@@ -82,12 +82,12 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     predio.idPredio = (int)reader["idPredio"];
-                    predio.mapa = reader.GetString("mapa");
-                    predio.bloque = reader.GetString("bloque");
+                    predio.mapa = (string)reader["mapa"];
+                    predio.bloque = (string)reader["bloque"];
                     predio.numeroPredio = (string)reader["numeroPredio"];
                     predio.barrio = (string)reader["barrio"];
                     predio.caserio = (string)reader["caserio"];
-                    predio.uso = (USO)reader.GetInt32("uso");
+                    predio.uso = (USO)reader["uso"];
                     predio.subUso = (SUBUSO)reader["subUso"];
                     predio.ubicacion = (string)reader["ubicacion"];
                     predio.sitio = (string)reader["sitio"];
@@ -130,7 +130,7 @@ namespace SistemaCatastralCholoma.Controllers
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    int ultimoPredio = Int32.Parse(reader.GetString("numeroPredio"));
+                    int ultimoPredio = Int32.Parse((string)reader["numeroPredio"]);
                     ultimoPredio++;
                     string nuevoNumeroPredio = ultimoPredio.ToString();
                     while (nuevoNumeroPredio.Length < 4)
@@ -190,7 +190,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.CommandText = "Select * from predios where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " and numeroPredio = '" + p.numeroPredio + "'";
                 reader = query.ExecuteReader();
                 reader.Read();
-                p.idPredio = reader.GetInt32("idPredio");
+                p.idPredio = (int)reader["idPredio"];
 
                 reader.Close();
                 conn.Close();
