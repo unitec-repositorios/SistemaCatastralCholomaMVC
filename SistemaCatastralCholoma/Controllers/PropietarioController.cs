@@ -55,7 +55,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from propietarios where id = '"+id+"'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propietarios where id = '" + id+"'";
 
                 SqlDataReader reader = query.ExecuteReader(); 
                 
@@ -63,8 +63,8 @@ namespace SistemaCatastralCholoma.Controllers
                 Propietario propietario = new Propietario();
                 while (reader.Read())
                 {
-                    propietario = new Propietario((int)reader["id"], (string)reader["nombres"], (string)reader["apellidos"],(string)reader["identidad"],
-                        (string)reader["telefono"], (string)reader["rtn"], (string)reader["sexo"], (string)reader["nacionalidad"]);
+                    propietario = new Propietario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(5),
+                        reader.GetString(4), reader.GetString(6), reader.GetString(7));
                 }
                 conn.Close();
                 if (propietario.id == 0)
@@ -97,7 +97,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO propietarios VALUES (@id,@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.propietarios VALUES (@id,@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", null);
@@ -140,7 +140,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE propietarios SET nombres=@nombres," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.propietarios SET nombres=@nombres," +
                                                             "apellidos = @apellidos," +
                                                             "telefono = @telefono," +
                                                             "identidad = @identidad,"+
@@ -182,7 +182,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
 
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from propietarios where id = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.propietarios where id = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

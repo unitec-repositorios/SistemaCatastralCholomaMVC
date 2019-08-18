@@ -23,20 +23,20 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from caracteristicaspropiedad";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad";
 
                 SqlDataReader reader = query.ExecuteReader();
                 CaracteristicasPropiedad caracteristicas;
                 while (reader.Read())
                 {
                     caracteristicas = new CaracteristicasPropiedad();
-                    caracteristicas.idcaracRural = (string)reader["id"];
-                    caracteristicas.area = (double)reader["area"];
-                    caracteristicas.explotacion = (string)reader["explotacion"];
-                    caracteristicas.topografia = (string)reader["topografia"];
-                    caracteristicas.caudal = (string)reader["caudal"];
-                    caracteristicas.pozo = (string)reader["pozo"];
-                    caracteristicas.viasComunicacion = (string)reader["viasComunicacion"];
+                    caracteristicas.idcaracRural = reader.GetString(0);
+                    caracteristicas.area = reader.GetDouble(1);
+                    caracteristicas.explotacion = reader.GetString(2);
+                    caracteristicas.topografia = reader.GetString(3);
+                    caracteristicas.caudal = reader.GetString(4);
+                    caracteristicas.pozo = reader.GetString(5);
+                    caracteristicas.viasComunicacion = reader.GetString(6);
 
                     caracteristicaspropiedad.Add(caracteristicas);
                 }
@@ -60,7 +60,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from caracteristicaspropiedad where id = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad where id = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -69,13 +69,13 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     caracteristicas = new CaracteristicasPropiedad();
-                    caracteristicas.idcaracRural = (string)reader["id"];
-                    caracteristicas.area = (double)reader["area"];
-                    caracteristicas.explotacion = (string)reader["explotacion"];
-                    caracteristicas.topografia = (string)reader["topografia"];
-                    caracteristicas.caudal = (string)reader["caudal"];
-                    caracteristicas.pozo = (string)reader["pozo"];
-                    caracteristicas.viasComunicacion = (string)reader["viasComunicacion"];
+                    caracteristicas.idcaracRural = reader.GetString(0);
+                    caracteristicas.area = reader.GetDouble(1);
+                    caracteristicas.explotacion = reader.GetString(2);
+                    caracteristicas.topografia = reader.GetString(3);
+                    caracteristicas.caudal = reader.GetString(4);
+                    caracteristicas.pozo = reader.GetString(5);
+                    caracteristicas.viasComunicacion = reader.GetString(6);
 
                 }
                 conn.Close();
@@ -103,7 +103,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO caracteristicaspropiedad VALUES (@idcaracRural,@area,@explotacion,@topografia,@caudal,@pozo,@viasComunicacion);";
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad VALUES (@idcaracRural,@area,@explotacion,@topografia,@caudal,@pozo,@viasComunicacion);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idcaracRural", p.idcaracRural);
@@ -139,7 +139,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE caracteristicaspropiedad SET idcaracRura = @idcaracRura, area = @area,"
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad SET idcaracRura = @idcaracRura, area = @area,"
                                                     + "explotacion = @explotacion, topografia = @topografia, caudal = @caudal,"
                                                     + "pozo = @pozo, viasComunicacion= @viasComunicacion";
 
@@ -177,7 +177,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from caracteristicaspropiedad where id = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad where id = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
