@@ -31,12 +31,12 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     datosComplementarios = new DatosComplementarios();
                     datosComplementarios.idClaveCatastral = reader.GetString(0);
-                    //datosComplementarios.adquicicion= reader.GetSqlDateTime(5).GetDateTime();
+                    datosComplementarios.adquicicion= reader.GetDateTime(1);
                     datosComplementarios.montoTransaccion = reader.GetDouble(2);
                     datosComplementarios.claseTransaccion = reader.GetString(3);
                     datosComplementarios.maquinaria = reader.GetString(4);
                     datosComplementarios.delineador = reader.GetString(5);
-                   // datosComplementarios.fecha = reader.GetSqlDateTime(5).GetDateTime();
+                    datosComplementarios.fecha = reader.GetDateTime(6);
                     datosComplementarios.observaciones = reader.GetString(7);
                     datosComplementarios.ocupante = reader.GetString(8);
                     datosComplementarios.uso = reader.GetString(9);
@@ -78,21 +78,21 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     datosComplementarios.idClaveCatastral = reader.GetString(0);
-                    //datosComplementarios.adquicicion = reader.GetSqlDateTime(5).GetDateTime();
-                    datosComplementarios.montoTransaccion = reader.GetDouble(2);
-                    datosComplementarios.claseTransaccion = reader.GetString(3);
-                    datosComplementarios.maquinaria = reader.GetString(4);
-                    datosComplementarios.delineador = reader.GetString(5);
-                    //datosComplementarios.fecha = reader.GetSqlDateTime(5).GetDateTime();
-                    datosComplementarios.observaciones = reader.GetString(7);
-                    datosComplementarios.ocupante = reader.GetString(8);
-                    datosComplementarios.uso = reader.GetString(9);
-                    datosComplementarios.clase = reader.GetString(10);
-                    datosComplementarios.bueno = reader.GetDouble(11);
-                    datosComplementarios.observacion = reader.GetString(12);
-                    datosComplementarios.rentaMensual = reader.GetDouble(13);
-                    datosComplementarios.idServiciosPublicos = reader.GetInt32(14);
-                    datosComplementarios.valorDatosComplementarios = reader.GetDouble(15);
+                    datosComplementarios.adquicicion = reader.GetDateTime(2);
+                    datosComplementarios.montoTransaccion = reader.GetDouble(3);
+                    datosComplementarios.claseTransaccion = reader.GetString(4);
+                    datosComplementarios.maquinaria = reader.GetString(5);
+                    datosComplementarios.delineador = reader.GetString(6);
+                    datosComplementarios.fecha = reader.GetDateTime(7);
+                    datosComplementarios.observaciones = reader.GetString(8);
+                    datosComplementarios.ocupante = reader.GetString(9);
+                    datosComplementarios.uso = reader.GetString(10);
+                    datosComplementarios.clase = reader.GetString(11);
+                    datosComplementarios.bueno = reader.GetDouble(12);
+                    datosComplementarios.observacion = reader.GetString(13);
+                    datosComplementarios.rentaMensual = reader.GetDouble(14);
+                    datosComplementarios.idServiciosPublicos = reader.GetInt32(15);
+                    datosComplementarios.valorDatosComplementarios = reader.GetDouble(16);
 
                 }
                 conn.Close();

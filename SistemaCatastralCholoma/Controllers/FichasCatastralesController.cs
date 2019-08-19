@@ -69,8 +69,6 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            conn.Close();
-            return null;
         }
     
 
@@ -161,8 +159,6 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
             }
-            conn.Close();
-            return null;
         }
 
         // DELETE: api/FichaCatastral/5
@@ -189,8 +185,6 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Close();
                 return response;
             }
-            conn.Close();
-            return null;
         }
     
     }

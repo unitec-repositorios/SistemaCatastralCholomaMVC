@@ -25,24 +25,19 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * bkmilcp6nvs1hgkadyz6.from datoslegales";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datoslegales";
 
                 SqlDataReader reader = query.ExecuteReader();
                 DatosLegales datos;
                 while (reader.Read())
                 {
-
-                    //Sql.Data.Types.SqlDateTime date = reader.GetSqlDateTime(5);
-
-                    
-
                     datos = new DatosLegales();
                     datos.idclaveCatastral = reader.GetString(0);
                     datos.propiedad = reader.GetString(1);
                     datos.tomo = reader.GetString(2);
                     datos.folio = reader.GetString(3);
                     datos.asiento = reader.GetString(4);
-                    //datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
+                    datos.inscripcion = reader.GetDateTime(5);
                     datos.matricula = reader.GetString(6);
                     datos.linea = reader.GetString(7);
                     datos.foto = reader.GetString(8);
@@ -90,7 +85,7 @@ namespace SistemaCatastralCholoma.Controllers
                     datos.tomo = reader.GetString(2);
                     datos.folio = reader.GetString(3);
                     datos.asiento = reader.GetString(4);
-                    //datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
+                    datos.inscripcion = reader.GetDateTime(5);
                     datos.matricula = reader.GetString(6);
                     datos.linea = reader.GetString(7);
                     datos.foto = reader.GetString(8);
