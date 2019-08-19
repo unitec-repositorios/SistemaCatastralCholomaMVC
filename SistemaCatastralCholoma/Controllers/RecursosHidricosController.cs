@@ -21,19 +21,29 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "select * from usotierra";
+                cmd.CommandText = "select * from bkmilcp6nvs1hgkadyz6.usotierra";
                 SqlDataReader reader = cmd.ExecuteReader();
                 RecursosHidricos rh;
                 while (reader.Read())
                 {
-                    rh = new RecursosHidricos();
+                    /*rh = new RecursosHidricos();
                     rh.idrecursoshidricos = Convert.ToInt32(reader["idrecursoshidricos"]);
                     rh.fuente = (string)reader["fuente"];
                     rh.riego = (string)reader["codigo"];
                     rh.sistemaIrrigacion = (string)reader["sistemaIrrigacion"];
                     rh.distancia = (double)reader["distancia"];
                     rh.area = (double)reader["area"];
-                    rh.idCaracRural = Convert.ToInt32(reader["idCaracRural"]);
+                    rh.idCaracRural = Convert.ToInt32(reader["idCaracRural"]);*/
+
+                    rh = new RecursosHidricos();
+                    rh.idrecursoshidricos = reader.GetInt32(0);
+                    rh.fuente = reader.GetString(1);
+                    rh.riego = reader.GetString(2);
+                    rh.sistemaIrrigacion = reader.GetString(3);
+                    rh.distancia = reader.GetDouble(4);
+                    rh.area = reader.GetDouble(5);
+                    rh.idCaracRural = reader.GetInt32(6);
+
                     recursosHidricos.Add(rh);
                 }
                 conn.Close();
@@ -55,20 +65,29 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "select * from recursoshidricos where idrecursoshidricos = '" + id + "'";
+                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.recursoshidricos where idrecursoshidricos = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
                 RecursosHidricos rh = null;
                 while (reader.Read())
                 {
-                    rh = new RecursosHidricos();
+                    /*rh = new RecursosHidricos();
                     rh.idrecursoshidricos = Convert.ToInt32(reader["idrecursoshidricos"]);
                     rh.fuente = (string)reader["fuente"];
-                    rh.riego = (string)reader["riego"];
+                    rh.riego = (string)reader["codigo"];
                     rh.sistemaIrrigacion = (string)reader["sistemaIrrigacion"];
                     rh.distancia = (double)reader["distancia"];
                     rh.area = (double)reader["area"];
-                    rh.idCaracRural = Convert.ToInt32(reader["idCaracRural"]);
+                    rh.idCaracRural = Convert.ToInt32(reader["idCaracRural"]);*/
+
+                    rh = new RecursosHidricos();
+                    rh.idrecursoshidricos = reader.GetInt32(0);
+                    rh.fuente = reader.GetString(1);
+                    rh.riego = reader.GetString(2);
+                    rh.sistemaIrrigacion = reader.GetString(3);
+                    rh.distancia = reader.GetDouble(4);
+                    rh.area = reader.GetDouble(5);
+                    rh.idCaracRural = reader.GetInt32(6);
 
                 }
                 conn.Close();
@@ -95,7 +114,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO recursoshidricos VALUES (@idrecursoshidricos," +
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.recursoshidricos VALUES (@idrecursoshidricos," +
                                                                "@fuente," +
                                                                "@riego," +
                                                                "@sistemaIrrigacion," +
@@ -135,7 +154,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE recursoshidricos SET fuente = @fuente," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.recursoshidricos SET fuente = @fuente," +
                                                       "riego = @riego," +
                                                       "sistemaIrrigacion = @sistemaIrrigacion," +
                                                       "distancia = @distancia," +
@@ -172,7 +191,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "delete from recursoshidricos where idusotierra = @id";
+                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.recursoshidricos where idusotierra = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

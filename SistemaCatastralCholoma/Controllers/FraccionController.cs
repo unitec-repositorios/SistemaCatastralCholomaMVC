@@ -21,14 +21,17 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlDataReader reader;
-                SqlCommand cmd = new SqlCommand("select * from fraccion", conn);
+                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.fraccion", conn);
                 reader = cmd.ExecuteReader();
                 List<Fraccion> f = new List<Fraccion>();
                 while (reader.Read())
                 {
-                    f.Add(new Fraccion((int)reader["idfraccion"], (double)reader["Valor"], (double)reader["Area"],
+                    /*f.Add(new Fraccion((int)reader["idfraccion"], (double)reader["Valor"], (double)reader["Area"],
                         (double)reader["parcelaTipica"], (double)reader["factorModificado"], (double)reader["Frente"],
-                        (int)reader["idAvaluoUrbano"]));
+                        (int)reader["idAvaluoUrbano"]));*/
+
+                    f.Add(new Fraccion(reader.GetInt32(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetDouble(3), 
+                        reader.GetDouble(4), reader.GetDouble(5), reader.GetInt32(6)));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, f);
@@ -36,8 +39,8 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
-                Console.WriteLine(e.Message);
-                conn.Close();
+                var response = Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
+                return response;
             }
             conn.Close();
             return null;
@@ -51,7 +54,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from fraccion where idfraccion = " + id;
+                query.CommandText = "Select * from fraccion where bkmilcp6nvs1hgkadyz6.idfraccion = " + id;
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -59,8 +62,8 @@ namespace SistemaCatastralCholoma.Controllers
                 Fraccion f = new Fraccion();
                 while (reader.Read())
                 {
-                    f = new Fraccion((int)reader["idfraccion"], (double)reader["Valor"], (double)reader["Area"],
-                        (double)reader["parcelaTipica"], (double)reader["factorModificado"], (double)reader["Frente"], (int)reader["idAvaluoUrbano"]);
+                    f = new Fraccion(reader.GetInt32(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetDouble(3),
+                        reader.GetDouble(4), reader.GetDouble(5), reader.GetInt32(6));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, f);
@@ -83,7 +86,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO fraccion VALUES (@idfraccion,@Valor,@Area,@parcelaTipica,@factorModificado,@Frente,@idAvaluoUrbano);";
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.fraccion VALUES (@idfraccion,@Valor,@Area,@parcelaTipica,@factorModificado,@Frente,@idAvaluoUrbano);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idfraccion", f.idfraccion );
@@ -119,7 +122,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE fraccion SET Valor=@Valor," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.fraccion SET Valor=@Valor," +
                                                             "Area = @Area," +
                                                             "parcelaTipica = @parcelaTipica," +
                                                             "factorModificado = @factorModificado," +
@@ -158,7 +161,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from fraccion where idfraccion = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.fraccion where idfraccion = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

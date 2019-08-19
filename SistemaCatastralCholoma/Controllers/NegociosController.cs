@@ -23,21 +23,30 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from negocios";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.negocios";
 
                 SqlDataReader reader = query.ExecuteReader();
                 Negocios negocio;
                 while (reader.Read())
                 {
                      negocio = new Negocios();
-                     negocio.idnegocios = (int)reader["id"];
-                     negocio.nombre = (string)reader["nombre"];
-                     negocio.direccion = (string)reader["direccion"];
-                     negocio.tipo = (string)reader["tipo"]; 
-                     negocio.deuda = (double)reader["deuda"];
-                     negocio.cofundadores = (string)reader["cofundadores"];
-                     negocio.fechaFundacion = (string)reader["fechaFundacion"];
-                     negocio.idclavecatastral_n = (string)reader["idclavecatastral_n"];
+                    /*negocio.idnegocios = (int)reader["id"];
+                    negocio.nombre = (string)reader["nombre"];
+                    negocio.direccion = (string)reader["direccion"];
+                    negocio.tipo = (string)reader["tipo"]; 
+                    negocio.deuda = (double)reader["deuda"];
+                    negocio.cofundadores = (string)reader["cofundadores"];
+                    negocio.fechaFundacion = (string)reader["fechaFundacion"];
+                    negocio.idclavecatastral_n = (string)reader["idclavecatastral_n"];*/
+
+                    negocio.idnegocios = reader.GetInt32(0);
+                    negocio.nombre = reader.GetString(1);
+                    negocio.direccion = reader.GetString(2);
+                    negocio.tipo = reader.GetString(3);
+                    negocio.deuda = reader.GetDouble(4);
+                    negocio.cofundadores = reader.GetString(5);
+                    negocio.fechaFundacion = reader.GetString(6);
+                    negocio.idclavecatastral_n = reader.GetString(7);
 
                     negocios.Add(negocio);
                 }
@@ -61,7 +70,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from negocios where id = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.negocios where id = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -69,15 +78,23 @@ namespace SistemaCatastralCholoma.Controllers
                 Negocios negocio = new Negocios();
                 while (reader.Read())
                 {
-                    negocio = new Negocios();
-                    negocio.idnegocios = (int)reader["id"];
+                    /*negocio.idnegocios = (int)reader["id"];
                     negocio.nombre = (string)reader["nombre"];
                     negocio.direccion = (string)reader["direccion"];
-                    negocio.tipo = (string)reader["tipo"];
+                    negocio.tipo = (string)reader["tipo"]; 
                     negocio.deuda = (double)reader["deuda"];
                     negocio.cofundadores = (string)reader["cofundadores"];
                     negocio.fechaFundacion = (string)reader["fechaFundacion"];
-                    negocio.idclavecatastral_n = (string)reader["idclavecatastral_n"];
+                    negocio.idclavecatastral_n = (string)reader["idclavecatastral_n"];*/
+
+                    negocio.idnegocios = reader.GetInt32(0);
+                    negocio.nombre = reader.GetString(1);
+                    negocio.direccion = reader.GetString(2);
+                    negocio.tipo = reader.GetString(3);
+                    negocio.deuda = reader.GetDouble(4);
+                    negocio.cofundadores = reader.GetString(5);
+                    negocio.fechaFundacion = reader.GetString(6);
+                    negocio.idclavecatastral_n = reader.GetString(7);
 
 
                 }
@@ -106,7 +123,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO negocios VALUES (@idnegocios,@nombre,@direccion,@tipo,@deuda,@cofundadores,@fechaFundacion,@idclavecatastral_n);";
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.negocios VALUES (@idnegocios,@nombre,@direccion,@tipo,@deuda,@cofundadores,@fechaFundacion,@idclavecatastral_n);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idnegocios", p.idnegocios);
@@ -143,7 +160,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE negocios SET idnegocios = @idnegocios, nombre = @nombre,"
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.negocios SET idnegocios = @idnegocios, nombre = @nombre,"
                                                     + "direccion = @direccion, tipo = @tipo, deuda = @deuda,"
                                                     + "cofundadores = @cofundadores, fechaFundacion = @fechaFundacion,"
                                                     + "ididclavecatastral_n = @idclavecatastral_n";
@@ -183,7 +200,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from negocio where idnegocios = @idnegocios";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.negocio where idnegocios = @idnegocios";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idnegocios", id);

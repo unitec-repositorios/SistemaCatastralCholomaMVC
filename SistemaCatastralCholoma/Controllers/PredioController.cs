@@ -24,13 +24,13 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from predios";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.predios";
 
                 SqlDataReader reader = query.ExecuteReader();
                 Predio predio;
                 while (reader.Read())
                 {
-                    predio = new Predio();
+                    /*predio = new Predio();
                     predio.idPredio = (int)reader["idPredio"];
                     predio.mapa = (string)reader["mapa"];
                     predio.bloque = (string)reader["bloque"];
@@ -48,7 +48,27 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.porcentajeExencion = (double)reader["porcentajeExtencion"];
                     predio.tasaImpositiva = (double)reader["tasaImpositiva"];
                     predio.futurasRevisiones = (string)reader["futurasRevisiones"];
-                    predio.porcentajeConcertacion = (double)reader["porcentajeConcertacion"];
+                    predio.porcentajeConcertacion = (double)reader["porcentajeConcertacion"];*/
+
+                    predio = new Predio();
+                    predio.idPredio = reader.GetInt32(0);
+                    predio.mapa = reader.GetString(1);
+                    predio.bloque = reader.GetString(2);
+                    predio.numeroPredio = reader.GetString(3);
+                    predio.barrio = reader.GetString(4);
+                    predio.caserio = reader.GetString(5);
+                    predio.uso = (USO)reader.GetInt32(6);
+                    predio.subUso = (SUBUSO)reader.GetInt32(7);
+                    predio.ubicacion = reader.GetString(8);
+                    predio.sitio = reader.GetString(9);
+                    predio.construccion = reader.GetString(10);
+                    predio.estatusTributario = (ESTATUS_TRIBUTARIO)reader.GetInt32(11);
+                    predio.codigoPropietario = reader.GetString(12);
+                    predio.codigoHabitacional = reader.GetString(13);
+                    predio.porcentajeExencion = reader.GetDouble(14);
+                    predio.tasaImpositiva = reader.GetDouble(15);
+                    predio.futurasRevisiones = reader.GetString(16);
+                    predio.porcentajeConcertacion = reader.GetDouble(17);
 
 
                     predios.Add(predio);
@@ -73,7 +93,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from predios where idPredio = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.predios where idPredio = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -81,6 +101,7 @@ namespace SistemaCatastralCholoma.Controllers
                 Predio predio = new Predio();
                 while (reader.Read())
                 {
+                    /*predio = new Predio();
                     predio.idPredio = (int)reader["idPredio"];
                     predio.mapa = (string)reader["mapa"];
                     predio.bloque = (string)reader["bloque"];
@@ -98,7 +119,27 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.porcentajeExencion = (double)reader["porcentajeExtencion"];
                     predio.tasaImpositiva = (double)reader["tasaImpositiva"];
                     predio.futurasRevisiones = (string)reader["futurasRevisiones"];
-                    predio.porcentajeConcertacion = (double)reader["porcentajeConcertacion"];
+                    predio.porcentajeConcertacion = (double)reader["porcentajeConcertacion"];*/
+
+                    predio = new Predio();
+                    predio.idPredio = reader.GetInt32(0);
+                    predio.mapa = reader.GetString(1);
+                    predio.bloque = reader.GetString(2);
+                    predio.numeroPredio = reader.GetString(3);
+                    predio.barrio = reader.GetString(4);
+                    predio.caserio = reader.GetString(5);
+                    predio.uso = (USO)reader.GetInt32(6);
+                    predio.subUso = (SUBUSO)reader.GetInt32(7);
+                    predio.ubicacion = reader.GetString(8);
+                    predio.sitio = reader.GetString(9);
+                    predio.construccion = reader.GetString(10);
+                    predio.estatusTributario = (ESTATUS_TRIBUTARIO)reader.GetInt32(11);
+                    predio.codigoPropietario = reader.GetString(12);
+                    predio.codigoHabitacional = reader.GetString(13);
+                    predio.porcentajeExencion = reader.GetDouble(14);
+                    predio.tasaImpositiva = reader.GetDouble(15);
+                    predio.futurasRevisiones = reader.GetString(16);
+                    predio.porcentajeConcertacion = reader.GetDouble(17);
                 }
                 conn.Close();
                 if (predio.idPredio == 0)
@@ -125,12 +166,13 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from predios where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " order by numeroPredio desc limit 1";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.predios where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " order by numeroPredio desc limit 1";
                 SqlDataReader reader = query.ExecuteReader();
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    int ultimoPredio = Int32.Parse((string)reader["numeroPredio"]);
+                    //int ultimoPredio = Int32.Parse((string)reader["numeroPredio"]);
+                    int ultimoPredio = Int32.Parse(reader.GetString(0));
                     ultimoPredio++;
                     string nuevoNumeroPredio = ultimoPredio.ToString();
                     while (nuevoNumeroPredio.Length < 4)
@@ -146,7 +188,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 reader.Close();
 
-                query.CommandText = "INSERT INTO predios VALUES (@id," +
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.predios VALUES (@id," +
                                                                 "@mapa," +
                                                                 "@bloque," +
                                                                 "@numeroPredio," +
@@ -187,7 +229,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 query.ExecuteNonQuery();
 
-                query.CommandText = "Select * from predios where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " and numeroPredio = '" + p.numeroPredio + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.predios where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " and numeroPredio = '" + p.numeroPredio + "'";
                 reader = query.ExecuteReader();
                 reader.Read();
                 p.idPredio = (int)reader["idPredio"];
@@ -217,7 +259,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE predios SET numeroPredio = @numeroPredio, " +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.predios SET numeroPredio = @numeroPredio, " +
                                                         "mapa = @mapa, " +
                                                         "bloque = @bloque, " +
                                                         "barrio = @barrio,"
@@ -280,7 +322,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from predios where idPredio = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.predios where idPredio = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
