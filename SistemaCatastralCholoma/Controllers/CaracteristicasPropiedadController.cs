@@ -5,13 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SistemaCatastralCholoma.Models;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class CaracteristicasPropiedadController : ApiController
     {
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
 
         // GET api/<controller>
         [HttpGet]
@@ -21,22 +21,22 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from caracteristicaspropiedad";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
                 CaracteristicasPropiedad caracteristicas;
                 while (reader.Read())
                 {
                     caracteristicas = new CaracteristicasPropiedad();
-                    caracteristicas.idcaracRural = (string)reader["id"];
-                    caracteristicas.area = (double)reader["area"];
-                    caracteristicas.explotacion = (string)reader["explotacion"];
-                    caracteristicas.topografia = (string)reader["topografia"];
-                    caracteristicas.caudal = (string)reader["caudal"];
-                    caracteristicas.pozo = (string)reader["pozo"];
-                    caracteristicas.viasComunicacion = (string)reader["viasComunicacion"];
+                    caracteristicas.idcaracRural = reader.GetString(0);
+                    caracteristicas.area = reader.GetDouble(1);
+                    caracteristicas.explotacion = reader.GetString(2);
+                    caracteristicas.topografia = reader.GetString(3);
+                    caracteristicas.caudal = reader.GetString(4);
+                    caracteristicas.pozo = reader.GetString(5);
+                    caracteristicas.viasComunicacion = reader.GetString(6);
 
                     caracteristicaspropiedad.Add(caracteristicas);
                 }
@@ -45,7 +45,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -58,24 +58,24 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from caracteristicaspropiedad where id = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad where id = '" + id + "'";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
 
                 CaracteristicasPropiedad caracteristicas = new CaracteristicasPropiedad();
                 while (reader.Read())
                 {
                     caracteristicas = new CaracteristicasPropiedad();
-                    caracteristicas.idcaracRural = (string)reader["id"];
-                    caracteristicas.area = (double)reader["area"];
-                    caracteristicas.explotacion = (string)reader["explotacion"];
-                    caracteristicas.topografia = (string)reader["topografia"];
-                    caracteristicas.caudal = (string)reader["caudal"];
-                    caracteristicas.pozo = (string)reader["pozo"];
-                    caracteristicas.viasComunicacion = (string)reader["viasComunicacion"];
+                    caracteristicas.idcaracRural = reader.GetString(0);
+                    caracteristicas.area = reader.GetDouble(1);
+                    caracteristicas.explotacion = reader.GetString(2);
+                    caracteristicas.topografia = reader.GetString(3);
+                    caracteristicas.caudal = reader.GetString(4);
+                    caracteristicas.pozo = reader.GetString(5);
+                    caracteristicas.viasComunicacion = reader.GetString(6);
 
                 }
                 conn.Close();
@@ -86,7 +86,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -101,9 +101,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO caracteristicaspropiedad VALUES (@idcaracRural,@area,@explotacion,@topografia,@caudal,@pozo,@viasComunicacion);";
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad VALUES (@idcaracRural,@area,@explotacion,@topografia,@caudal,@pozo,@viasComunicacion);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idcaracRural", p.idcaracRural);
@@ -121,7 +121,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadGateway, p);
@@ -137,9 +137,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE caracteristicaspropiedad SET idcaracRura = @idcaracRura, area = @area,"
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad SET idcaracRura = @idcaracRura, area = @area,"
                                                     + "explotacion = @explotacion, topografia = @topografia, caudal = @caudal,"
                                                     + "pozo = @pozo, viasComunicacion= @viasComunicacion";
 
@@ -161,7 +161,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
@@ -176,8 +176,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from caracteristicaspropiedad where id = @id";
+                SqlCommand query = conn.CreateCommand();
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad where id = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
@@ -189,7 +189,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
                 return response;

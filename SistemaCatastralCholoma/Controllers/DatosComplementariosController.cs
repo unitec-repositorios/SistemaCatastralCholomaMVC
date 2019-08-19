@@ -5,14 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SistemaCatastralCholoma.Models;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class DatosComplementariosController : ApiController
     {
 
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
         // GET: api/DatosComplementarios
         [HttpGet]
         public HttpResponseMessage listDatosComplementarios()
@@ -21,31 +21,31 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from datoscomplementarios";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datoscomplementarios";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
                 DatosComplementarios datosComplementarios;
                 while (reader.Read())
                 {
                     datosComplementarios = new DatosComplementarios();
-                    datosComplementarios.idClaveCatastral = (string)reader["idClaveCatastral"];
-                    datosComplementarios.adquicicion= reader.GetMySqlDateTime(5).GetDateTime();
-                    datosComplementarios.montoTransaccion = (Double)reader["montoTransaccion"];
-                    datosComplementarios.claseTransaccion = (string)reader["montoTransaccion"];
-                    datosComplementarios.maquinaria = (string)reader["maquinaria"];
-                    datosComplementarios.delineador = (string)reader["delineador"];
-                    datosComplementarios.fecha = reader.GetMySqlDateTime(5).GetDateTime();
-                    datosComplementarios.observacions = (string)reader["observacions"];
-                    datosComplementarios.ocupante = (string)reader["ocupante"];
-                    datosComplementarios.uso = (string)reader["uso"];
-                    datosComplementarios.clase = (string)reader["clase"];
-                    datosComplementarios.bueno = (Double)reader["bueno"];
-                    datosComplementarios.observacion = (string)reader["observacion"];
-                    datosComplementarios.rentaMensual = (Double)reader["rentaMensual"];
-                    datosComplementarios.idServiciosPublicos = (int)reader["idServiciosPublicos"];
-                    datosComplementarios.valorDatosComplementarios = (Double)reader["valorDatosComplementarios"];
+                    datosComplementarios.idClaveCatastral = reader.GetString(0);
+                    //datosComplementarios.adquicicion= reader.GetSqlDateTime(5).GetDateTime();
+                    datosComplementarios.montoTransaccion = reader.GetDouble(2);
+                    datosComplementarios.claseTransaccion = reader.GetString(3);
+                    datosComplementarios.maquinaria = reader.GetString(4);
+                    datosComplementarios.delineador = reader.GetString(5);
+                   // datosComplementarios.fecha = reader.GetSqlDateTime(5).GetDateTime();
+                    datosComplementarios.observaciones = reader.GetString(7);
+                    datosComplementarios.ocupante = reader.GetString(8);
+                    datosComplementarios.uso = reader.GetString(9);
+                    datosComplementarios.clase = reader.GetString(10);
+                    datosComplementarios.bueno = reader.GetDouble(11);
+                    datosComplementarios.observacion = reader.GetString(12);
+                    datosComplementarios.rentaMensual = reader.GetDouble(13);
+                    datosComplementarios.idServiciosPublicos = reader.GetInt32(14);
+                    datosComplementarios.valorDatosComplementarios = reader.GetDouble(15);
                     
                     datosComplementariosList.Add(datosComplementarios);
                 }
@@ -54,7 +54,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -68,31 +68,31 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from datoscomplementarios where idClaveCatastral = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datoscomplementarios where idClaveCatastral = '" + id + "'";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
                 DatosComplementarios datosComplementarios = new DatosComplementarios();
                 while (reader.Read())
                 {
-                    datosComplementarios.idClaveCatastral = (string)reader["idClaveCatastral"];
-                    datosComplementarios.adquicicion = reader.GetMySqlDateTime(5).GetDateTime();
-                    datosComplementarios.montoTransaccion = (Double)reader["montoTransaccion"];
-                    datosComplementarios.claseTransaccion = (string)reader["montoTransaccion"];
-                    datosComplementarios.maquinaria = (string)reader["maquinaria"];
-                    datosComplementarios.delineador = (string)reader["delineador"];
-                    datosComplementarios.fecha = reader.GetMySqlDateTime(5).GetDateTime();
-                    datosComplementarios.observacions = (string)reader["observacions"];
-                    datosComplementarios.ocupante = (string)reader["ocupante"];
-                    datosComplementarios.uso = (string)reader["uso"];
-                    datosComplementarios.clase = (string)reader["clase"];
-                    datosComplementarios.bueno = (Double)reader["bueno"];
-                    datosComplementarios.observacion = (string)reader["observacion"];
-                    datosComplementarios.rentaMensual = (Double)reader["rentaMensual"];
-                    datosComplementarios.idServiciosPublicos = (int)reader["idServiciosPublicos"];
-                    datosComplementarios.valorDatosComplementarios = (Double)reader["valorDatosComplementarios"];
+                    datosComplementarios.idClaveCatastral = reader.GetString(0);
+                    //datosComplementarios.adquicicion = reader.GetSqlDateTime(5).GetDateTime();
+                    datosComplementarios.montoTransaccion = reader.GetDouble(2);
+                    datosComplementarios.claseTransaccion = reader.GetString(3);
+                    datosComplementarios.maquinaria = reader.GetString(4);
+                    datosComplementarios.delineador = reader.GetString(5);
+                    //datosComplementarios.fecha = reader.GetSqlDateTime(5).GetDateTime();
+                    datosComplementarios.observaciones = reader.GetString(7);
+                    datosComplementarios.ocupante = reader.GetString(8);
+                    datosComplementarios.uso = reader.GetString(9);
+                    datosComplementarios.clase = reader.GetString(10);
+                    datosComplementarios.bueno = reader.GetDouble(11);
+                    datosComplementarios.observacion = reader.GetString(12);
+                    datosComplementarios.rentaMensual = reader.GetDouble(13);
+                    datosComplementarios.idServiciosPublicos = reader.GetInt32(14);
+                    datosComplementarios.valorDatosComplementarios = reader.GetDouble(15);
 
                 }
                 conn.Close();
@@ -103,7 +103,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -118,9 +118,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO datoscomplementarios VALUES                                        (@idClaveCatastral,"
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.datoscomplementarios VALUES                                        (@idClaveCatastral,"
                                      + "@adquisicion," 
                                      + "@montoTransaccion,"
                                      + "@claseTransaccion,"
@@ -163,7 +163,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -178,9 +178,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE datoscomplementarios SET adquisicion = @adquisicion," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.datoscomplementarios SET adquisicion = @adquisicion," +
                                                             "montoTransaccion = @montoTransaccion," +
                                                             "claseTransaccion = @claseTransaccion," +
                                                             "maquinaria = @maquinaria," +
@@ -220,7 +220,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, datosComplementarios);
                 return response;
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -234,8 +234,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from datoscomplementarios where idClaveCatastral = @id";
+                SqlCommand query = conn.CreateCommand();
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.datoscomplementarios where idClaveCatastral = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
@@ -247,7 +247,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using SistemaCatastralCholoma.Models;
  
 namespace SistemaCatastralCholoma.Controllers
@@ -12,7 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class EmpleadoController : ApiController
     {
 
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
 
         // GET: api/Empleado
         [HttpGet]
@@ -21,8 +21,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand("select * from empleado", conn);
+                SqlDataReader reader;
+                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.empleado", conn);
                 reader = cmd.ExecuteReader();
                 List<Empleado> empleados = new List<Empleado>();
                 while (reader.Read())
@@ -36,7 +36,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, empleados);
                 return response;
             }
-            catch(MySqlException e)
+            catch(SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -52,8 +52,8 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand("select * from empleado where nombre = '" + id + "'", conn);
+                SqlDataReader reader;
+                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.empleado where nombre = '" + id + "'", conn);
                 reader = cmd.ExecuteReader();
 
                 Empleado empleado = new Empleado();
@@ -70,7 +70,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, empleado);
                 return response;
             }
-            catch(MySqlException e)
+            catch(SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -85,8 +85,8 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand cmd = conn.CreateCommand();
-                string query = "insert into empleado values (@nombre, @pass, @tip)";
+                SqlCommand cmd = conn.CreateCommand();
+                string query = "insert into bkmilcp6nvs1hgkadyz6.empleado values (@nombre, @pass, @tip)";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@nombre", empleado.nombre);
                 cmd.Parameters.AddWithValue("@pass", empleado.password);
@@ -97,7 +97,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, empleado);
                 return response;
             }
-            catch(MySqlException e)
+            catch(SqlException e)
             {
 
                 Console.WriteLine(e.Message);
@@ -118,8 +118,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand cmd = conn.CreateCommand();
-                string query = "update empleado set password = @pass where nombre = @nomb";
+                SqlCommand cmd = conn.CreateCommand();
+                string query = "update bkmilcp6nvs1hgkadyz6.empleado set password = @pass where nombre = @nomb";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@nomb", id);
                 cmd.Parameters.AddWithValue("@pass", empleado.password);
@@ -129,7 +129,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, empleado);
                 return response;
             }
-            catch(MySqlException e)
+            catch(SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
@@ -147,8 +147,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand cmd = conn.CreateCommand();
-                string query = "delete from empleado where nombre = @nomb";
+                SqlCommand cmd = conn.CreateCommand();
+                string query = "delete from bkmilcp6nvs1hgkadyz6.empleado where nombre = @nomb";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@nomb", id);
                 cmd.ExecuteNonQuery();
@@ -158,7 +158,7 @@ namespace SistemaCatastralCholoma.Controllers
 
 
             }
-            catch(MySqlException e)
+            catch(SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);

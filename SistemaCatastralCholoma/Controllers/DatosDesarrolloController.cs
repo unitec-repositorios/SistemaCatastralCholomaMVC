@@ -5,14 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SistemaCatastralCholoma.Models;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class DatosDesarrolloController : ApiController
     {
 
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
         // GET: api/DatosDesarrollo
         [HttpGet]
         public HttpResponseMessage listDatosDesarrollo()
@@ -21,20 +21,20 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from datosdesarrollo";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datosdesarrollo";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
                 DatosDesarrollo datosDes = new DatosDesarrollo();
                 while (reader.Read())
                 {
                     datosDes = new DatosDesarrollo();
-                    datosDes.iddatosdesarrollo = (string)reader["iddatosdesarrollo"];
-                    datosDes.area = (Double)reader["area"];
-                    datosDes.servicios = (Double)reader["servicios"];
-                    datosDes.topografia = (Double)reader["topografia"];
-                    datosDes.configuracion = (Double)reader["configuracion"];
+                    datosDes.iddatosdesarrollo = reader.GetString(0);
+                    datosDes.area = reader.GetDouble(1);
+                    datosDes.servicios = reader.GetDouble(2);
+                    datosDes.topografia = reader.GetDouble(3);
+                    datosDes.configuracion = reader.GetDouble(4);
 
                     datosDesarrollo.Add(datosDes);
                 }
@@ -43,7 +43,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -57,22 +57,22 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from datosdesarrollo where iddatosdesarrollo = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datosdesarrollo where iddatosdesarrollo = '" + id + "'";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
 
                 DatosDesarrollo datosDesarrollo = new DatosDesarrollo();
                 while (reader.Read())
                 {
                     datosDesarrollo = new DatosDesarrollo();
-                    datosDesarrollo.iddatosdesarrollo = (string)reader["iddatosdesarrollo"];
-                    datosDesarrollo.area = (Double)reader["area"];
-                    datosDesarrollo.servicios = (Double)reader["servicios"];
-                    datosDesarrollo.topografia = (Double)reader["topografia"];
-                    datosDesarrollo.configuracion = (Double)reader["configuracion"];
+                    datosDesarrollo.iddatosdesarrollo = reader.GetString(0);
+                    datosDesarrollo.area = reader.GetDouble(1);
+                    datosDesarrollo.servicios = reader.GetDouble(2);
+                    datosDesarrollo.topografia = reader.GetDouble(3);
+                    datosDesarrollo.configuracion = reader.GetDouble(4);
                 }
                 conn.Close();
                 if (datosDesarrollo.iddatosdesarrollo == null)
@@ -82,7 +82,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -97,9 +97,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO datosdesarrollo VALUES (@iddatosdesarrollo,"                                                           + "@area," 
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.datosdesarrollo VALUES (@iddatosdesarrollo," + "@area," 
                                                                         + "@servicios," 
                                                                         + "@topografia," +
                                                                         "@configuracion)";
@@ -119,7 +119,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -134,9 +134,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE datosdesarrollo SET area = @area, servicios = @servicios, topografia = @topografia, configuracion = @configuracion" +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.datosdesarrollo SET area = @area, servicios = @servicios, topografia = @topografia, configuracion = @configuracion" +
                                                       "where iddatosdesarrollo = @id";
 
                 query.Prepare();
@@ -152,7 +152,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, datosDesarrollo);
                 return response;
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -166,8 +166,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from datosdesarrollo where iddatosdesarrollo = @id";
+                SqlCommand query = conn.CreateCommand();
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.datosdesarrollo where iddatosdesarrollo = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
@@ -179,7 +179,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;

@@ -13,7 +13,7 @@ namespace SistemaCatastralCholoma.Models
         public string identidad { get; set; }
         public string telefono { get; set; }
         public string rtn { get; set; }
-        public char sexo { get; set; }
+        public string sexo { get; set; }
         public string nacionalidad { get; set; }
 
         public Propietario()
@@ -21,7 +21,7 @@ namespace SistemaCatastralCholoma.Models
 
         }
 
-        public Propietario(int id, string nombres, string apellidos, string identidad, string telefono, string rtn, char sexo, string nacionalidad)
+        public Propietario(int id, string nombres, string apellidos, string identidad, string telefono, string rtn, string sexo, string nacionalidad)
         {
             this.id = id;
             this.nombres = nombres;

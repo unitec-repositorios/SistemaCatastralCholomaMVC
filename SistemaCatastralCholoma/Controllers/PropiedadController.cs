@@ -5,13 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SistemaCatastralCholoma.Models;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class PropiedadController : ApiController
     {
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
 
         // GET: api/Propietario
         [HttpGet]
@@ -21,11 +21,11 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "Select * from propiedad";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
                 Propiedad propiedad;
                 while (reader.Read())
@@ -47,7 +47,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
@@ -62,11 +62,11 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "Select * from propiedad where claveCatastral = '" + id + "'";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
 
                 Propiedad propiedad = new Propiedad();
@@ -90,7 +90,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
@@ -105,7 +105,7 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand my = conn.CreateCommand();
+                SqlCommand my = conn.CreateCommand();
                 my.CommandText = "SELECT count(predio) from propiedad where mapa = '" + propiedad.mapa + "' AND bloque = '" + propiedad.bloque + "';";
 
 
@@ -131,7 +131,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 string claveC = propiedad.claveCatastral + strca;
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
                 query.CommandText = "SELECT numeroPredio FROM predio WHERE mapa = '"+propiedad.mapa+"' AND bloque = '"+propiedad.bloque+"' ORDER BY numeroPredio DESC LIMIT 1;";
 
                 query.CommandText = "INSERT INTO propiedad VALUES (@claveCatastral,"
@@ -157,7 +157,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
@@ -175,7 +175,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 propiedad.claveCatastral = id;
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "UPDATE propiedad SET propietarioPrincipal = @propietarioPrincipal,"
                                                         + "propietarios = @propietarios,"
@@ -197,7 +197,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
@@ -212,7 +212,7 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
                 query.CommandText = "Delete from propiedad where claveCatastral = @claveCatastral";
 
                 query.Prepare();
@@ -224,7 +224,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);

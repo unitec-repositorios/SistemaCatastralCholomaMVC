@@ -6,13 +6,13 @@ using System.Net.Http;
 using System.Web.Http;
 
 using SistemaCatastralCholoma.Models;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class PredioController : ApiController
     {
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
 
         // GET api/<controller>
         [HttpGet]
@@ -22,22 +22,22 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "Select * from predios";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
                 Predio predio;
                 while (reader.Read())
                 {
                     predio = new Predio();
                     predio.idPredio = (int)reader["idPredio"];
-                    predio.mapa = reader.GetString("mapa");
-                    predio.bloque = reader.GetString("bloque");
+                    predio.mapa = (string)reader["mapa"];
+                    predio.bloque = (string)reader["bloque"];
                     predio.numeroPredio = (string)reader["numeroPredio"];
                     predio.barrio = (string)reader["barrio"];
                     predio.caserio = (string)reader["caserio"];
-                    predio.uso = (USO)reader.GetInt32("uso");
+                    predio.uso = (USO)reader["uso"];
                     predio.subUso = (SUBUSO)reader["subUso"];
                     predio.ubicacion = (string)reader["ubicacion"];
                     predio.sitio = (string)reader["sitio"];
@@ -58,7 +58,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -71,23 +71,23 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "Select * from predios where idPredio = '" + id + "'";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
 
                 Predio predio = new Predio();
                 while (reader.Read())
                 {
                     predio.idPredio = (int)reader["idPredio"];
-                    predio.mapa = reader.GetString("mapa");
-                    predio.bloque = reader.GetString("bloque");
+                    predio.mapa = (string)reader["mapa"];
+                    predio.bloque = (string)reader["bloque"];
                     predio.numeroPredio = (string)reader["numeroPredio"];
                     predio.barrio = (string)reader["barrio"];
                     predio.caserio = (string)reader["caserio"];
-                    predio.uso = (USO)reader.GetInt32("uso");
+                    predio.uso = (USO)reader["uso"];
                     predio.subUso = (SUBUSO)reader["subUso"];
                     predio.ubicacion = (string)reader["ubicacion"];
                     predio.sitio = (string)reader["sitio"];
@@ -108,7 +108,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -123,14 +123,14 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "Select * from predios where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " order by numeroPredio desc limit 1";
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    int ultimoPredio = Int32.Parse(reader.GetString("numeroPredio"));
+                    int ultimoPredio = Int32.Parse((string)reader["numeroPredio"]);
                     ultimoPredio++;
                     string nuevoNumeroPredio = ultimoPredio.ToString();
                     while (nuevoNumeroPredio.Length < 4)
@@ -190,7 +190,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.CommandText = "Select * from predios where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " and numeroPredio = '" + p.numeroPredio + "'";
                 reader = query.ExecuteReader();
                 reader.Read();
-                p.idPredio = reader.GetInt32("idPredio");
+                p.idPredio = (int)reader["idPredio"];
 
                 reader.Close();
                 conn.Close();
@@ -199,7 +199,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
@@ -215,7 +215,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
                 query.CommandText = "UPDATE predios SET numeroPredio = @numeroPredio, " +
                                                         "mapa = @mapa, " +
@@ -264,7 +264,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
@@ -279,7 +279,7 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
                 query.CommandText = "Delete from predios where idPredio = @id";
 
                 query.Prepare();
@@ -292,7 +292,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
                 return response;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using SistemaCatastralCholoma.Models;
 
 namespace SistemaCatastralCholoma.Controllers
@@ -12,7 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class EdificacionesEspecialesController : ApiController
     {
 
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
 
 
         // GET: api/EdificacionesEspeciales
@@ -23,20 +23,20 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from edificacionesespeciales";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.edificacionesespeciales";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
                 EdificacionesEspeciales edificacion;
                 while (reader.Read())
                 {
                     edificacion = new EdificacionesEspeciales();
-                    edificacion.idedificacionesespeciales = (int)reader["idedificacionesespeciales"];
-                    edificacion.Nivel = (string)reader["Nivel"];
-                    edificacion.Area = (Double)reader["Area"];
-                    edificacion.Area = (Double)reader["Costo"];
-                    edificacion.idDatosComplementarios = (int)reader["idDatosComplementarios"];
+                    edificacion.idedificacionesespeciales = reader.GetInt32(0);
+                    edificacion.Nivel = reader.GetString(1);
+                    edificacion.Area = reader.GetDouble(2);
+                    edificacion.Area = reader.GetDouble(3);
+                    edificacion.idDatosComplementarios = reader.GetInt32(4);
 
                     edificaciones.Add(edificacion);
                 }
@@ -45,7 +45,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -59,21 +59,21 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from edificacionesespeciales where idedificacionesespeciales = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.edificacionesespeciales where idedificacionesespeciales = '" + id + "'";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
 
                 EdificacionesEspeciales edificacion = new EdificacionesEspeciales();
                 while (reader.Read())
                 {
-                    edificacion.idedificacionesespeciales = (int)reader["idedificacionesespeciales"];
-                    edificacion.Nivel = (string)reader["Nivel"];
-                    edificacion.Area = (Double)reader["Area"];
-                    edificacion.Area = (Double)reader["Costo"];
-                    edificacion.idDatosComplementarios = (int)reader["idDatosComplementarios"];
+                    edificacion.idedificacionesespeciales = reader.GetInt32(0);
+                    edificacion.Nivel = reader.GetString(1);
+                    edificacion.Area = reader.GetDouble(2);
+                    edificacion.Area = reader.GetDouble(3);
+                    edificacion.idDatosComplementarios = reader.GetInt32(4);
 
                 }
 
@@ -85,7 +85,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -100,9 +100,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO edificacionesespeciales VALUES (@id," +
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.edificacionesespeciales VALUES (@id," +
                                                                "@nivel," +
                                                                "@area," +
                                                                "@costo," +
@@ -123,7 +123,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -138,9 +138,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE edificacionesespeciales SET Nivel = @nivel," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.edificacionesespeciales SET Nivel = @nivel," +
                                                              "Area = @area," +
                                                              "Costo = @costo," +
                                                              "idDatosComplementarios = @idDatos "+
@@ -159,7 +159,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, edificaciones);
                 return response;
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -173,8 +173,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from edificacionesespeciales where idedificacionesespeciales = @id";
+                SqlCommand query = conn.CreateCommand();
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.edificacionesespeciales where idedificacionesespeciales = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
@@ -186,7 +186,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;

@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class AvaluoEdificacionesController : ApiController
     {
 
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
         // GET: api/AvaluoEdificaciones
         [HttpGet]
         public HttpResponseMessage listAvaluoEdificaciones()
@@ -21,18 +21,18 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from avaluoedificaciones";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluoedificaciones";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
                 AvaluoEdificaciones avaluoEdificacion;
                 while (reader.Read())
                 {
                     avaluoEdificacion = new AvaluoEdificaciones();
-                    avaluoEdificacion.idavaluoedificaciones = (string)reader["idavaluoedificaciones"];
-                    avaluoEdificacion.totalEdificaciones = (Double)reader["totalEdificaciones"];
-                    avaluoEdificacion.edificaciones = (Double)reader["edificaciones"];
+                    avaluoEdificacion.idavaluoedificaciones = reader.GetString(0);
+                    avaluoEdificacion.totalEdificaciones = reader.GetDouble(1);
+                    avaluoEdificacion.edificaciones = reader.GetDouble(2);
 
                     avaluoEdificaciones.Add(avaluoEdificacion);
                 }
@@ -41,7 +41,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -55,19 +55,19 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from avaluoedificaciones where idavaluoedificaciones = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluoedificaciones where idavaluoedificaciones = '" + id + "'";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
 
                 AvaluoEdificaciones avaluo = new AvaluoEdificaciones();
                 while (reader.Read())
                 {
-                    avaluo.idavaluoedificaciones = (string)reader["idavaluoedificaciones"];
-                    avaluo.totalEdificaciones = (Double)reader["totalEdificaciones"];
-                    avaluo.edificaciones = (Double)reader["edificaciones"];
+                    avaluo.idavaluoedificaciones = reader.GetString(0);
+                    avaluo.totalEdificaciones = reader.GetDouble(1);
+                    avaluo.edificaciones = reader.GetDouble(2);
 
                 }
 
@@ -80,7 +80,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -95,9 +95,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO avaluoedificaciones VALUES (@idavaluoedificaciones," +
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.avaluoedificaciones VALUES (@idavaluoedificaciones," +
                                                                "@totalEdificaciones," +
                                                                "@edificaciones);";
 
@@ -114,7 +114,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -129,9 +129,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE avaluoedificaciones SET totalEdificaciones = @totalEdificaciones," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.avaluoedificaciones SET totalEdificaciones = @totalEdificaciones," +
                                                       "edificaciones = @edificaciones " +
                                                       "where idavaluoedificaciones = @idavaluoedificaciones";
 
@@ -146,7 +146,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, avaluo);
                 return response;
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
                 return response;
@@ -160,8 +160,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from avaluoedificaciones where idavaluoedificaciones = @id";
+                SqlCommand query = conn.CreateCommand();
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.avaluoedificaciones where idavaluoedificaciones = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
@@ -173,7 +173,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
                 return response;

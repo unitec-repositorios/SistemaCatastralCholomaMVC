@@ -5,14 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SistemaCatastralCholoma.Models;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
     public class AvaluoRuralController : ApiController
     {
 
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
         // GET: api/AvaluoRural
         [HttpGet]
         public HttpResponseMessage listAvaluosRurales()
@@ -21,17 +21,17 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from avaluorural";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluorural";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
                 AvaluoRural avaluoRural;
                 while (reader.Read())
                 {
                     avaluoRural = new AvaluoRural();
-                    avaluoRural.idavaluorural = (string)reader["idavaluorural"];
-                    avaluoRural.valorTerrenoRural = (Double)reader["valorTerrenoRural"];
+                    avaluoRural.idavaluorural = reader.GetString(0);
+                    avaluoRural.valorTerrenoRural = reader.GetDouble(1);
 
                     avaluosRurales.Add(avaluoRural);
                 }
@@ -40,7 +40,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -54,18 +54,18 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from avaluorural where idavaluorural = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluorural where idavaluorural = '" + id + "'";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
 
                 AvaluoRural avaluo = new AvaluoRural();
                 while (reader.Read())
                 {
-                    avaluo.idavaluorural = (string)reader["idavaluorural"];
-                    avaluo.valorTerrenoRural = (Double)reader["valorTerrenoRural"];
+                    avaluo.idavaluorural = reader.GetString(0);
+                    avaluo.valorTerrenoRural = reader.GetDouble(1);
 
                 }
                 conn.Close();
@@ -76,7 +76,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
@@ -91,9 +91,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO avaluorural VALUES (@idavaluorural," +
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.avaluorural VALUES (@idavaluorural," +
                                                                "@valorTerrenoRural)";
 
                 query.Prepare();
@@ -110,7 +110,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -125,9 +125,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE avaluorural SET valorTerrenoRural = @valorTerrenoRural," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.avaluorural SET valorTerrenoRural = @valorTerrenoRural," +
                                                       "where idavaluorural = @id";
 
                 query.Prepare();
@@ -140,7 +140,7 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, avaluoRural);
                 return response;
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -154,8 +154,8 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from avaluorural where idavaluorural = @id";
+                SqlCommand query = conn.CreateCommand();
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.avaluorural where idavaluorural = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
@@ -167,7 +167,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;

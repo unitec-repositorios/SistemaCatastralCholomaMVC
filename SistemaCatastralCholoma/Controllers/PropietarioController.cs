@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SistemaCatastralCholoma.Models;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using System.Net.Http.Headers;
 
 namespace SistemaCatastralCholoma.Controllers
@@ -13,7 +13,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class PropietarioController : ApiController
     {
 
-        private MySqlConnection conn = WebApiConfig.conn();
+        private SqlConnection conn = WebApiConfig.conn();
 
         // GET: api/Propietario
         [HttpGet]
@@ -23,23 +23,23 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from propietarios";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propietarios";
 
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    propietarios.Add(new Propietario((int)reader["id"], (string)reader["nombres"], (string)reader["apellidos"], (string)reader["identidad"],
-                        (string)reader["telefono"],(string)reader["rtn"],reader.GetChar("sexo"),(string)reader["nacionalidad"]));
+                    propietarios.Add(new Propietario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(5),
+                        reader.GetString(4), reader.GetString(6), reader.GetString(7)));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietarios);
                 return response;
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.NoContent, e.Message);
                 return response;
@@ -53,18 +53,18 @@ namespace SistemaCatastralCholoma.Controllers
             try
             {
                 conn.Open();
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from propietarios where id = '"+id+"'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propietarios where id = '" + id+"'";
 
-                MySqlDataReader reader = query.ExecuteReader(); 
+                SqlDataReader reader = query.ExecuteReader(); 
                 
 
                 Propietario propietario = new Propietario();
                 while (reader.Read())
                 {
-                    propietario = new Propietario((int)reader["id"], (string)reader["nombres"], (string)reader["apellidos"],(string)reader["identidad"],
-                        (string)reader["telefono"], (string)reader["rtn"], reader.GetChar("sexo"), (string)reader["nacionalidad"]);
+                    propietario = new Propietario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(5),
+                        reader.GetString(4), reader.GetString(6), reader.GetString(7));
                 }
                 conn.Close();
                 if (propietario.id == 0)
@@ -75,7 +75,7 @@ namespace SistemaCatastralCholoma.Controllers
 
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -95,9 +95,9 @@ namespace SistemaCatastralCholoma.Controllers
                     return Request.CreateResponse(HttpStatusCode.BadRequest,"El formulario esta incompleto");
                 }
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO propietarios VALUES (@id,@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.propietarios VALUES (@id,@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", null);
@@ -113,16 +113,16 @@ namespace SistemaCatastralCholoma.Controllers
                
 
                 query.CommandText = "Select * from propietarios where identidad = '" + propietario.identidad + "'";
-                MySqlDataReader reader = query.ExecuteReader();
+                SqlDataReader reader = query.ExecuteReader();
                 reader.Read();
-                propietario.id = reader.GetInt32("id");
+                propietario.id = (int)reader["id"];
 
                 conn.Close();
                 var response =  Request.CreateResponse(HttpStatusCode.OK, propietario);
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,"Ocurrio un error al enviar el formulario");
@@ -138,9 +138,9 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
+                SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE propietarios SET nombres=@nombres," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.propietarios SET nombres=@nombres," +
                                                             "apellidos = @apellidos," +
                                                             "telefono = @telefono," +
                                                             "identidad = @identidad,"+
@@ -165,7 +165,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
@@ -181,8 +181,8 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                MySqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from propietarios where id = @id";
+                SqlCommand query = conn.CreateCommand();
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.propietarios where id = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
@@ -194,7 +194,7 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, "No se encontro propietario con identidad "+id);
                 return response;
