@@ -30,12 +30,21 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     factoresrurales = new FactoresRurales();
+<<<<<<< HEAD
                     factoresrurales.idFactoresRurales = reader.GetInt32(0);
                     factoresrurales.area = reader.GetDouble(1);
                     factoresrurales.ubicacion = reader.GetDouble(2);
                     factoresrurales.servicios = reader.GetDouble(3);
                     factoresrurales.acceso = reader.GetDouble(4);
                     factoresrurales.agua = reader.GetDouble(5);
+=======
+                    factoresrurales.idFactoresRurales = (string)reader["idfactoresrurales"];
+                    factoresrurales.area = (double)reader["area"];
+                    factoresrurales.ubicacion = (double)reader["ubicacion"];
+                    factoresrurales.servicios = (double)reader["servicios"];
+                    factoresrurales.acceso = (double)reader["acceso"];
+                    factoresrurales.agua = (double)reader["agua"];
+>>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                     factoresRurales.Add(factoresrurales);
                 }
@@ -68,16 +77,25 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     factoresrurales = new FactoresRurales();
+<<<<<<< HEAD
                     factoresrurales.idFactoresRurales = reader.GetInt32(0);
                     factoresrurales.area = reader.GetDouble(1);
                     factoresrurales.ubicacion = reader.GetDouble(2);
                     factoresrurales.servicios = reader.GetDouble(3);
                     factoresrurales.acceso = reader.GetDouble(4);
                     factoresrurales.agua = reader.GetDouble(5);
+=======
+                    factoresrurales.idFactoresRurales = (string)reader["id"];
+                    factoresrurales.area = (double)reader["area"];
+                    factoresrurales.ubicacion = (double)reader["ubicacion"];
+                    factoresrurales.servicios = (double)reader["servicios"];
+                    factoresrurales.acceso = (double)reader["acceso"];
+                    factoresrurales.agua = (double)reader["agua"];
+>>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 }
                 conn.Close();
-                if (factoresrurales.idFactoresRurales == 0)
+                if (factoresrurales.idFactoresRurales == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, factoresrurales);
@@ -101,10 +119,16 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
+<<<<<<< HEAD
                 query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.factoresrurales VALUES (@id,@area,@ubicacion,@servicios,@acceso,@agua);";
+=======
+                query.CommandText = "INSERT INTO factoresrurales VALUES (@idFactoresRurales," + "@area,"
+                                                                        +"@ubicacion,"+"@servicios,"+
+                                                                        "@acceso,"+"@agua);";
+>>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", p.idFactoresRurales);
+                query.Parameters.AddWithValue("@idFactoresRurales", p.idFactoresRurales);
                 query.Parameters.AddWithValue("@area", p.area);
                 query.Parameters.AddWithValue("@ubicacion", p.ubicacion);
                 query.Parameters.AddWithValue("@servicios", p.servicios);
@@ -121,14 +145,14 @@ namespace SistemaCatastralCholoma.Controllers
             catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
-                var response = Request.CreateResponse(HttpStatusCode.BadGateway, p);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
         }
 
         // PUT api/<controller>/5
         [HttpPut]
-        public HttpResponseMessage modificarfactoresrurales(int id, FactoresRurales p)
+        public HttpResponseMessage modificarfactoresrurales(string id, FactoresRurales p)
         {
             try
             {
@@ -166,7 +190,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete]
-        public HttpResponseMessage eliminarfactoresrurales(int id)
+        public HttpResponseMessage eliminarfactoresrurales(string id)
         {
             try
             {

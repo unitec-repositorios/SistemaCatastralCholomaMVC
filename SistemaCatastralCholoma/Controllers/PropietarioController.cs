@@ -67,7 +67,7 @@ namespace SistemaCatastralCholoma.Controllers
                         reader.GetString(4), reader.GetString(6), reader.GetString(7));
                 }
                 conn.Close();
-                if (propietario.id == 0)
+                if (propietario.id == "")
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
@@ -90,20 +90,23 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
 
-                if (propietario.nombres.Equals("") || propietario.apellidos.Equals("") || propietario.identidad.Equals(""))
+                if (propietario.nombres.Equals("") || propietario.apellidos.Equals("") || propietario.id.Equals(""))
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest,"El formulario esta incompleto");
                 }
 
                 SqlCommand query = conn.CreateCommand();
 
+<<<<<<< HEAD
                 query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.propietarios VALUES (@id,@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
+=======
+                query.CommandText = "INSERT INTO propietario VALUES (@id,@nombres,@apellidos,@telefono,@rtn,@sexo,@nacionalidad);";
+>>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", null);
+                query.Parameters.AddWithValue("@id", propietario.id);
                 query.Parameters.AddWithValue("@nombres", propietario.nombres);
                 query.Parameters.AddWithValue("@apellidos", propietario.apellidos);
-                query.Parameters.AddWithValue("@identidad", propietario.identidad);
                 query.Parameters.AddWithValue("@telefono", propietario.telefono);
                 query.Parameters.AddWithValue("@rtn", propietario.rtn);
                 query.Parameters.AddWithValue("@sexo", propietario.sexo);
@@ -132,7 +135,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/Propietario/5
         [HttpPut]
-        public HttpResponseMessage modificarPropietario(int id, Propietario propietario)
+        public HttpResponseMessage modificarPropietario(string id, Propietario propietario)
         {
             try
             {
@@ -152,7 +155,6 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@id", id);
                 query.Parameters.AddWithValue("@nombres", propietario.nombres);
                 query.Parameters.AddWithValue("@apellidos", propietario.apellidos);
-                query.Parameters.AddWithValue("@identidad", propietario.identidad);
                 query.Parameters.AddWithValue("@telefono", propietario.telefono);
                 query.Parameters.AddWithValue("@rtn", propietario.rtn);
                 query.Parameters.AddWithValue("@sexo", propietario.sexo);
