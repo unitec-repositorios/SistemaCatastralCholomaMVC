@@ -23,14 +23,14 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from propiedad";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propiedad";
 
                 SqlDataReader reader = query.ExecuteReader();
 
                 Propiedad propiedad;
                 while (reader.Read())
                 {
-                    string claveCatastral = (string)reader["claveCatastral"];
+                    /*string claveCatastral = (string)reader["claveCatastral"];
 
                     propiedad = new Propiedad();
                     propiedad.claveCatastral = claveCatastral;
@@ -39,7 +39,19 @@ namespace SistemaCatastralCholoma.Controllers
                     propiedad.predio = (string)reader["predio"];
                     propiedad.propietarioPrincipal = (string)reader["propietarioPrincipal"];
                     propiedad.tipo = (string)reader["tipo"];
-                    propiedad.estadoPredio = (string)reader["estadoPredio"];
+                    propiedad.estadoPredio = (string)reader["estadoPredio"];*/
+
+                    string claveCatastral = reader.GetString(0);
+
+                    propiedad = new Propiedad();
+                    propiedad.claveCatastral = claveCatastral;
+                    propiedad.mapa = reader.GetString(1);
+                    propiedad.bloque = reader.GetString(2);
+                    propiedad.predio = reader.GetString(3);
+                    propiedad.propietarioPrincipal = reader.GetString(4);
+                    propiedad.tipo = reader.GetString(5);
+                    propiedad.estadoPredio = reader.GetString(6);
+
                     propiedades.Add(propiedad);
                 }
                 conn.Close();
@@ -64,7 +76,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from propiedad where claveCatastral = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propiedad where claveCatastral = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -72,7 +84,7 @@ namespace SistemaCatastralCholoma.Controllers
                 Propiedad propiedad = new Propiedad();
                 while (reader.Read())
                 {
-                    string claveCatastral = (string)reader["claveCatastral"];
+                    /*string claveCatastral = (string)reader["claveCatastral"];
 
                     propiedad = new Propiedad();
                     propiedad.claveCatastral = claveCatastral;
@@ -81,7 +93,18 @@ namespace SistemaCatastralCholoma.Controllers
                     propiedad.predio = (string)reader["predio"];
                     propiedad.propietarioPrincipal = (string)reader["propietarioPrincipal"];
                     propiedad.tipo = (string)reader["tipo"];
-                    propiedad.estadoPredio = (string)reader["estadoPredio"];
+                    propiedad.estadoPredio = (string)reader["estadoPredio"];*/
+
+                    string claveCatastral = reader.GetString(0);
+
+                    propiedad = new Propiedad();
+                    propiedad.claveCatastral = claveCatastral;
+                    propiedad.mapa = reader.GetString(1);
+                    propiedad.bloque = reader.GetString(2);
+                    propiedad.predio = reader.GetString(3);
+                    propiedad.propietarioPrincipal = reader.GetString(4);
+                    propiedad.tipo = reader.GetString(5);
+                    propiedad.estadoPredio = reader.GetString(6);
                 }
                 if (propiedad.claveCatastral == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
@@ -106,7 +129,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand my = conn.CreateCommand();
-                my.CommandText = "SELECT count(predio) from propiedad where mapa = '" + propiedad.mapa + "' AND bloque = '" + propiedad.bloque + "';";
+                my.CommandText = "SELECT count(predio) from bkmilcp6nvs1hgkadyz6.propiedad where mapa = '" + propiedad.mapa + "' AND bloque = '" + propiedad.bloque + "';";
 
 
                 int cant = Convert.ToInt32(my.ExecuteScalar());
@@ -132,7 +155,7 @@ namespace SistemaCatastralCholoma.Controllers
                 string claveC = propiedad.claveCatastral + strca;
 
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "SELECT numeroPredio FROM predio WHERE mapa = '"+propiedad.mapa+"' AND bloque = '"+propiedad.bloque+"' ORDER BY numeroPredio DESC LIMIT 1;";
+                query.CommandText = "SELECT numeroPredio FROM bkmilcp6nvs1hgkadyz6.predio WHERE mapa = '" + propiedad.mapa+"' AND bloque = '"+propiedad.bloque+"' ORDER BY numeroPredio DESC LIMIT 1;";
 
                 query.CommandText = "INSERT INTO propiedad VALUES (@claveCatastral,"
                                                                 + "@mapa,"
@@ -177,7 +200,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE propiedad SET propietarioPrincipal = @propietarioPrincipal,"
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.propiedad SET propietarioPrincipal = @propietarioPrincipal,"
                                                         + "propietarios = @propietarios,"
                                                         + "tipo = @tipo,"
                                                         + "estadoPredio = @estadoPredio "
@@ -213,7 +236,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from propiedad where claveCatastral = @claveCatastral";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.propiedad where claveCatastral = @claveCatastral";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@claveCatastral", id);

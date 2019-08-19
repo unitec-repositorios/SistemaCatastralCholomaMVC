@@ -21,14 +21,17 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlDataReader reader;
-                SqlCommand cmd = new SqlCommand("select * from pisos", conn);
+                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.pisos", conn);
                 reader = cmd.ExecuteReader();
                 List<Piso> pisos = new List<Piso>();
                 while (reader.Read())
                 {
-                    pisos.Add(new Piso((int)reader["idpiso"], (int)reader["num"],
+                    /*pisos.Add(new Piso((int)reader["idpiso"], (int)reader["num"],
                         (double)reader["area"], (int)reader["uso"], (String)reader["clase"],
-                        (String)reader["calidad"], (double)reader["costo"], (String)reader["bueno"], (String)reader["idAvaluoEdificaciones"]));
+                        (String)reader["calidad"], (double)reader["costo"], (String)reader["bueno"], (String)reader["idAvaluoEdificaciones"]));*/
+
+                    pisos.Add(new Piso(reader.GetInt32(0), reader.GetInt32(1), reader.GetDouble(2), reader.GetInt32(3), reader.GetString(4),
+                        reader.GetString(5), reader.GetDouble(6), reader.GetString(7), reader.GetString(8)));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, pisos);
@@ -51,7 +54,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from piso where idpiso = " + id;
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.piso where idpiso = " + id;
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -59,8 +62,11 @@ namespace SistemaCatastralCholoma.Controllers
                 Piso piso = new Piso();
                 while (reader.Read())
                 {
-                    piso = new Piso((int)reader["idpiso"], (int)reader["num"], (double)reader["area"],
-                        (int)reader["uso"], (string)reader["clase"], (string)reader["calidad"], (double)reader["costo"], (string)reader["bueno"], (string)reader["idAvaluoEdificaciones"]);
+                    //piso = new Piso((int)reader["idpiso"], (int)reader["num"], (double)reader["area"],
+                    //    (int)reader["uso"], (string)reader["clase"], (string)reader["calidad"], (double)reader["costo"], (string)reader["bueno"], (string)reader["idAvaluoEdificaciones"]);
+
+                    piso = new Piso(reader.GetInt32(0), reader.GetInt32(1), reader.GetDouble(2), reader.GetInt32(3), reader.GetString(4),
+                        reader.GetString(5), reader.GetDouble(6), reader.GetString(7), reader.GetString(8));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, piso);
@@ -83,7 +89,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO piso VALUES (@idpiso,@num,@area,@uso,@clase,@calidad,@costo,@bueno,@idAvaluoEdificaciones);";
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.piso VALUES (@idpiso,@num,@area,@uso,@clase,@calidad,@costo,@bueno,@idAvaluoEdificaciones);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idpiso", piso.idpiso);
@@ -121,7 +127,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE piso SET num=@num," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.piso SET num=@num," +
                                                             "area = @area," +
                                                             "uso = @uso," +
                                                             "clase = @clase," +
@@ -164,7 +170,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from piso where idpiso = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.piso where idpiso = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

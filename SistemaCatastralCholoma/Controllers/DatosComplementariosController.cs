@@ -145,7 +145,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@maquinaria", datosComplementarios.maquinaria);
                 query.Parameters.AddWithValue("@delineador", datosComplementarios.delineador);
                 query.Parameters.AddWithValue("@fecha", datosComplementarios.fecha);
-                query.Parameters.AddWithValue("@observacions", datosComplementarios.observacions);
+                query.Parameters.AddWithValue("@observacions", datosComplementarios.observaciones);
                 query.Parameters.AddWithValue("@ocupante", datosComplementarios.ocupante);
                 query.Parameters.AddWithValue("@uso", datosComplementarios.uso);
                 query.Parameters.AddWithValue("@clase", datosComplementarios.clase);
@@ -205,7 +205,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@maquinaria", datosComplementarios.maquinaria);
                 query.Parameters.AddWithValue("@delineador", datosComplementarios.delineador);
                 query.Parameters.AddWithValue("@fecha", datosComplementarios.fecha);
-                query.Parameters.AddWithValue("@observacions", datosComplementarios.observacions);
+                query.Parameters.AddWithValue("@observacions", datosComplementarios.observaciones);
                 query.Parameters.AddWithValue("@ocupante", datosComplementarios.ocupante);
                 query.Parameters.AddWithValue("@uso", datosComplementarios.uso);
                 query.Parameters.AddWithValue("@clase", datosComplementarios.clase);
