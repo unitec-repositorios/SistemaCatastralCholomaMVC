@@ -119,7 +119,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/AvaluoRural/5
         [HttpPut]
-        public HttpResponseMessage modifyAvaluoRural(string id, AvaluoRural avaluoRural)
+        public HttpResponseMessage modifyAvaluoRural(string id, AvaluoRural avaluoRural)//put esta malo
         {
             try
             {
@@ -127,7 +127,11 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
+<<<<<<< HEAD
                 query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.avaluorural SET valorTerrenoRural = @valorTerrenoRural," +
+=======
+                query.CommandText = "UPDATE avaluorural SET valorTerrenoRural = @valorTerrenoRural " +
+>>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
                                                       "where idavaluorural = @id";
 
                 query.Prepare();

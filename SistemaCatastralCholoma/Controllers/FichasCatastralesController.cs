@@ -9,12 +9,13 @@ using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
-    public class FichaCatastralController : ApiController
+    public class FichasCatastralesController : ApiController
     {
 
         private SqlConnection conn = WebApiConfig.conn();
         // GET: api/
-        public List<FichaCatastral> listFichaCatastral()
+        [HttpGet]
+        public List<FichasCatastrales> listFichaCatastral()
         {
             try
             {
@@ -22,10 +23,10 @@ namespace SistemaCatastralCholoma.Controllers
                 SqlDataReader reader;
                 SqlCommand cmd = new SqlCommand("select * from FichasCatastrales", conn);
                 reader = cmd.ExecuteReader();
-                List<FichaCatastral> fichas = new List<FichaCatastral>();
+                List<FichasCatastrales> fichas = new List<FichasCatastrales>();
                 while (reader.Read())
                 {
-                    fichas.Add(new FichaCatastral((String)reader["cocata"], (String)reader["depto"],
+                    fichas.Add(new FichasCatastrales((String)reader["cocata"], (String)reader["depto"],
                         (String)reader["municipio"], (String)reader["aldea"], (String)reader["mapa"], 
                         (String)reader["bolque"], (String)reader["predio"], (String)reader["num"], 
                         (String)reader["maq"], (String)reader["st"], (String)reader["codProp"], 
@@ -46,7 +47,8 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         // GET: api/FichaCatastral/5
-        public FichaCatastral getFichaCatastral(string cocata)
+        [HttpGet]
+        public FichasCatastrales getFichaCatastral(string cocata)
         {
             try
             {
@@ -54,10 +56,10 @@ namespace SistemaCatastralCholoma.Controllers
                 SqlDataReader reader;
                 SqlCommand cmd = new SqlCommand("select * from FichasCatastrales where cocata = '" + cocata + "'", conn);
                 reader = cmd.ExecuteReader();
-                FichaCatastral ficha = new FichaCatastral();
+                FichasCatastrales ficha = new FichasCatastrales();
                 while (reader.Read())
                 {
-                    ficha = new FichaCatastral((String)reader["cocata"], (String)reader["depto"],
+                    ficha = new FichasCatastrales((String)reader["cocata"], (String)reader["depto"],
                         (String)reader["municipio"], (String)reader["aldea"], (String)reader["mapa"],
                         (String)reader["bolque"], (String)reader["predio"], (String)reader["num"],
                         (String)reader["maq"], (String)reader["st"], (String)reader["codProp"],
@@ -79,7 +81,7 @@ namespace SistemaCatastralCholoma.Controllers
     
 
         // POST: api/FichaCatastral
-        public void createFichaCatastral(FichaCatastral ficha)
+        public HttpResponseMessage createFichaCatastral(FichasCatastrales ficha)
         {
             try
             {
@@ -108,17 +110,20 @@ namespace SistemaCatastralCholoma.Controllers
                 cmd.Parameters.AddWithValue("@asiento", ficha.asiento);
                 cmd.ExecuteNonQuery();
                 conn.Close();
+
+                var response = Request.CreateResponse(HttpStatusCode.OK,ficha);
+                return response;
             }
             catch (SqlException e)
             {
-                Console.WriteLine(e.Message);
-                conn.Close();
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+                return response;
             }
-            conn.Close();
+            
         }
 
         // PUT: api/FichaCatastral/5
-        public void modifyFichaCatastral(FichaCatastral ficha)
+        public void modifyFichaCatastral(FichasCatastrales ficha)
         {
             try
             {

@@ -356,7 +356,7 @@
     <Compile Include="Controllers\EdificacionesEspecialesController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\FactoresRuralesController.cs" />
-    <Compile Include="Controllers\FichaCatastralController.cs" />
+    <Compile Include="Controllers\FichasCatastralesController.cs" />
     <Compile Include="Controllers\FraccionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NegociosController.cs" />
@@ -385,7 +385,7 @@
     <Compile Include="Models\EdificacionesEspeciales.cs" />
     <Compile Include="Models\Empleado.cs" />
     <Compile Include="Models\FactoresRurales.cs" />
-    <Compile Include="Models\FichaCatastral.cs" />
+    <Compile Include="Models\FichasCatastrales.cs" />
     <Compile Include="Models\Fraccion.cs" />
     <Compile Include="Models\negocios.cs" />
     <Compile Include="Models\Piso.cs" />
@@ -428,7 +428,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <None Include="Properties\PublishProfiles\sistemacatastralcholoma - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\CatastroCholomaAPI - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\sistemacatastralcholoma - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
