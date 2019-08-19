@@ -25,18 +25,18 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from edificacionesespeciales";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.edificacionesespeciales";
 
                 SqlDataReader reader = query.ExecuteReader();
                 EdificacionesEspeciales edificacion;
                 while (reader.Read())
                 {
                     edificacion = new EdificacionesEspeciales();
-                    edificacion.idedificacionesespeciales = (string)reader["idedificacionesespeciales"];
-                    edificacion.Nivel = (string)reader["Nivel"];
-                    edificacion.Area = (Double)reader["Area"];
-                    edificacion.Area = (Double)reader["Costo"];
-                    edificacion.idDatosComplementarios = (string)reader["idDatosComplementarios"];
+                    edificacion.idedificacionesespeciales = reader.GetInt32(0);
+                    edificacion.Nivel = reader.GetString(1);
+                    edificacion.Area = reader.GetDouble(2);
+                    edificacion.Area = reader.GetDouble(3);
+                    edificacion.idDatosComplementarios = reader.GetInt32(4);
 
                     edificaciones.Add(edificacion);
                 }
@@ -61,7 +61,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from edificacionesespeciales where idedificacionesespeciales = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.edificacionesespeciales where idedificacionesespeciales = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -69,11 +69,11 @@ namespace SistemaCatastralCholoma.Controllers
                 EdificacionesEspeciales edificacion = new EdificacionesEspeciales();
                 while (reader.Read())
                 {
-                    edificacion.idedificacionesespeciales = (string)reader["idedificacionesespeciales"];
-                    edificacion.Nivel = (string)reader["Nivel"];
-                    edificacion.Area = (Double)reader["Area"];
-                    edificacion.Area = (Double)reader["Costo"];
-                    edificacion.idDatosComplementarios = (string)reader["idDatosComplementarios"];
+                    edificacion.idedificacionesespeciales = reader.GetInt32(0);
+                    edificacion.Nivel = reader.GetString(1);
+                    edificacion.Area = reader.GetDouble(2);
+                    edificacion.Area = reader.GetDouble(3);
+                    edificacion.idDatosComplementarios = reader.GetInt32(4);
 
                 }
 
@@ -102,7 +102,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO edificacionesespeciales VALUES (@id," +
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.edificacionesespeciales VALUES (@id," +
                                                                "@nivel," +
                                                                "@area," +
                                                                "@costo," +
@@ -140,7 +140,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE edificacionesespeciales SET Nivel = @nivel," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.edificacionesespeciales SET Nivel = @nivel," +
                                                              "Area = @area," +
                                                              "Costo = @costo," +
                                                              "idDatosComplementarios = @idDatos "+
@@ -174,7 +174,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from edificacionesespeciales where idedificacionesespeciales = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.edificacionesespeciales where idedificacionesespeciales = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

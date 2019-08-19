@@ -23,29 +23,29 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from datoscomplementarios";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datoscomplementarios";
 
                 SqlDataReader reader = query.ExecuteReader();
                 DatosComplementarios datosComplementarios;
                 while (reader.Read())
                 {
                     datosComplementarios = new DatosComplementarios();
-                    datosComplementarios.idClaveCatastral = (string)reader["idClaveCatastral"];
+                    datosComplementarios.idClaveCatastral = reader.GetString(0);
                     //datosComplementarios.adquicicion= reader.GetSqlDateTime(5).GetDateTime();
-                    datosComplementarios.montoTransaccion = (Double)reader["montoTransaccion"];
-                    datosComplementarios.claseTransaccion = (string)reader["montoTransaccion"];
-                    datosComplementarios.maquinaria = (string)reader["maquinaria"];
-                    datosComplementarios.delineador = (string)reader["delineador"];
+                    datosComplementarios.montoTransaccion = reader.GetDouble(2);
+                    datosComplementarios.claseTransaccion = reader.GetString(3);
+                    datosComplementarios.maquinaria = reader.GetString(4);
+                    datosComplementarios.delineador = reader.GetString(5);
                    // datosComplementarios.fecha = reader.GetSqlDateTime(5).GetDateTime();
-                    datosComplementarios.observacions = (string)reader["observacions"];
-                    datosComplementarios.ocupante = (string)reader["ocupante"];
-                    datosComplementarios.uso = (string)reader["uso"];
-                    datosComplementarios.clase = (string)reader["clase"];
-                    datosComplementarios.bueno = (Double)reader["bueno"];
-                    datosComplementarios.observacion = (string)reader["observacion"];
-                    datosComplementarios.rentaMensual = (Double)reader["rentaMensual"];
-                    datosComplementarios.idServiciosPublicos = (int)reader["idServiciosPublicos"];
-                    datosComplementarios.valorDatosComplementarios = (Double)reader["valorDatosComplementarios"];
+                    datosComplementarios.observaciones = reader.GetString(7);
+                    datosComplementarios.ocupante = reader.GetString(8);
+                    datosComplementarios.uso = reader.GetString(9);
+                    datosComplementarios.clase = reader.GetString(10);
+                    datosComplementarios.bueno = reader.GetDouble(11);
+                    datosComplementarios.observacion = reader.GetString(12);
+                    datosComplementarios.rentaMensual = reader.GetDouble(13);
+                    datosComplementarios.idServiciosPublicos = reader.GetInt32(14);
+                    datosComplementarios.valorDatosComplementarios = reader.GetDouble(15);
                     
                     datosComplementariosList.Add(datosComplementarios);
                 }
@@ -70,29 +70,29 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from datoscomplementarios where idClaveCatastral = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datoscomplementarios where idClaveCatastral = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
                 DatosComplementarios datosComplementarios = new DatosComplementarios();
                 while (reader.Read())
                 {
-                    datosComplementarios.idClaveCatastral = (string)reader["idClaveCatastral"];
+                    datosComplementarios.idClaveCatastral = reader.GetString(0);
                     //datosComplementarios.adquicicion = reader.GetSqlDateTime(5).GetDateTime();
-                    datosComplementarios.montoTransaccion = (Double)reader["montoTransaccion"];
-                    datosComplementarios.claseTransaccion = (string)reader["montoTransaccion"];
-                    datosComplementarios.maquinaria = (string)reader["maquinaria"];
-                    datosComplementarios.delineador = (string)reader["delineador"];
+                    datosComplementarios.montoTransaccion = reader.GetDouble(2);
+                    datosComplementarios.claseTransaccion = reader.GetString(3);
+                    datosComplementarios.maquinaria = reader.GetString(4);
+                    datosComplementarios.delineador = reader.GetString(5);
                     //datosComplementarios.fecha = reader.GetSqlDateTime(5).GetDateTime();
-                    datosComplementarios.observacions = (string)reader["observacions"];
-                    datosComplementarios.ocupante = (string)reader["ocupante"];
-                    datosComplementarios.uso = (string)reader["uso"];
-                    datosComplementarios.clase = (string)reader["clase"];
-                    datosComplementarios.bueno = (Double)reader["bueno"];
-                    datosComplementarios.observacion = (string)reader["observacion"];
-                    datosComplementarios.rentaMensual = (Double)reader["rentaMensual"];
-                    datosComplementarios.idServiciosPublicos = (int)reader["idServiciosPublicos"];
-                    datosComplementarios.valorDatosComplementarios = (Double)reader["valorDatosComplementarios"];
+                    datosComplementarios.observaciones = reader.GetString(7);
+                    datosComplementarios.ocupante = reader.GetString(8);
+                    datosComplementarios.uso = reader.GetString(9);
+                    datosComplementarios.clase = reader.GetString(10);
+                    datosComplementarios.bueno = reader.GetDouble(11);
+                    datosComplementarios.observacion = reader.GetString(12);
+                    datosComplementarios.rentaMensual = reader.GetDouble(13);
+                    datosComplementarios.idServiciosPublicos = reader.GetInt32(14);
+                    datosComplementarios.valorDatosComplementarios = reader.GetDouble(15);
 
                 }
                 conn.Close();
@@ -120,7 +120,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO datoscomplementarios VALUES                                        (@idClaveCatastral,"
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.datoscomplementarios VALUES                                        (@idClaveCatastral,"
                                      + "@adquisicion," 
                                      + "@montoTransaccion,"
                                      + "@claseTransaccion,"
@@ -180,7 +180,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE datoscomplementarios SET adquisicion = @adquisicion," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.datoscomplementarios SET adquisicion = @adquisicion," +
                                                             "montoTransaccion = @montoTransaccion," +
                                                             "claseTransaccion = @claseTransaccion," +
                                                             "maquinaria = @maquinaria," +
@@ -235,7 +235,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from datoscomplementarios where idClaveCatastral = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.datoscomplementarios where idClaveCatastral = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

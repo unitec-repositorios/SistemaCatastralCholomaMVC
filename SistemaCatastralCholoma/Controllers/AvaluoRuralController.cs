@@ -23,15 +23,15 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from avaluorural";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluorural";
 
                 SqlDataReader reader = query.ExecuteReader();
                 AvaluoRural avaluoRural;
                 while (reader.Read())
                 {
                     avaluoRural = new AvaluoRural();
-                    avaluoRural.idavaluorural = (string)reader["idavaluorural"];
-                    avaluoRural.valorTerrenoRural = (Double)reader["valorTerrenoRural"];
+                    avaluoRural.idavaluorural = reader.GetString(0);
+                    avaluoRural.valorTerrenoRural = reader.GetDouble(1);
 
                     avaluosRurales.Add(avaluoRural);
                 }
@@ -56,7 +56,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from avaluorural where idavaluorural = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluorural where idavaluorural = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -64,8 +64,8 @@ namespace SistemaCatastralCholoma.Controllers
                 AvaluoRural avaluo = new AvaluoRural();
                 while (reader.Read())
                 {
-                    avaluo.idavaluorural = (string)reader["idavaluorural"];
-                    avaluo.valorTerrenoRural = (Double)reader["valorTerrenoRural"];
+                    avaluo.idavaluorural = reader.GetString(0);
+                    avaluo.valorTerrenoRural = reader.GetDouble(1);
 
                 }
                 conn.Close();
@@ -93,7 +93,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO avaluorural VALUES (@idavaluorural," +
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.avaluorural VALUES (@idavaluorural," +
                                                                "@valorTerrenoRural)";
 
                 query.Prepare();
@@ -127,7 +127,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE avaluorural SET valorTerrenoRural = @valorTerrenoRural " +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.avaluorural SET valorTerrenoRural = @valorTerrenoRural," +
                                                       "where idavaluorural = @id";
 
                 query.Prepare();
@@ -155,7 +155,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from avaluorural where idavaluorural = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.avaluorural where idavaluorural = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

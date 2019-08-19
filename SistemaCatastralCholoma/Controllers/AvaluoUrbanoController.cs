@@ -24,16 +24,16 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from avaluourbano";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluourbano";
 
                 SqlDataReader reader = query.ExecuteReader();
                 AvaluoUrbano avaluo;
                 while (reader.Read())
                 {
                     avaluo = new AvaluoUrbano();
-                    avaluo.idavaluourbano = (string)reader["idavaluourbano"];
-                    avaluo.Esquina = (Double)reader["Esquina"];
-                    avaluo.Topografia = (Double)reader["Topografia"];
+                    avaluo.idavaluourbano = reader.GetString(0);
+                    avaluo.Esquina = reader.GetDouble(1);
+                    avaluo.Topografia = reader.GetDouble(2);
 
                     avaluosUrbanos.Add(avaluo);
                 }
@@ -58,7 +58,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from avaluourbano where idavaluourbano = '" + id + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluourbano where idavaluourbano = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -66,9 +66,9 @@ namespace SistemaCatastralCholoma.Controllers
                 AvaluoUrbano avaluo = new AvaluoUrbano();
                 while (reader.Read())
                 {
-                    avaluo.idavaluourbano = (string)reader["idavaluourbano"];
-                    avaluo.Esquina = (Double)reader["Esquina"];
-                    avaluo.Topografia = (Double)reader["Topografia"];
+                    avaluo.idavaluourbano = reader.GetString(0);
+                    avaluo.Esquina = reader.GetDouble(1);
+                    avaluo.Topografia = reader.GetDouble(2);
 
                 }
 
@@ -97,7 +97,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO avaluourbano VALUES (@id," +
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.avaluourbano VALUES (@id," +
                                                                "@esquina," +
                                                                "@topografia);";
 
@@ -131,7 +131,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE avaluourbano SET Esquina = @esquina," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.avaluourbano SET Esquina = @esquina," +
                                                       "Topografia = @topografia " +
                                                       "where idavaluourbano = @id";
 
@@ -161,7 +161,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from avaluourbano where idavaluourbano = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.avaluourbano where idavaluourbano = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
