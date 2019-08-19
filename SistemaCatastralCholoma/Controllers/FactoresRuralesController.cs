@@ -30,7 +30,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     factoresrurales = new FactoresRurales();
-                    factoresrurales.idFactoresRurales = reader.GetInt32(0);
+                    factoresrurales.idFactoresRurales = reader.GetString(0);
                     factoresrurales.area = reader.GetDouble(1);
                     factoresrurales.ubicacion = reader.GetDouble(2);
                     factoresrurales.servicios = reader.GetDouble(3);
@@ -68,7 +68,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     factoresrurales = new FactoresRurales();
-                    factoresrurales.idFactoresRurales = reader.GetInt32(0);
+                    factoresrurales.idFactoresRurales = reader.GetString(0);
                     factoresrurales.area = reader.GetDouble(1);
                     factoresrurales.ubicacion = reader.GetDouble(2);
                     factoresrurales.servicios = reader.GetDouble(3);

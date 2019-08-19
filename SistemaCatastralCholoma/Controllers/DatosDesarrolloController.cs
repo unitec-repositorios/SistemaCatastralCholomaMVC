@@ -135,7 +135,6 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
 
                 SqlCommand query = conn.CreateCommand();
-
                 query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.datosdesarrollo SET area = @area, servicios = @servicios, topografia = @topografia, configuracion = @configuracion" +
                                                       "where iddatosdesarrollo = @id";
 

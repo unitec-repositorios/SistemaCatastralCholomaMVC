@@ -21,14 +21,17 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlDataReader reader;
-                SqlCommand cmd = new SqlCommand("select * from serviciospublicos", conn);
+                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.serviciospublicos", conn);
                 reader = cmd.ExecuteReader();
                 List<ServiciosPublicos> sp = new List<ServiciosPublicos>();
                 while (reader.Read())
                 {
-                    sp.Add(new ServiciosPublicos((int)reader["idserviciospublicos"], (string)reader["Agua"],
+                    /*sp.Add(new ServiciosPublicos((int)reader["idserviciospublicos"], (string)reader["Agua"],
                         (string)reader["Telefono"], (String)reader["Drenaje"], (String)reader["Calle"],
-                        (String)reader["Electricidad"], (String)reader["Acera"], (String)reader["Alumbrado"]));
+                        (String)reader["Electricidad"], (String)reader["Acera"], (String)reader["Alumbrado"])); */
+
+                    sp.Add(new ServiciosPublicos(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                            reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7)));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, sp);
@@ -51,7 +54,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from serviciospublicos where idserviciospublicos = " + id;
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.serviciospublicos where idserviciospublicos = " + id;
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -59,8 +62,11 @@ namespace SistemaCatastralCholoma.Controllers
                 ServiciosPublicos sp = new ServiciosPublicos();
                 while (reader.Read())
                 {
-                    sp = new ServiciosPublicos((int)reader["idserviciospublicos"], (String)reader["Agua"], (string)reader["Telefono"],
-                        (String)reader["Drenaje"], (string)reader["Calle"], (string)reader["Electricidad"], (String)reader["Acera"], (string)reader["Alumbrado"]);
+                    //sp = new ServiciosPublicos((int)reader["idserviciospublicos"], (String)reader["Agua"], (string)reader["Telefono"],
+                    //    (String)reader["Drenaje"], (string)reader["Calle"], (string)reader["Electricidad"], (String)reader["Acera"], (string)reader["Alumbrado"]);
+
+                    sp = new ServiciosPublicos(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                                reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, sp);
@@ -83,7 +89,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO serviciospublicos VALUES (@idserviciospublicos,@Agua,@Telefono,@Drenaje,@Calle,@Electricidad,@Acera,@Alumbrado);";
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.serviciospublicos VALUES (@idserviciospublicos,@Agua,@Telefono,@Drenaje,@Calle,@Electricidad,@Acera,@Alumbrado);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idserviciospublicos", sp.idserviciospublicos);
@@ -120,7 +126,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE serviciospublicos SET Agua=@Agua," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.serviciospublicos SET Agua=@Agua," +
                                                             "Telefono = @Telefono," +
                                                             "Drenaje = @Drenaje," +
                                                             "Calle = @Calle," +
@@ -161,7 +167,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from serviciospublicos where idserviciospublicos = @id";
+                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.serviciospublicos where idserviciospublicos = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

@@ -30,6 +30,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     colindante = new Colindantes();
+                    colindante.idcolindantes = reader.GetInt32(0);
                     colindante.Norte = reader.GetString(1);
                     colindante.Sur = reader.GetString(2);
                     colindante.Este= reader.GetString(3);

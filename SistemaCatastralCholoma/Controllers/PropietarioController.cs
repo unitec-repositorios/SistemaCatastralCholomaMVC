@@ -67,7 +67,7 @@ namespace SistemaCatastralCholoma.Controllers
                         reader.GetString(4), reader.GetString(6), reader.GetString(7));
                 }
                 conn.Close();
-                if (propietario.id == "")
+                if (propietario.id.ToString() == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
@@ -111,7 +111,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                
 
-                query.CommandText = "Select * from propietarios where identidad = '" + propietario.identidad + "'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propietarios where identidad = '" + propietario.identidad + "'";
                 SqlDataReader reader = query.ExecuteReader();
                 reader.Read();
                 propietario.id = (int)reader["id"];
@@ -131,7 +131,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/Propietario/5
         [HttpPut]
-        public HttpResponseMessage modificarPropietario(string id, Propietario propietario)
+        public HttpResponseMessage modificarPropietario(int id, Propietario propietario)
         {
             try
             {

@@ -21,16 +21,23 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "select * from usotierra";
+                cmd.CommandText = "select * from bkmilcp6nvs1hgkadyz6.usotierra";
                 SqlDataReader reader = cmd.ExecuteReader();
                 UsoTierra ut;
                 while (reader.Read())
                 {
-                    ut = new UsoTierra();
+                    /*ut = new UsoTierra();
                     ut.idusotierra = Convert.ToInt32(reader["idusotierra"]);
                     ut.uso = (string)reader["uso"];
                     ut.codigo = (string)reader["codigo"];
-                    ut.idCaracRural = Convert.ToInt32(reader["idCaracRural"]);
+                    ut.idCaracRural = Convert.ToInt32(reader["idCaracRural"]);*/
+
+                    ut = new UsoTierra();
+                    ut.idusotierra = reader.GetInt32(0);
+                    ut.uso = reader.GetString(1);
+                    ut.codigo = reader.GetString(2);
+                    ut.idCaracRural = reader.GetInt32(3);
+
                     usoTierra.Add(ut);
                 }
                 conn.Close();
@@ -52,17 +59,23 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "select * from usotierra where idusotierra = '" + id + "'";
+                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.usotierra where idusotierra = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
                 UsoTierra ut = null;
                 while (reader.Read())
                 {
+                    /*ut = new UsoTierra();
+                     ut.idusotierra = Convert.ToInt32(reader["idusotierra"]);
+                     ut.uso = (string)reader["uso"];
+                     ut.codigo = (string)reader["codigo"];
+                     ut.idCaracRural = Convert.ToInt32(reader["idCaracRural"]);*/
+
                     ut = new UsoTierra();
-                    ut.idusotierra = Convert.ToInt32(reader["idusotierra"]);
-                    ut.uso = (string)reader["uso"];
-                    ut.codigo = (string)reader["codigo"];
-                    ut.idCaracRural = Convert.ToInt32(reader["idCaracRural"]);
+                    ut.idusotierra = reader.GetInt32(0);
+                    ut.uso = reader.GetString(1);
+                    ut.codigo = reader.GetString(2);
+                    ut.idCaracRural = reader.GetInt32(3);
 
                 }
                 conn.Close();
@@ -89,7 +102,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO usotierra VALUES (@idusotierra," +
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.usotierra VALUES (@idusotierra," +
                                                                "@uso," +
                                                                "@codigo," +
                                                                "idCaracRural);";
@@ -123,7 +136,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE usotierra SET uso = @uso," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.usotierra SET uso = @uso," +
                                                       "codigo = @codigo," +
                                                       "idCaracRural = @idCaracRural " +
                                                       "where idusotierra = @idusotierra";
@@ -154,7 +167,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "delete from usotierra where idusotierra = @id";
+                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.usotierra where idusotierra = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
