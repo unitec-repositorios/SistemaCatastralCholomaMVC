@@ -37,19 +37,12 @@ namespace SistemaCatastralCholoma.Controllers
                     colindante.Oeste = reader.GetString(4);
                     colindante.idDatosComplementarios = reader.GetString(5);
 
-                    colindantes.Add(colindante);
-                }
-                conn.Close();
-                var response = Request.CreateResponse(HttpStatusCode.OK, colindantes);
-                return response;
-
-            }
-            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
             }
         }
+        
 
         [HttpGet]
         public HttpResponseMessage getcolindante(int id)
