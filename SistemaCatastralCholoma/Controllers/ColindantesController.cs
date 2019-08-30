@@ -30,35 +30,19 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     colindante = new Colindantes();
-<<<<<<< HEAD
                     colindante.idcolindantes = reader.GetInt32(0);
                     colindante.Norte = reader.GetString(1);
                     colindante.Sur = reader.GetString(2);
                     colindante.Este= reader.GetString(3);
                     colindante.Oeste = reader.GetString(4);
                     colindante.idDatosComplementarios = reader.GetString(5);
-=======
-                    colindante.idcolindantes = (int)reader["idcolindantes"];
-                    colindante.Norte = (string)reader["Norte"];
-                    colindante.Sur = (string)reader["Sur"];
-                    colindante.Este= (string)reader["Este"];
-                    colindante.Oeste = (string)reader["Oeste"];
-                    colindante.idDatosComplementarios = (string)reader["idDatosComplementarios"];
->>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
-                    colindantes.Add(colindante);
-                }
-                conn.Close();
-                var response = Request.CreateResponse(HttpStatusCode.OK, colindantes);
-                return response;
-
-            }
-            catch (SqlException e)
             {
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
             }
         }
+        
 
         [HttpGet]
         public HttpResponseMessage getcolindante(int id)
@@ -68,11 +52,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-<<<<<<< HEAD
                 query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.colindantes where id = '" + id + "'";
-=======
-                query.CommandText = "Select * from colindantes where idcolindantes = '" + id + "'";
->>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -80,21 +60,12 @@ namespace SistemaCatastralCholoma.Controllers
                 Colindantes colindantes = new Colindantes();
                 while (reader.Read())
                 {
-<<<<<<< HEAD
                     colindantes.idcolindantes = reader.GetInt32(0);
                     colindantes.Norte = reader.GetString(1);
                     colindantes.Sur = reader.GetString(2);
                     colindantes.Este = reader.GetString(3);
                     colindantes.Oeste = reader.GetString(4);
                     colindantes.idDatosComplementarios = reader.GetString(5);
-=======
-                    colindantes.idcolindantes = (int)reader["idcolindantes"];
-                    colindantes.Norte = (string)reader["Norte"];
-                    colindantes.Sur = (string)reader["Sur"];
-                    colindantes.Este = (string)reader["Este"];
-                    colindantes.Oeste = (string)reader["Oeste"];
-                    colindantes.idDatosComplementarios = (string)reader["idDatosComplementarios"];
->>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
 
                 }
@@ -123,11 +94,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-<<<<<<< HEAD
                 query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.colindantes VALUES (@idcolindante,@Norte,@Sur,@Este,@Oeste,@idDatosComplementarios);";
-=======
-                query.CommandText = "INSERT INTO colindantes VALUES (@idcolindantes,@Norte,@Sur,@Este,@Oeste,@idDatosComplementarios);";
->>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idcolindantes", p.idcolindantes);
@@ -162,11 +129,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-<<<<<<< HEAD
                 query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad SET id = @id, Norte = @Norte,"
-=======
-                query.CommandText = "UPDATE colindantes SET idcolindantes = @idcolindantes, Norte = @Norte,"
->>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
                                                     + "Sur = @Sur, Este = @Este, Oeste = @Oeste,"
                                                     + "idDatosComplementarios = @idDatosComplementarios " +
                                                       "where idcolindantes = @idcolindantes";

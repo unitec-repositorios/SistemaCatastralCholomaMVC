@@ -30,21 +30,12 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     factoresrurales = new FactoresRurales();
-<<<<<<< HEAD
-                    factoresrurales.idFactoresRurales = reader.GetInt32(0);
+                    factoresrurales.idFactoresRurales = reader.GetString(0);
                     factoresrurales.area = reader.GetDouble(1);
                     factoresrurales.ubicacion = reader.GetDouble(2);
                     factoresrurales.servicios = reader.GetDouble(3);
                     factoresrurales.acceso = reader.GetDouble(4);
                     factoresrurales.agua = reader.GetDouble(5);
-=======
-                    factoresrurales.idFactoresRurales = (string)reader["idfactoresrurales"];
-                    factoresrurales.area = (double)reader["area"];
-                    factoresrurales.ubicacion = (double)reader["ubicacion"];
-                    factoresrurales.servicios = (double)reader["servicios"];
-                    factoresrurales.acceso = (double)reader["acceso"];
-                    factoresrurales.agua = (double)reader["agua"];
->>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                     factoresRurales.Add(factoresrurales);
                 }
@@ -77,21 +68,12 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     factoresrurales = new FactoresRurales();
-<<<<<<< HEAD
-                    factoresrurales.idFactoresRurales = reader.GetInt32(0);
+                    factoresrurales.idFactoresRurales = reader.GetString(0);
                     factoresrurales.area = reader.GetDouble(1);
                     factoresrurales.ubicacion = reader.GetDouble(2);
                     factoresrurales.servicios = reader.GetDouble(3);
                     factoresrurales.acceso = reader.GetDouble(4);
                     factoresrurales.agua = reader.GetDouble(5);
-=======
-                    factoresrurales.idFactoresRurales = (string)reader["id"];
-                    factoresrurales.area = (double)reader["area"];
-                    factoresrurales.ubicacion = (double)reader["ubicacion"];
-                    factoresrurales.servicios = (double)reader["servicios"];
-                    factoresrurales.acceso = (double)reader["acceso"];
-                    factoresrurales.agua = (double)reader["agua"];
->>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 }
                 conn.Close();
@@ -119,13 +101,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-<<<<<<< HEAD
                 query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.factoresrurales VALUES (@id,@area,@ubicacion,@servicios,@acceso,@agua);";
-=======
-                query.CommandText = "INSERT INTO factoresrurales VALUES (@idFactoresRurales," + "@area,"
-                                                                        +"@ubicacion,"+"@servicios,"+
-                                                                        "@acceso,"+"@agua);";
->>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idFactoresRurales", p.idFactoresRurales);

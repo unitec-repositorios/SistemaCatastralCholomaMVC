@@ -49,8 +49,8 @@ namespace SistemaCatastralCholoma.Controllers
                     propiedad.bloque = reader.GetString(2);
                     propiedad.predio = reader.GetString(3);
                     propiedad.propietarioPrincipal = reader.GetString(4);
-                    propiedad.tipo = reader.GetString(5);
-                    propiedad.estadoPredio = reader.GetString(6);
+                    propiedad.tipo = reader.GetString(6);
+                    propiedad.estadoPredio = reader.GetString(7);
 
                     propiedades.Add(propiedad);
                 }
