@@ -67,7 +67,7 @@ namespace SistemaCatastralCholoma.Controllers
                         reader.GetString(4), reader.GetString(6), reader.GetString(7));
                 }
                 conn.Close();
-                if (propietario.id.ToString() == null)
+                if (propietario.id == "")
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
@@ -97,7 +97,11 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
+<<<<<<< HEAD
                 query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.propietarios VALUES (@id,@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
+=======
+                query.CommandText = "INSERT INTO propietario VALUES (@id,@nombres,@apellidos,@telefono,@rtn,@sexo,@nacionalidad);";
+>>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", propietario.id);
@@ -111,7 +115,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propietarios where identidad = '" + propietario.identidad + "'";
+                query.CommandText = "Select * from propietarios where identidad = '" + propietario.identidad + "'";
                 SqlDataReader reader = query.ExecuteReader();
                 reader.Read();
                 propietario.id = (int)reader["id"];
@@ -131,7 +135,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/Propietario/5
         [HttpPut]
-        public HttpResponseMessage modificarPropietario(int id, Propietario propietario)
+        public HttpResponseMessage modificarPropietario(string id, Propietario propietario)
         {
             try
             {

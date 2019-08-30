@@ -21,7 +21,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlDataReader reader;
-                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.piso", conn);
+                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.pisos", conn);
                 reader = cmd.ExecuteReader();
                 List<Piso> pisos = new List<Piso>();
                 while (reader.Read())

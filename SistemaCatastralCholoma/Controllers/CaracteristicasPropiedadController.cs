@@ -30,6 +30,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     caracteristicas = new CaracteristicasPropiedad();
+<<<<<<< HEAD
                     caracteristicas.idcaracRural = reader.GetString(0);
                     caracteristicas.area = reader.GetDouble(1);
                     caracteristicas.explotacion = reader.GetString(2);
@@ -37,6 +38,15 @@ namespace SistemaCatastralCholoma.Controllers
                     caracteristicas.caudal = reader.GetString(4);
                     caracteristicas.pozo = reader.GetString(5);
                     caracteristicas.viasComunicacion = reader.GetString(6);
+=======
+                    caracteristicas.idcaracRural = (string)reader["idcaracRural"];
+                    caracteristicas.area = (double)reader["area"];
+                    caracteristicas.explotacion = (string)reader["explotacion"];
+                    caracteristicas.topografia = (string)reader["topografia"];
+                    caracteristicas.caudal = (string)reader["caudal"];
+                    caracteristicas.pozo = (string)reader["pozo"];
+                    caracteristicas.viasComunicacion = (string)reader["viasComunicacion"];
+>>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                     caracteristicaspropiedad.Add(caracteristicas);
                 }
@@ -60,7 +70,11 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
+<<<<<<< HEAD
                 query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad where id = '" + id + "'";
+=======
+                query.CommandText = "Select * from caracteristicaspropiedad where idcaracRural = '" + id + "'";
+>>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -69,6 +83,7 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     caracteristicas = new CaracteristicasPropiedad();
+<<<<<<< HEAD
                     caracteristicas.idcaracRural = reader.GetString(0);
                     caracteristicas.area = reader.GetDouble(1);
                     caracteristicas.explotacion = reader.GetString(2);
@@ -76,6 +91,15 @@ namespace SistemaCatastralCholoma.Controllers
                     caracteristicas.caudal = reader.GetString(4);
                     caracteristicas.pozo = reader.GetString(5);
                     caracteristicas.viasComunicacion = reader.GetString(6);
+=======
+                    caracteristicas.idcaracRural = (string)reader["idcaracRural"];
+                    caracteristicas.area = (double)reader["area"];
+                    caracteristicas.explotacion = (string)reader["explotacion"];
+                    caracteristicas.topografia = (string)reader["topografia"];
+                    caracteristicas.caudal = (string)reader["caudal"];
+                    caracteristicas.pozo = (string)reader["pozo"];
+                    caracteristicas.viasComunicacion = (string)reader["viasComunicacion"];
+>>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 }
                 conn.Close();
@@ -139,7 +163,11 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
+<<<<<<< HEAD
                 query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad SET idcaracRura = @idcaracRura, area = @area,"
+=======
+                query.CommandText = "UPDATE caracteristicaspropiedad SET idcaracRural = @idcaracRural, area = @area,"
+>>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
                                                     + "explotacion = @explotacion, topografia = @topografia, caudal = @caudal,"
                                                     + "pozo = @pozo, viasComunicacion= @viasComunicacion";
 

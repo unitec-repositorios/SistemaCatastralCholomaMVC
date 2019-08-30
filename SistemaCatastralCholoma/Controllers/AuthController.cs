@@ -32,7 +32,7 @@ namespace SistemaCatastralCholoma.Controllers
                 
                 if (reader.HasRows) {
                     reader.Read();
-                    Empleado fetchedEmpleado = new Empleado((string)reader["nombre"], (string)reader["password"], (string)reader["tipo"]);
+                    Empleado fetchedEmpleado = new Empleado((string)reader["nombre"], (string)reader["password"], (TIPO_EMPLEADO)reader["tipo"]);
                     if (reader.GetString(0).Equals(empleado.nombre) && reader.GetString(1).Equals(empleado.password))
                         return Request.CreateResponse(HttpStatusCode.OK, fetchedEmpleado);
                 }

@@ -9,11 +9,11 @@ namespace SistemaCatastralCholoma.Models
     {
         public string nombre { get; set; }
         public string password { get; set; }
-        public string tipo { get; set; }
+        public TIPO_EMPLEADO tipo { get; set; }
 
         public Empleado(){}
 
-        public Empleado(string  nombre, string password, string tipo)
+        public Empleado(string  nombre, string password, TIPO_EMPLEADO tipo)
         {
             this.nombre = nombre;
             this.password = password;

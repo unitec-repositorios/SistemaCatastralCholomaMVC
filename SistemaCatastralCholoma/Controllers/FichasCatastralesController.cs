@@ -15,7 +15,11 @@ namespace SistemaCatastralCholoma.Controllers
         private SqlConnection conn = WebApiConfig.conn();
         // GET: api/
         [HttpGet]
+<<<<<<< HEAD:SistemaCatastralCholoma/Controllers/FichaCatastralController.cs
+        public List<FichaCatastral> listFichaCatastral()
+=======
         public List<FichasCatastrales> listFichaCatastral()
+>>>>>>> develop:SistemaCatastralCholoma/Controllers/FichasCatastralesController.cs
         {
             try
             {
@@ -25,8 +29,20 @@ namespace SistemaCatastralCholoma.Controllers
                 reader = cmd.ExecuteReader();
                 List<FichasCatastrales> fichas = new List<FichasCatastrales>();
                 while (reader.Read())
-                { 
-                    fichas.Add(new FichasCatastrales(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4),
+                {
+<<<<<<< HEAD:SistemaCatastralCholoma/Controllers/FichaCatastralController.cs
+                    /*fichas.Add(new FichaCatastral((String)reader["cocata"], (String)reader["depto"],
+=======
+                    fichas.Add(new FichasCatastrales((String)reader["cocata"], (String)reader["depto"],
+>>>>>>> develop:SistemaCatastralCholoma/Controllers/FichasCatastralesController.cs
+                        (String)reader["municipio"], (String)reader["aldea"], (String)reader["mapa"], 
+                        (String)reader["bolque"], (String)reader["predio"], (String)reader["num"], 
+                        (String)reader["maq"], (String)reader["st"], (String)reader["codProp"], 
+                        (String)reader["codHab"], (String)reader["noLinea"], (String)reader["noFoto"], 
+                        (String)reader["poblacion"], (String)reader["identidadPropietario"],
+                        (String)reader["tomo"],(String)reader["asiento"]));*/
+
+                    fichas.Add(new FichaCatastral(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4),
                         reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10),
                         reader.GetString(11), reader.GetString(12), reader.GetString(13), reader.GetString(14), reader.GetString(15), reader.GetString(16), reader.GetString(17)));
                 }
@@ -44,7 +60,11 @@ namespace SistemaCatastralCholoma.Controllers
 
         // GET: api/FichaCatastral/5
         [HttpGet]
+<<<<<<< HEAD:SistemaCatastralCholoma/Controllers/FichaCatastralController.cs
         public HttpResponseMessage getFichaCatastral(string cocata)
+=======
+        public FichasCatastrales getFichaCatastral(string cocata)
+>>>>>>> develop:SistemaCatastralCholoma/Controllers/FichasCatastralesController.cs
         {
             try
             {
@@ -52,14 +72,28 @@ namespace SistemaCatastralCholoma.Controllers
                 SqlDataReader reader;
                 SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.FichasCatastrales where cocata = '" + cocata + "'", conn);
                 reader = cmd.ExecuteReader();
+<<<<<<< HEAD:SistemaCatastralCholoma/Controllers/FichaCatastralController.cs
+                FichaCatastral ficha = new FichaCatastral();
 
-                FichasCatastrales ficha = new FichasCatastrales();
-
-                    ficha = new FichasCatastrales(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4),
+                    ficha = new FichaCatastral(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4),
                         reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10),
                         reader.GetString(11), reader.GetString(12), reader.GetString(13), reader.GetString(14), reader.GetString(15), reader.GetString(16), reader.GetString(17));
 
+
                 var response = Request.CreateResponse(HttpStatusCode.OK, ficha);
+=======
+                FichasCatastrales ficha = new FichasCatastrales();
+                while (reader.Read())
+                {
+                    ficha = new FichasCatastrales((String)reader["cocata"], (String)reader["depto"],
+                        (String)reader["municipio"], (String)reader["aldea"], (String)reader["mapa"],
+                        (String)reader["bolque"], (String)reader["predio"], (String)reader["num"],
+                        (String)reader["maq"], (String)reader["st"], (String)reader["codProp"],
+                        (String)reader["codHab"], (String)reader["noLinea"], (String)reader["noFoto"],
+                        (String)reader["poblacion"], (String)reader["identidadPropietario"],
+                        (String)reader["tomo"],(String)reader["asiento"]);
+                }
+>>>>>>> develop:SistemaCatastralCholoma/Controllers/FichasCatastralesController.cs
                 conn.Close();
                 return response;
             }
@@ -69,13 +103,18 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
 
             }
+            conn.Close();
+            return null;
         }
     
 
         // POST: api/FichaCatastral
+<<<<<<< HEAD:SistemaCatastralCholoma/Controllers/FichaCatastralController.cs
         [HttpPost]
+        public HttpResponseMessage createFichaCatastral(FichaCatastral ficha)
+=======
         public HttpResponseMessage createFichaCatastral(FichasCatastrales ficha)
-
+>>>>>>> develop:SistemaCatastralCholoma/Controllers/FichasCatastralesController.cs
         {
             try
             {
@@ -106,19 +145,32 @@ namespace SistemaCatastralCholoma.Controllers
 
                 var response = Request.CreateResponse(HttpStatusCode.OK);
                 conn.Close();
+
+<<<<<<< HEAD:SistemaCatastralCholoma/Controllers/FichaCatastralController.cs
+=======
+                var response = Request.CreateResponse(HttpStatusCode.OK,ficha);
+>>>>>>> develop:SistemaCatastralCholoma/Controllers/FichasCatastralesController.cs
                 return response;
             }
             catch (SqlException e)
             {
+<<<<<<< HEAD:SistemaCatastralCholoma/Controllers/FichaCatastralController.cs
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
+=======
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+>>>>>>> develop:SistemaCatastralCholoma/Controllers/FichasCatastralesController.cs
                 return response;
             }
             
         }
 
         // PUT: api/FichaCatastral/5
+<<<<<<< HEAD:SistemaCatastralCholoma/Controllers/FichaCatastralController.cs
         [HttpPut]
-        public HttpResponseMessage modifyFichaCatastral(string id, FichasCatastrales ficha)
+        public HttpResponseMessage modifyFichaCatastral(string id, FichaCatastral ficha)
+=======
+        public void modifyFichaCatastral(FichasCatastrales ficha)
+>>>>>>> develop:SistemaCatastralCholoma/Controllers/FichasCatastralesController.cs
         {
             try
             {
@@ -159,6 +211,8 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
             }
+            conn.Close();
+            return null;
         }
 
         // DELETE: api/FichaCatastral/5
@@ -185,6 +239,8 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Close();
                 return response;
             }
+            conn.Close();
+            return null;
         }
     
     }
