@@ -20,11 +20,7 @@ namespace SistemaCatastralCholoma.Models
 
         }
 
-<<<<<<< HEAD
         public Propietario(string id, string nombres, string apellidos, string telefono, string rtn, char sexo, string nacionalidad)
-=======
-        public Propietario(int id, string nombres, string apellidos, string identidad, string telefono, string rtn, string sexo, string nacionalidad)
->>>>>>> SqlServerImplementation
         {
             this.id = id;
             this.nombres = nombres;

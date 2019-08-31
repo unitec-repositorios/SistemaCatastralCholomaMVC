@@ -97,11 +97,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-<<<<<<< HEAD
                 query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.propietarios VALUES (@id,@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
-=======
-                query.CommandText = "INSERT INTO propietario VALUES (@id,@nombres,@apellidos,@telefono,@rtn,@sexo,@nacionalidad);";
->>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", propietario.id);

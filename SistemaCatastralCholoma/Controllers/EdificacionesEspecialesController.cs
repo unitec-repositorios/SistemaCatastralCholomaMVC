@@ -32,19 +32,11 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     edificacion = new EdificacionesEspeciales();
-<<<<<<< HEAD
                     edificacion.idedificacionesespeciales = reader.GetInt32(0);
                     edificacion.Nivel = reader.GetString(1);
                     edificacion.Area = reader.GetDouble(2);
                     edificacion.Area = reader.GetDouble(3);
                     edificacion.idDatosComplementarios = reader.GetInt32(4);
-=======
-                    edificacion.idedificacionesespeciales = (string)reader["idedificacionesespeciales"];
-                    edificacion.Nivel = (string)reader["Nivel"];
-                    edificacion.Area = (Double)reader["Area"];
-                    edificacion.Area = (Double)reader["Costo"];
-                    edificacion.idDatosComplementarios = (string)reader["idDatosComplementarios"];
->>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                     edificaciones.Add(edificacion);
                 }
@@ -77,19 +69,11 @@ namespace SistemaCatastralCholoma.Controllers
                 EdificacionesEspeciales edificacion = new EdificacionesEspeciales();
                 while (reader.Read())
                 {
-<<<<<<< HEAD
                     edificacion.idedificacionesespeciales = reader.GetInt32(0);
                     edificacion.Nivel = reader.GetString(1);
                     edificacion.Area = reader.GetDouble(2);
                     edificacion.Area = reader.GetDouble(3);
                     edificacion.idDatosComplementarios = reader.GetInt32(4);
-=======
-                    edificacion.idedificacionesespeciales = (string)reader["idedificacionesespeciales"];
-                    edificacion.Nivel = (string)reader["Nivel"];
-                    edificacion.Area = (Double)reader["Area"];
-                    edificacion.Area = (Double)reader["Costo"];
-                    edificacion.idDatosComplementarios = (string)reader["idDatosComplementarios"];
->>>>>>> 24f97a27102ee2e1caab9fbf83214ca4ab08f84f
 
                 }
 
