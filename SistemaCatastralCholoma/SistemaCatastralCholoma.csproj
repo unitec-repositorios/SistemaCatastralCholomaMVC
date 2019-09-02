@@ -353,6 +353,7 @@
     <Compile Include="Controllers\DatosComplementariosController.cs" />
     <Compile Include="Controllers\DatosDesarrolloController.cs" />
     <Compile Include="Controllers\DatosLegalesController.cs" />
+    <Compile Include="Controllers\DetallesAdicionalesController.cs" />
     <Compile Include="Controllers\EdificacionesEspecialesController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\FactoresRuralesController.cs" />
@@ -382,6 +383,7 @@
     <Compile Include="Models\DatosComplementarios.cs" />
     <Compile Include="Models\DatosDesarrollo.cs" />
     <Compile Include="Models\DatosLegales.cs" />
+    <Compile Include="Models\DetallesAdicionales.cs" />
     <Compile Include="Models\EdificacionesEspeciales.cs" />
     <Compile Include="Models\Empleado.cs" />
     <Compile Include="Models\FactoresRurales.cs" />
@@ -453,6 +455,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DetallesAdicionales\" />
     <Folder Include="Views\UsoTierra\" />
   </ItemGroup>
   <ItemGroup>
