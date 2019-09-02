@@ -42,8 +42,6 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
-            conn.Close();
-            return null;
         }
 
         [HttpGet]
