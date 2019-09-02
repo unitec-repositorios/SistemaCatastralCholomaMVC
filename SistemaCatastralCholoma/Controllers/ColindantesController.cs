@@ -33,22 +33,28 @@ namespace SistemaCatastralCholoma.Controllers
                     colindante.idcolindantes = reader.GetInt32(0);
                     colindante.Norte = reader.GetString(1);
                     colindante.Sur = reader.GetString(2);
-                    colindante.Este= reader.GetString(3);
+                    colindante.Este = reader.GetString(3);
                     colindante.Oeste = reader.GetString(4);
                     colindante.idDatosComplementarios = reader.GetString(5);
 
                     colindantes.Add(colindante);
                 }
+
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, colindantes);
                 return response;
 
+
             }
-            catch (SqlException e)
-            {
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
+            catch{
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+                var response = Request.CreateResponse(HttpStatusCode.OK, colindantes);
                 return response;
             }
+
         }
 
         [HttpGet]
@@ -86,6 +92,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
             }
@@ -120,6 +130,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadGateway, p);
                 return response;
@@ -160,6 +174,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
                 return response;
@@ -188,6 +206,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
                 return response;
             }

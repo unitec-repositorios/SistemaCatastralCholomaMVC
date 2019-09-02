@@ -32,11 +32,11 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     edificacion = new EdificacionesEspeciales();
-                    edificacion.idedificacionesespeciales = reader.GetInt32(0);
+                    edificacion.idedificacionesespeciales = reader.GetString(0);
                     edificacion.Nivel = reader.GetString(1);
                     edificacion.Area = reader.GetDouble(2);
                     edificacion.Area = reader.GetDouble(3);
-                    edificacion.idDatosComplementarios = reader.GetInt32(4);
+                    edificacion.idDatosComplementarios = reader.GetString(4);
 
                     edificaciones.Add(edificacion);
                 }
@@ -47,6 +47,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
             }
@@ -69,11 +73,11 @@ namespace SistemaCatastralCholoma.Controllers
                 EdificacionesEspeciales edificacion = new EdificacionesEspeciales();
                 while (reader.Read())
                 {
-                    edificacion.idedificacionesespeciales = reader.GetInt32(0);
+                    edificacion.idedificacionesespeciales = reader.GetString(0);
                     edificacion.Nivel = reader.GetString(1);
                     edificacion.Area = reader.GetDouble(2);
                     edificacion.Area = reader.GetDouble(3);
-                    edificacion.idDatosComplementarios = reader.GetInt32(4);
+                    edificacion.idDatosComplementarios = reader.GetString(4);
 
                 }
 
@@ -87,6 +91,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
             }
@@ -125,6 +133,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
@@ -161,6 +173,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
@@ -188,6 +204,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }

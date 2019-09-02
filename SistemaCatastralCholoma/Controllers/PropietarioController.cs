@@ -41,6 +41,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.NoContent, e.Message);
                 return response;
             }
@@ -55,10 +59,10 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propietarios where id = '" + id+"'";
+                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propietarios where id = '" + id + "'";
 
-                SqlDataReader reader = query.ExecuteReader(); 
-                
+                SqlDataReader reader = query.ExecuteReader();
+
 
                 Propietario propietario = new Propietario();
                 while (reader.Read())
@@ -67,7 +71,7 @@ namespace SistemaCatastralCholoma.Controllers
                         reader.GetString(4), reader.GetString(6), reader.GetString(7));
                 }
                 conn.Close();
-                if (propietario.id == "")
+                if (propietario.id.ToString() == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
@@ -77,6 +81,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
@@ -123,6 +131,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,"Ocurrio un error al enviar el formulario");
                 return response;
@@ -131,7 +143,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/Propietario/5
         [HttpPut]
-        public HttpResponseMessage modificarPropietario(string id, Propietario propietario)
+        public HttpResponseMessage modificarPropietario(int id, Propietario propietario)
         {
             try
             {
@@ -142,7 +154,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.propietarios SET nombres=@nombres," +
                                                             "apellidos = @apellidos," +
                                                             "telefono = @telefono," +
-                                                            "identidad = @identidad,"+
+                                                            "identidad = @identidad," +
                                                             "rtn = @rtn," +
                                                             "sexo = @sexo," +
                                                             "nacionalidad = @nacionalidad where id = @id";
@@ -165,6 +177,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest);
                 return response;
@@ -194,6 +210,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, "No se encontro propietario con identidad "+id);
                 return response;
             }
