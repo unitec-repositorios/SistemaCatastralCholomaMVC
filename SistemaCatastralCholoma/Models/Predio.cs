@@ -9,7 +9,7 @@ namespace SistemaCatastralCholoma.Models
 
     public class Predio
     {
-        public int idPredio { get; set; }
+        public string idPredio { get; set; }
         public string mapa { get; set; }
         public string bloque { get; set; }
         public string numeroPredio {get;set;}
@@ -30,10 +30,10 @@ namespace SistemaCatastralCholoma.Models
         public string observacion { get; set; }
 
 
-        public Predio(int idPredio, string mapa, string bloque, string numeroPredio, string barrio, string caserio, int uso, int subUso, string sitio, string ubicacion,
+        public Predio(string idPredio, string mapa, string bloque, string numeroPredio, string barrio, string caserio, int uso, int subUso, string sitio, string ubicacion,
                       string construccion, int estatusTributario, string codigoPropietario,
                       string codigoHabitacional, double porcentajeExencion, double tasaImpositiva, string futurasRevisiones,
-                      double porcentajeConcertacio, string observacion)
+                      double porcentajeConcertacion, string observacion)
         {
             this.idPredio = idPredio;
             this.barrio = barrio;
