@@ -51,7 +51,7 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.porcentajeConcertacion = (double)reader["porcentajeConcertacion"];*/
 
                     predio = new Predio();
-                    predio.idPredio = reader.GetInt32(0);
+                    predio.idPredio = reader.GetString(0);
                     predio.mapa = reader.GetString(1);
                     predio.bloque = reader.GetString(2);
                     predio.numeroPredio = reader.GetString(3);
@@ -65,7 +65,7 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.estatusTributario = reader.GetInt32(11);
                     predio.codigoPropietario = reader.GetString(12);
                     predio.codigoHabitacional = reader.GetString(13);
-                    predio.porcentajeExencion = reader.GetDouble(14);
+                    predio.porcentajeExtencion = reader.GetDouble(14);
                     predio.tasaImpositiva = reader.GetDouble(15);
                     predio.futurasRevisiones = reader.GetString(16);
                     predio.porcentajeConcertacion = reader.GetDouble(17);
@@ -126,7 +126,7 @@ namespace SistemaCatastralCholoma.Controllers
                    predio.porcentajeConcertacion = (double)reader["porcentajeConcertacion"];*/
 
                     predio = new Predio();
-                    predio.idPredio = reader.GetInt32(0);
+                    predio.idPredio = reader.GetString(0);
                     predio.mapa = reader.GetString(1);
                     predio.bloque = reader.GetString(2);
                     predio.numeroPredio = reader.GetString(3);
@@ -140,14 +140,14 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.estatusTributario = reader.GetInt32(11);
                     predio.codigoPropietario = reader.GetString(12);
                     predio.codigoHabitacional = reader.GetString(13);
-                    predio.porcentajeExencion = reader.GetDouble(14);
+                    predio.porcentajeExtencion = reader.GetDouble(14);
                     predio.tasaImpositiva = reader.GetDouble(15);
                     predio.futurasRevisiones = reader.GetString(16);
                     predio.porcentajeConcertacion = reader.GetDouble(17);
                     predio.observacion = reader.GetString(18);
                 }
                 conn.Close();
-                if (predio.idPredio == 0)
+                if (string.IsNullOrEmpty(predio.idPredio))
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, new ArgumentNullException());
 
                 var response = Request.CreateResponse(HttpStatusCode.OK, predio);
@@ -232,7 +232,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@estatusTributario",p.estatusTributario);
                 query.Parameters.AddWithValue("@codigoPropietario",p.codigoPropietario);
                 query.Parameters.AddWithValue("@codigoHabitacional",p.codigoHabitacional);
-                query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExencion);
+                query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExtencion);
                 query.Parameters.AddWithValue("@tasaImpositiva",p.tasaImpositiva);
                 query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
                 query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
@@ -243,7 +243,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.predios where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " and numeroPredio = '" + p.numeroPredio + "'";
                 reader = query.ExecuteReader();
                 reader.Read();
-                p.idPredio = (int)reader["idPredio"];
+                p.idPredio = reader.GetString(0);
 
                 reader.Close();
                 conn.Close();
@@ -266,7 +266,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT api/<controller>/5
         [HttpPut]
-        public HttpResponseMessage modifyPredio(int id, Predio p)
+        public HttpResponseMessage modifyPredio(string id, Predio p)
         {
             try
             {
@@ -310,7 +310,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@estatusTributario",p.estatusTributario);
                 query.Parameters.AddWithValue("@codigoPropietario",p.codigoPropietario);
                 query.Parameters.AddWithValue("@codigoHabitacional",p.codigoHabitacional);
-                query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExencion);
+                query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExtencion);
                 query.Parameters.AddWithValue("@tasaImpositiva",p.tasaImpositiva);
                 query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
                 query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);

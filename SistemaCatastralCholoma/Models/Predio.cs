@@ -23,16 +23,17 @@ namespace SistemaCatastralCholoma.Models
         public int estatusTributario {get;set;}
         public string codigoPropietario {get;set;}
         public string codigoHabitacional {get;set;}
-        public double porcentajeExencion {get;set;}
+        public double porcentajeExtencion {get;set;}
         public double tasaImpositiva {get;set;}
         public string futurasRevisiones {get;set;}
         public double porcentajeConcertacion {get;set;}
+        public string observacion { get; set; }
 
 
         public Predio(int idPredio, string mapa, string bloque, string numeroPredio, string barrio, string caserio, int uso, int subUso, string sitio, string ubicacion,
                       string construccion, int estatusTributario, string codigoPropietario,
                       string codigoHabitacional, double porcentajeExencion, double tasaImpositiva, string futurasRevisiones,
-                      double porcentajeConcertacion)
+                      double porcentajeConcertacio, string observacion)
         {
             this.idPredio = idPredio;
             this.barrio = barrio;
@@ -48,10 +49,11 @@ namespace SistemaCatastralCholoma.Models
             this.estatusTributario = estatusTributario;
             this.codigoPropietario = codigoPropietario;
             this.codigoHabitacional = codigoHabitacional;
-            this.porcentajeExencion = porcentajeExencion;
+            this.porcentajeExtencion = porcentajeExencion;
             this.tasaImpositiva = tasaImpositiva;
             this.futurasRevisiones = futurasRevisiones;
             this.porcentajeConcertacion = porcentajeConcertacion;
+            this.observacion = observacion;
         }
 
         public Predio()
