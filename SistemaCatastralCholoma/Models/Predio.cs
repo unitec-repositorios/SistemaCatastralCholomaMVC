@@ -23,7 +23,7 @@ namespace SistemaCatastralCholoma.Models
         public int estatusTributario {get;set;}
         public string codigoPropietario {get;set;}
         public string codigoHabitacional {get;set;}
-        public double porcentajeExtencion {get;set;}
+        public double porcentajeExencion {get;set;}
         public double tasaImpositiva {get;set;}
         public string futurasRevisiones {get;set;}
         public double porcentajeConcertacion {get;set;}
@@ -49,7 +49,7 @@ namespace SistemaCatastralCholoma.Models
             this.estatusTributario = estatusTributario;
             this.codigoPropietario = codigoPropietario;
             this.codigoHabitacional = codigoHabitacional;
-            this.porcentajeExtencion = porcentajeExencion;
+            this.porcentajeExencion = porcentajeExencion;
             this.tasaImpositiva = tasaImpositiva;
             this.futurasRevisiones = futurasRevisiones;
             this.porcentajeConcertacion = porcentajeConcertacion;

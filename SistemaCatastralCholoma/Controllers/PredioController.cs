@@ -65,7 +65,7 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.estatusTributario = reader.GetInt32(11);
                     predio.codigoPropietario = reader.GetString(12);
                     predio.codigoHabitacional = reader.GetString(13);
-                    predio.porcentajeExtencion = reader.GetDouble(14);
+                    predio.porcentajeExencion = reader.GetDouble(14);
                     predio.tasaImpositiva = reader.GetDouble(15);
                     predio.futurasRevisiones = reader.GetString(16);
                     predio.porcentajeConcertacion = reader.GetDouble(17);
@@ -140,7 +140,7 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.estatusTributario = reader.GetInt32(11);
                     predio.codigoPropietario = reader.GetString(12);
                     predio.codigoHabitacional = reader.GetString(13);
-                    predio.porcentajeExtencion = reader.GetDouble(14);
+                    predio.porcentajeExencion = reader.GetDouble(14);
                     predio.tasaImpositiva = reader.GetDouble(15);
                     predio.futurasRevisiones = reader.GetString(16);
                     predio.porcentajeConcertacion = reader.GetDouble(17);
@@ -232,7 +232,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@estatusTributario",p.estatusTributario);
                 query.Parameters.AddWithValue("@codigoPropietario",p.codigoPropietario);
                 query.Parameters.AddWithValue("@codigoHabitacional",p.codigoHabitacional);
-                query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExtencion);
+                query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExencion);
                 query.Parameters.AddWithValue("@tasaImpositiva",p.tasaImpositiva);
                 query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
                 query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
@@ -310,7 +310,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@estatusTributario",p.estatusTributario);
                 query.Parameters.AddWithValue("@codigoPropietario",p.codigoPropietario);
                 query.Parameters.AddWithValue("@codigoHabitacional",p.codigoHabitacional);
-                query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExtencion);
+                query.Parameters.AddWithValue("@porcentajeExencion",p.porcentajeExencion);
                 query.Parameters.AddWithValue("@tasaImpositiva",p.tasaImpositiva);
                 query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
                 query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
