@@ -30,11 +30,7 @@ namespace SistemaCatastralCholoma.Controllers
                 SqlDataReader reader = query.ExecuteReader();
                 DatosLegales datos;
                 while (reader.Read())
-                {
-
-                    //Sql.Data.Types.SqlDateTime date = reader.GetSqlDateTime(5);
-
-                    
+                {                    
 
                     datos = new DatosLegales();
                     datos.idclaveCatastral = reader.GetString(0);
@@ -42,7 +38,7 @@ namespace SistemaCatastralCholoma.Controllers
                     datos.tomo = reader.GetString(2);
                     datos.folio = reader.GetString(3);
                     datos.asiento = reader.GetString(4);
-                    //datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
+                    datos.inscripcion = reader.GetDateTime(5);
                     datos.matricula = reader.GetString(6);
                     datos.linea = reader.GetString(7);
                     datos.foto = reader.GetString(8);
@@ -52,6 +48,7 @@ namespace SistemaCatastralCholoma.Controllers
                     datos.area = reader.GetDouble(12);
                     datos.unidadArea = reader.GetString(13);
                     datos.tipoMedida = reader.GetString(14);
+                    datos.claseDominio = reader.GetString(15);
 
                     datosLegales.Add(datos);
                 }
@@ -94,7 +91,7 @@ namespace SistemaCatastralCholoma.Controllers
                     datos.tomo = reader.GetString(2);
                     datos.folio = reader.GetString(3);
                     datos.asiento = reader.GetString(4);
-                    //datos.inscripcion = reader.GetSqlDateTime(5).GetDateTime();
+                    datos.inscripcion = reader.GetDateTime(5);
                     datos.matricula = reader.GetString(6);
                     datos.linea = reader.GetString(7);
                     datos.foto = reader.GetString(8);
@@ -104,6 +101,7 @@ namespace SistemaCatastralCholoma.Controllers
                     datos.area = reader.GetDouble(12);
                     datos.unidadArea = reader.GetString(13);
                     datos.tipoMedida = reader.GetString(14);
+                    datos.claseDominio = reader.GetString(15);
 
                 }
                 conn.Close();
@@ -127,7 +125,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // POST: api/DatosLegales
         [HttpPost]
-        public HttpResponseMessage createDatosLegales(DatosLegalesRequestModel datos)
+        public HttpResponseMessage createDatosLegales(DatosLegales datos)
         {
             try
             {
@@ -149,7 +147,8 @@ namespace SistemaCatastralCholoma.Controllers
                                                                     "@tipoDocumento," +
                                                                     "@area," +
                                                                     "@unidadArea," +
-                                                                    "@tipoMedida);";
+                                                                    "@tipoMedida,"+
+                                                                    "@claseDominio);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idclaveCatastral", datos.idclaveCatastral);
@@ -167,6 +166,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@area", datos.area);
                 query.Parameters.AddWithValue("@unidadArea", datos.unidadArea);
                 query.Parameters.AddWithValue("@tipoMedida", datos.tipoMedida);
+                query.Parameters.AddWithValue("@claseDominio", datos.claseDominio);
 
                 query.ExecuteNonQuery();
 
@@ -189,7 +189,7 @@ namespace SistemaCatastralCholoma.Controllers
 
         // PUT: api/DatosLegales/5
         [HttpPut]
-        public HttpResponseMessage modifyDatosLegales(string id, DatosLegalesRequestModel datos)
+        public HttpResponseMessage modifyDatosLegales(string id, DatosLegales datos)
         {
             try
             {
@@ -211,6 +211,7 @@ namespace SistemaCatastralCholoma.Controllers
                                                             "area = @area," +
                                                             "unidadArea = @unidadArea," +
                                                             "tipoMedida = @tipoMedida "+
+                                                            "claseDominio = @claseDominio"+
                                                             "where idclaveCatastral = @id";
 
                 query.Prepare();
@@ -229,6 +230,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@area", datos.area);
                 query.Parameters.AddWithValue("@unidadArea", datos.unidadArea);
                 query.Parameters.AddWithValue("@tipoMedida", datos.tipoMedida);
+                query.Parameters.AddWithValue("@claseDominio", datos.claseDominio);
                 query.ExecuteNonQuery();
                 datos.idclaveCatastral = id;
                 conn.Close();

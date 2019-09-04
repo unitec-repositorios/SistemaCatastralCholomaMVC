@@ -57,19 +57,19 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.numeroPredio = reader.GetString(3);
                     predio.barrio = reader.GetString(4);
                     predio.caserio = reader.GetString(5);
-                    predio.uso = (USO)reader.GetInt32(6);
-                    predio.subUso = (SUBUSO)reader.GetInt32(7);
-                    predio.ubicacion = reader.GetString(8);
-                    predio.sitio = reader.GetString(9);
+                    predio.sitio = reader.GetString(6);
+                    predio.uso = reader.GetInt32(7);
+                    predio.subUso = reader.GetInt32(8);
+                    predio.ubicacion = reader.GetString(9);
                     predio.construccion = reader.GetString(10);
-                    predio.estatusTributario = (ESTATUS_TRIBUTARIO)reader.GetInt32(11);
+                    predio.estatusTributario = reader.GetInt32(11);
                     predio.codigoPropietario = reader.GetString(12);
                     predio.codigoHabitacional = reader.GetString(13);
                     predio.porcentajeExencion = reader.GetDouble(14);
                     predio.tasaImpositiva = reader.GetDouble(15);
                     predio.futurasRevisiones = reader.GetString(16);
                     predio.porcentajeConcertacion = reader.GetDouble(17);
-
+                    predio.observacion = reader.GetString(18);
 
                     predios.Add(predio);
                 }
@@ -80,6 +80,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
@@ -102,24 +106,24 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     /*predio = new Predio();
-                    predio.idPredio = (int)reader["idPredio"];
-                    predio.mapa = (string)reader["mapa"];
-                    predio.bloque = (string)reader["bloque"];
-                    predio.numeroPredio = (string)reader["numeroPredio"];
-                    predio.barrio = (string)reader["barrio"];
-                    predio.caserio = (string)reader["caserio"];
-                    predio.uso = (USO)reader["uso"];
-                    predio.subUso = (SUBUSO)reader["subUso"];
-                    predio.ubicacion = (string)reader["ubicacion"];
-                    predio.sitio = (string)reader["sitio"];
-                    predio.construccion = (string)reader["construccion"];
-                    predio.estatusTributario = (ESTATUS_TRIBUTARIO)reader["estatusTributario"];
-                    predio.codigoPropietario = (string)reader["codigoPropietario"];
-                    predio.codigoHabitacional = (string)reader["codigoHabitacional"];
-                    predio.porcentajeExencion = (double)reader["porcentajeExtencion"];
-                    predio.tasaImpositiva = (double)reader["tasaImpositiva"];
-                    predio.futurasRevisiones = (string)reader["futurasRevisiones"];
-                    predio.porcentajeConcertacion = (double)reader["porcentajeConcertacion"];*/
+                   predio.idPredio = (int)reader["idPredio"];
+                   predio.mapa = (string)reader["mapa"];
+                   predio.bloque = (string)reader["bloque"];
+                   predio.numeroPredio = (string)reader["numeroPredio"];
+                   predio.barrio = (string)reader["barrio"];
+                   predio.caserio = (string)reader["caserio"];
+                   predio.uso = (USO)reader["uso"];
+                   predio.subUso = (SUBUSO)reader["subUso"];
+                   predio.ubicacion = (string)reader["ubicacion"];
+                   predio.sitio = (string)reader["sitio"];
+                   predio.construccion = (string)reader["construccion"];
+                   predio.estatusTributario = (ESTATUS_TRIBUTARIO)reader["estatusTributario"];
+                   predio.codigoPropietario = (string)reader["codigoPropietario"];
+                   predio.codigoHabitacional = (string)reader["codigoHabitacional"];
+                   predio.porcentajeExencion = (double)reader["porcentajeExtencion"];
+                   predio.tasaImpositiva = (double)reader["tasaImpositiva"];
+                   predio.futurasRevisiones = (string)reader["futurasRevisiones"];
+                   predio.porcentajeConcertacion = (double)reader["porcentajeConcertacion"];*/
 
                     predio = new Predio();
                     predio.idPredio = reader.GetInt32(0);
@@ -128,18 +132,19 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.numeroPredio = reader.GetString(3);
                     predio.barrio = reader.GetString(4);
                     predio.caserio = reader.GetString(5);
-                    predio.uso = (USO)reader.GetInt32(6);
-                    predio.subUso = (SUBUSO)reader.GetInt32(7);
-                    predio.ubicacion = reader.GetString(8);
-                    predio.sitio = reader.GetString(9);
+                    predio.sitio = reader.GetString(6);
+                    predio.uso = reader.GetInt32(7);
+                    predio.subUso = reader.GetInt32(8);
+                    predio.ubicacion = reader.GetString(9);
                     predio.construccion = reader.GetString(10);
-                    predio.estatusTributario = (ESTATUS_TRIBUTARIO)reader.GetInt32(11);
+                    predio.estatusTributario = reader.GetInt32(11);
                     predio.codigoPropietario = reader.GetString(12);
                     predio.codigoHabitacional = reader.GetString(13);
                     predio.porcentajeExencion = reader.GetDouble(14);
                     predio.tasaImpositiva = reader.GetDouble(15);
                     predio.futurasRevisiones = reader.GetString(16);
                     predio.porcentajeConcertacion = reader.GetDouble(17);
+                    predio.observacion = reader.GetString(18);
                 }
                 conn.Close();
                 if (predio.idPredio == 0)
@@ -151,6 +156,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
             }
@@ -205,7 +214,8 @@ namespace SistemaCatastralCholoma.Controllers
                                                                 "@porcentajeExencion," +
                                                                 "@tasaImpositiva," +
                                                                 "@futurasRevisiones," +
-                                                                "@porcentajeConcertacion);";
+                                                                "@porcentajeConcertacion" +
+                                                                "@observacion);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", null);
@@ -226,6 +236,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@tasaImpositiva",p.tasaImpositiva);
                 query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
                 query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
+                query.Parameters.AddWithValue("@observacion", p.observacion);
 
                 query.ExecuteNonQuery();
 
@@ -243,6 +254,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
@@ -275,7 +290,8 @@ namespace SistemaCatastralCholoma.Controllers
                                                         "porcentajeExtencion = @porcentajeExencion,"
                                                     +   "tasaImpositivo = @tasaImpositiva, " +
                                                         "futuraRevisiones = @futuraRevisiones,"
-                                                    +   "porcentajeConcertacion = @porcentajeConcertacion where idPredio = @id";
+                                                    +   "porcentajeConcertacion = @porcentajeConcertacion " +
+                                                        "observacion = @observacion where idPredio = @id";
 
                 p.idPredio = id;
 
@@ -298,6 +314,7 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@tasaImpositiva",p.tasaImpositiva);
                 query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
                 query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
+                query.Parameters.AddWithValue("@observacion", p.observacion);
                 query.ExecuteNonQuery();
 
                 conn.Close();
@@ -308,6 +325,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 Console.WriteLine(e.Message);
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
                 return response;
@@ -336,6 +357,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message);
                 return response;
             }

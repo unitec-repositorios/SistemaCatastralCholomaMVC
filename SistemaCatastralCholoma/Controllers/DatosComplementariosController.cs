@@ -31,12 +31,12 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     datosComplementarios = new DatosComplementarios();
                     datosComplementarios.idClaveCatastral = reader.GetString(0);
-                    //datosComplementarios.adquicicion= reader.GetSqlDateTime(5).GetDateTime();
+                    datosComplementarios.adquisicion= reader.GetDateTime(1);
                     datosComplementarios.montoTransaccion = reader.GetDouble(2);
                     datosComplementarios.claseTransaccion = reader.GetString(3);
                     datosComplementarios.maquinaria = reader.GetString(4);
                     datosComplementarios.delineador = reader.GetString(5);
-                   // datosComplementarios.fecha = reader.GetSqlDateTime(5).GetDateTime();
+                    datosComplementarios.fecha = reader.GetDateTime(6);
                     datosComplementarios.observaciones = reader.GetString(7);
                     datosComplementarios.ocupante = reader.GetString(8);
                     datosComplementarios.uso = reader.GetString(9);
@@ -56,6 +56,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
             }
@@ -78,12 +82,12 @@ namespace SistemaCatastralCholoma.Controllers
                 while (reader.Read())
                 {
                     datosComplementarios.idClaveCatastral = reader.GetString(0);
-                    //datosComplementarios.adquicicion = reader.GetSqlDateTime(5).GetDateTime();
+                    datosComplementarios.adquisicion = reader.GetDateTime(1);
                     datosComplementarios.montoTransaccion = reader.GetDouble(2);
                     datosComplementarios.claseTransaccion = reader.GetString(3);
                     datosComplementarios.maquinaria = reader.GetString(4);
                     datosComplementarios.delineador = reader.GetString(5);
-                    //datosComplementarios.fecha = reader.GetSqlDateTime(5).GetDateTime();
+                    datosComplementarios.fecha = reader.GetDateTime(6);
                     datosComplementarios.observaciones = reader.GetString(7);
                     datosComplementarios.ocupante = reader.GetString(8);
                     datosComplementarios.uso = reader.GetString(9);
@@ -105,6 +109,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
                 return response;
             }
@@ -139,7 +147,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idClaveCatastral", datosComplementarios.idClaveCatastral);
-                query.Parameters.AddWithValue("@adquisicion", datosComplementarios.adquicicion);
+                query.Parameters.AddWithValue("@adquisicion", datosComplementarios.adquisicion);
                 query.Parameters.AddWithValue("@montoTransaccion", datosComplementarios.montoTransaccion);
                 query.Parameters.AddWithValue("@claseTransaccion", datosComplementarios.claseTransaccion);
                 query.Parameters.AddWithValue("@maquinaria", datosComplementarios.maquinaria);
@@ -165,6 +173,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
@@ -199,7 +211,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idClaveCatastral", datosComplementarios.idClaveCatastral);
-                query.Parameters.AddWithValue("@adquisicion", datosComplementarios.adquicicion);
+                query.Parameters.AddWithValue("@adquisicion", datosComplementarios.adquisicion);
                 query.Parameters.AddWithValue("@montoTransaccion", datosComplementarios.montoTransaccion);
                 query.Parameters.AddWithValue("@claseTransaccion", datosComplementarios.claseTransaccion);
                 query.Parameters.AddWithValue("@maquinaria", datosComplementarios.maquinaria);
@@ -222,6 +234,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
@@ -249,6 +265,10 @@ namespace SistemaCatastralCholoma.Controllers
             }
             catch (SqlException e)
             {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
                 var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                 return response;
             }
