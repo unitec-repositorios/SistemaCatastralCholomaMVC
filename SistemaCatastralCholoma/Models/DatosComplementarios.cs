@@ -8,7 +8,7 @@ namespace SistemaCatastralCholoma.Models
     public class DatosComplementarios
     {
         public string idClaveCatastral { get; set; }
-        public DateTime adquicicion { get; set; }
+        public DateTime adquisicion { get; set; }
         public double montoTransaccion { get; set; }
         public string claseTransaccion { get; set; }
         public string maquinaria { get; set; }
@@ -33,7 +33,7 @@ namespace SistemaCatastralCholoma.Models
                                     double renta, int idSP, double valor)
         {
             this.idClaveCatastral = id;
-            this.adquicicion = adq;
+            this.adquisicion = adq;
             this.montoTransaccion = monto;
             this.claseTransaccion = claseTrans;
             this.maquinaria = maquinaria;

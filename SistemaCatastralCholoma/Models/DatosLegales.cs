@@ -22,13 +22,14 @@ namespace SistemaCatastralCholoma.Models
         public double area { get; set; }
         public string unidadArea { get; set; }
         public string tipoMedida { get; set; }
+        public string claseDominio { get; set; }
 
         public DatosLegales() { }
 
         public DatosLegales(string id, string propiedad, string tomo, string folio,
                             string asiento, DateTime inscripcion, string matricula,
                             string linea, string foto, string predio, string naturaleza,
-                            string tipo, double area, string unidad)
+                            string tipo, double area, string unidad, string clase)
         {
             idclaveCatastral = id;
             this.propiedad = propiedad;
@@ -45,6 +46,7 @@ namespace SistemaCatastralCholoma.Models
             this.area = area;
             this.unidadArea = unidad;
             this.tipoMedida = tipo;
+            this.claseDominio = clase;
         }
     }
 }
