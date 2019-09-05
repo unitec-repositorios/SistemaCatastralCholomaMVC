@@ -30,26 +30,6 @@ namespace SistemaCatastralCholoma.Controllers
                 Predio predio;
                 while (reader.Read())
                 {
-                    /*predio = new Predio();
-                    predio.idPredio = (int)reader["idPredio"];
-                    predio.mapa = (string)reader["mapa"];
-                    predio.bloque = (string)reader["bloque"];
-                    predio.numeroPredio = (string)reader["numeroPredio"];
-                    predio.barrio = (string)reader["barrio"];
-                    predio.caserio = (string)reader["caserio"];
-                    predio.uso = (USO)reader["uso"];
-                    predio.subUso = (SUBUSO)reader["subUso"];
-                    predio.ubicacion = (string)reader["ubicacion"];
-                    predio.sitio = (string)reader["sitio"];
-                    predio.construccion = (string)reader["construccion"];
-                    predio.estatusTributario = (ESTATUS_TRIBUTARIO)reader["estatusTributario"];
-                    predio.codigoPropietario = (string)reader["codigoPropietario"];
-                    predio.codigoHabitacional = (string)reader["codigoHabitacional"];
-                    predio.porcentajeExencion = (double)reader["porcentajeExtencion"];
-                    predio.tasaImpositiva = (double)reader["tasaImpositiva"];
-                    predio.futurasRevisiones = (string)reader["futurasRevisiones"];
-                    predio.porcentajeConcertacion = (double)reader["porcentajeConcertacion"];*/
-
                     predio = new Predio();
                     predio.idPredio = reader.GetString(0);
                     predio.mapa = reader.GetString(1);
@@ -105,26 +85,6 @@ namespace SistemaCatastralCholoma.Controllers
                 Predio predio = new Predio();
                 while (reader.Read())
                 {
-                    /*predio = new Predio();
-                   predio.idPredio = (int)reader["idPredio"];
-                   predio.mapa = (string)reader["mapa"];
-                   predio.bloque = (string)reader["bloque"];
-                   predio.numeroPredio = (string)reader["numeroPredio"];
-                   predio.barrio = (string)reader["barrio"];
-                   predio.caserio = (string)reader["caserio"];
-                   predio.uso = (USO)reader["uso"];
-                   predio.subUso = (SUBUSO)reader["subUso"];
-                   predio.ubicacion = (string)reader["ubicacion"];
-                   predio.sitio = (string)reader["sitio"];
-                   predio.construccion = (string)reader["construccion"];
-                   predio.estatusTributario = (ESTATUS_TRIBUTARIO)reader["estatusTributario"];
-                   predio.codigoPropietario = (string)reader["codigoPropietario"];
-                   predio.codigoHabitacional = (string)reader["codigoHabitacional"];
-                   predio.porcentajeExencion = (double)reader["porcentajeExtencion"];
-                   predio.tasaImpositiva = (double)reader["tasaImpositiva"];
-                   predio.futurasRevisiones = (string)reader["futurasRevisiones"];
-                   predio.porcentajeConcertacion = (double)reader["porcentajeConcertacion"];*/
-
                     predio = new Predio();
                     predio.idPredio = reader.GetString(0);
                     predio.mapa = reader.GetString(1);
@@ -180,7 +140,6 @@ namespace SistemaCatastralCholoma.Controllers
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    //int ultimoPredio = Int32.Parse((string)reader["numeroPredio"]);
                     int ultimoPredio = Int32.Parse(reader.GetString(0));
                     ultimoPredio++;
                     string nuevoNumeroPredio = ultimoPredio.ToString();
