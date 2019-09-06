@@ -29,7 +29,7 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     string nombre = reader.GetString(0);
                     string pass = reader.GetString(1);
-                    string tip = reader.GetString(2);
+                    int tip = reader.GetInt32(2);
                     empleados.Add(new Empleado(nombre, pass, tip));
                 }
                 conn.Close();
@@ -65,7 +65,7 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     empleado.nombre = reader.GetString(0);
                     empleado.password = reader.GetString(1);
-                    empleado.tipo = reader.GetString(2);
+                    empleado.tipo = reader.GetInt32(2);
                 }
                 conn.Close();
                 if (empleado.nombre==null)
