@@ -50,7 +50,8 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.futurasRevisiones = reader.GetString(16);
                     predio.porcentajeConcertacion = reader.GetDouble(17);
                     predio.observacion = reader.GetString(18);
-
+                    predio.obs = reader.GetString(19);
+                    predio.nolegalizado = reader.GetString(20);
                     predios.Add(predio);
                 }
                 conn.Close();
@@ -105,6 +106,8 @@ namespace SistemaCatastralCholoma.Controllers
                     predio.futurasRevisiones = reader.GetString(16);
                     predio.porcentajeConcertacion = reader.GetDouble(17);
                     predio.observacion = reader.GetString(18);
+                    predio.obs = reader.GetString(19);
+                    predio.nolegalizado = reader.GetString(20);
                 }
                 conn.Close();
                 if (string.IsNullOrEmpty(predio.idPredio))
@@ -174,7 +177,9 @@ namespace SistemaCatastralCholoma.Controllers
                                                                 "@tasaImpositiva," +
                                                                 "@futurasRevisiones," +
                                                                 "@porcentajeConcertacion" +
-                                                                "@observacion);";
+                                                                "@observacion" +
+                                                                "@obs" +
+                                                                "@nolegalizado);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", null);
@@ -196,6 +201,8 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
                 query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
                 query.Parameters.AddWithValue("@observacion", p.observacion);
+                query.Parameters.AddWithValue("@obs", p.obs);
+                query.Parameters.AddWithValue("@nolegalizado", p.nolegalizado);
 
                 query.ExecuteNonQuery();
 
@@ -250,7 +257,9 @@ namespace SistemaCatastralCholoma.Controllers
                                                     +   "tasaImpositivo = @tasaImpositiva, " +
                                                         "futuraRevisiones = @futuraRevisiones,"
                                                     +   "porcentajeConcertacion = @porcentajeConcertacion " +
-                                                        "observacion = @observacion where idPredio = @id";
+                                                        "observacion = @observacion" +
+                                                        "obs = @obs" +
+                                                        "nolegalizado = @nolegalizado where idPredio = @id";
 
                 p.idPredio = id;
 
@@ -274,6 +283,8 @@ namespace SistemaCatastralCholoma.Controllers
                 query.Parameters.AddWithValue("@futurasRevisiones",p.futurasRevisiones);
                 query.Parameters.AddWithValue("@porcentajeConcertacion",p.porcentajeConcertacion);
                 query.Parameters.AddWithValue("@observacion", p.observacion);
+                query.Parameters.AddWithValue("@obs", p.obs);
+                query.Parameters.AddWithValue("@nolegalizado", p.nolegalizado);
                 query.ExecuteNonQuery();
 
                 conn.Close();
