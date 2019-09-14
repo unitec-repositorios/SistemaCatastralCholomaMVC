@@ -45,7 +45,7 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     conn.Close();
                 }
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message.ToString());
                 return response;
             }
 }

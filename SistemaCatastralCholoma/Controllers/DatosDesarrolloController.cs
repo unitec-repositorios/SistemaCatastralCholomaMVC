@@ -49,7 +49,7 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     conn.Close();
                 }
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message.ToString());
                 return response;
             }
         }
@@ -92,7 +92,7 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     conn.Close();
                 }
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message.ToString());
                 return response;
             }
         }
@@ -133,7 +133,7 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     conn.Close();
                 }
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message.ToString());
                 return response;
             }
         }
@@ -170,7 +170,7 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     conn.Close();
                 }
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message.ToString());
                 return response;
             }
         }
@@ -201,7 +201,7 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     conn.Close();
                 }
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message.ToString());
                 return response;
             }
         }
