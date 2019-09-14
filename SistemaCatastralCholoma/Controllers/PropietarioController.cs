@@ -105,24 +105,18 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.propietarios VALUES (@id,@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
+                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.propietarios VALUES (@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", propietario.id);
                 query.Parameters.AddWithValue("@nombres", propietario.nombres);
                 query.Parameters.AddWithValue("@apellidos", propietario.apellidos);
+                query.Parameters.AddWithValue("@identidad", propietario.identidad);
                 query.Parameters.AddWithValue("@telefono", propietario.telefono);
                 query.Parameters.AddWithValue("@rtn", propietario.rtn);
                 query.Parameters.AddWithValue("@sexo", propietario.sexo);
                 query.Parameters.AddWithValue("@nacionalidad", propietario.nacionalidad);
                 query.ExecuteNonQuery();
 
-               
-
-                query.CommandText = "Select * from propietarios where identidad = '" + propietario.identidad + "'";
-                SqlDataReader reader = query.ExecuteReader();
-                reader.Read();
-                propietario.id = (int)reader["id"];
 
                 conn.Close();
                 var response =  Request.CreateResponse(HttpStatusCode.OK, propietario);
@@ -136,7 +130,7 @@ namespace SistemaCatastralCholoma.Controllers
                     conn.Close();
                 }
                 Console.WriteLine(e.Message);
-                var response = Request.CreateResponse(HttpStatusCode.BadRequest,"Ocurrio un error al enviar el formulario");
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest,e.Message.ToString());
                 return response;
             }
         }
