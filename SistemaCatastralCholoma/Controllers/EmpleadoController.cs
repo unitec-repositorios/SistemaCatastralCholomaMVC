@@ -65,7 +65,7 @@ namespace SistemaCatastralCholoma.Controllers
                 {
                     empleado.nombre = reader.GetString(0);
                     empleado.password = reader.GetString(1);
-                    empleado.tipo = reader.GetInt32(2);
+                    empleado.tipo = reader.GetInt16(2);
                 }
                 conn.Close();
                 if (empleado.nombre==null)
