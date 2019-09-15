@@ -360,6 +360,7 @@
     <Compile Include="Controllers\FichasCatastralesController.cs" />
     <Compile Include="Controllers\FraccionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\manPropietariosController.cs" />
     <Compile Include="Controllers\NegociosController.cs" />
     <Compile Include="Controllers\PisoController.cs" />
     <Compile Include="Controllers\PredioController.cs" />
@@ -389,6 +390,7 @@
     <Compile Include="Models\FactoresRurales.cs" />
     <Compile Include="Models\FichasCatastrales.cs" />
     <Compile Include="Models\Fraccion.cs" />
+    <Compile Include="Models\mantenimientoPropietarios.cs" />
     <Compile Include="Models\negocios.cs" />
     <Compile Include="Models\Piso.cs" />
     <Compile Include="Models\Predio.cs" />
@@ -457,6 +459,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\DetallesAdicionales\" />
+    <Folder Include="Views\manPropietarios\" />
     <Folder Include="Views\UsoTierra\" />
   </ItemGroup>
   <ItemGroup>
