@@ -9,27 +9,24 @@ using System.Data.SqlClient;
 
 namespace SistemaCatastralCholoma.Controllers
 {
-    public class manPropietariosController : ApiController
+    public class servicioController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
 
         [HttpGet]
         public HttpResponseMessage listManPropietarios()
         {
-            List<mantenimientoPropietarios> mp = new List<mantenimientoPropietarios>();
+            List<servicio> mp = new List<servicio>();
             try
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.mantenimientoPropietarios";
+                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.servicio";
                 SqlDataReader reader = query.ExecuteReader();
-                mantenimientoPropietarios tmp;
+                servicio tmp = new servicio();
                 while (reader.Read())
                 {
-                    tmp = new mantenimientoPropietarios();
-                    tmp.id = reader.GetInt32(2);
-                    tmp.sexo = reader.GetString(0);
-                    tmp.nacionalidad = reader.GetString(1);
+                    tmp.serv = reader.GetString(0);
 
                     mp.Add(tmp);
                 }
@@ -37,7 +34,39 @@ namespace SistemaCatastralCholoma.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.OK, mp);
                 return response;
             }
-            catch(SqlException e)
+            catch (SqlException e)
+            {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+                var response = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message.ToString());
+                return response;
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage getMpId(string serv)
+        {
+            try
+            {
+                conn.Open();
+
+                SqlCommand query = conn.CreateCommand();
+
+                query.CommandText = "selec * from bkmilcp6nvs1hgkadyz6.servicio where serv = " + serv;
+
+                SqlDataReader reader = query.ExecuteReader();
+
+                string tmp = reader.GetString(0);
+
+                reader.Close();
+                conn.Close();
+
+                var response = Request.CreateResponse(HttpStatusCode.OK, tmp);
+                return response;
+            }
+            catch (SqlException e)
             {
                 if (conn.State == System.Data.ConnectionState.Open)
                 {
@@ -49,18 +78,16 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage crearMP(mantenimientoPropietarios mp)
+        public HttpResponseMessage crearMP(servicio mp)
         {
             try
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "insert into bkmilcp6nvs1hgkadyz6.mantenimientoPropietarios values (@sexo, @nacionalidad, @id)";
+                query.CommandText = "insert into bkmilcp6nvs1hgkadyz6.servicio values (@serv)";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@sexo", mp.sexo);
-                query.Parameters.AddWithValue("@nacionalidad", mp.nacionalidad);
-                query.Parameters.AddWithValue("@id", mp.id);
+                query.Parameters.AddWithValue("@serv", mp.serv);
                 query.ExecuteNonQuery();
 
                 conn.Close();
@@ -79,17 +106,16 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage modificarMP(int id, mantenimientoPropietarios mp)
+        public HttpResponseMessage modificarMP(string old, servicio mp)
         {
             try
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "update bkmilcp6nvs1hgkadyz6.mantenimientoPropietarios set sexo = @sexo, nacionalidad = @nacionalidad where id = @id";
+                query.CommandText = "update bkmilcp6nvs1hgkadyz6.servicio set serv = @serv where serv = " + old;
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@sexo", mp.sexo);
-                query.Parameters.AddWithValue("@nacionalidad", mp.nacionalidad);
+                query.Parameters.AddWithValue("@serv", mp.serv);
                 query.ExecuteNonQuery();
 
                 conn.Close();
@@ -109,16 +135,16 @@ namespace SistemaCatastralCholoma.Controllers
         }
 
         [HttpDelete]
-        public HttpResponseMessage deleteMP(int id)
+        public HttpResponseMessage deleteMP(string old)
         {
             try
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.mantenimientoPropietarios where id = @id";
+                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.servicio where serv = @serv";
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", id);
+                query.Parameters.AddWithValue("@serv", old);
                 query.ExecuteNonQuery();
 
                 conn.Close();
@@ -136,6 +162,5 @@ namespace SistemaCatastralCholoma.Controllers
                 return response;
             }
         }
-
     }
 }
