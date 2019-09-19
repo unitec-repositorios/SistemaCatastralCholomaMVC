@@ -23,12 +23,9 @@ namespace SistemaCatastralCholoma.Controllers
                 SqlCommand query = conn.CreateCommand();
                 query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.tipoMedida";
                 SqlDataReader reader = query.ExecuteReader();
-                tipoMedida tmp = new tipoMedida();
                 while (reader.Read())
                 {
-                    tmp.medida = reader.GetString(0);
-
-                    mp.Add(tmp);
+                    mp.Add(new tipoMedida(reader.GetString(0)));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, mp);

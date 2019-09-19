@@ -23,12 +23,9 @@ namespace SistemaCatastralCholoma.Controllers
                 SqlCommand query = conn.CreateCommand();
                 query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.servicio";
                 SqlDataReader reader = query.ExecuteReader();
-                servicio tmp = new servicio();
                 while (reader.Read())
                 {
-                    tmp.serv = reader.GetString(0);
-
-                    mp.Add(tmp);
+                    mp.Add(new servicio(reader.GetString(0)));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, mp);

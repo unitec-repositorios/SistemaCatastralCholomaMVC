@@ -23,15 +23,12 @@ namespace SistemaCatastralCholoma.Controllers
                 SqlCommand query = conn.CreateCommand();
                 query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.sexo";
                 SqlDataReader reader = query.ExecuteReader();
-                sexo tmp = new sexo();
                 while (reader.Read())
                 {
-
-                    tmp.tipo = reader.GetString(0);
-
-                    mp.Add(tmp);
+                    mp.Add(new sexo(reader.GetString(0)));
                 }
                 conn.Close();
+                int i = mp.Count;
                 var response = Request.CreateResponse(HttpStatusCode.OK, mp);
                 return response;
             }

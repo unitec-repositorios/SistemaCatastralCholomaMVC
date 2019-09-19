@@ -5,13 +5,13 @@ using System.Web;
 
 namespace SistemaCatastralCholoma.Models
 {
-    public class mantenimientoSexo
+    public class sexo
     {
         public string tipo { get; set; }
 
-        public mantenimientoSexo() { }
+        public sexo() { }
 
-        public mantenimientoSexo(string sexo)
+        public sexo(string sexo)
         {
             this.tipo = sexo;
         }
