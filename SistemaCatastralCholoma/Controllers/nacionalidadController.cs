@@ -23,13 +23,9 @@ namespace SistemaCatastralCholoma.Controllers
                 SqlCommand query = conn.CreateCommand();
                 query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.nacionalidad";
                 SqlDataReader reader = query.ExecuteReader();
-                nacionalidad tmp = new nacionalidad();
                 while (reader.Read())
                 {
-
-                    tmp.pais = reader.GetString(0);
-
-                    mp.Add(tmp);
+                    mp.Add(new nacionalidad(reader.GetString(0)));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, mp);

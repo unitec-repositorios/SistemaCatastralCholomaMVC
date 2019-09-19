@@ -361,8 +361,8 @@
     <Compile Include="Controllers\FichasCatastralesController.cs" />
     <Compile Include="Controllers\FraccionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\manNacionalidadController.cs" />
-    <Compile Include="Controllers\manSexoController.cs" />
+    <Compile Include="Controllers\nacionalidadController.cs" />
+    <Compile Include="Controllers\sexoController.cs" />
     <Compile Include="Controllers\naturalezaJuridicaController.cs" />
     <Compile Include="Controllers\NegociosController.cs" />
     <Compile Include="Controllers\PisoController.cs" />
@@ -400,7 +400,7 @@
     <Compile Include="Models\FactoresRurales.cs" />
     <Compile Include="Models\FichasCatastrales.cs" />
     <Compile Include="Models\Fraccion.cs" />
-    <Compile Include="Models\mantenimientoSexo.cs" />
+    <Compile Include="Models\sexo.cs" />
     <Compile Include="Models\nacionalidad.cs" />
     <Compile Include="Models\naturalezaJuridica.cs" />
     <Compile Include="Models\negocios.cs" />

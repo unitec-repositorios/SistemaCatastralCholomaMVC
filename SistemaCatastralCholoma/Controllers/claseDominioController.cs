@@ -23,12 +23,9 @@ namespace SistemaCatastralCholoma.Controllers
                 SqlCommand query = conn.CreateCommand();
                 query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.claseDominio";
                 SqlDataReader reader = query.ExecuteReader();
-                claseDominio tmp = new claseDominio();
                 while (reader.Read())
                 {
-                    tmp.tipoDominio = reader.GetString(0);
-
-                    mp.Add(tmp);
+                    mp.Add(new claseDominio(reader.GetString(0)));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, mp);
