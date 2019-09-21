@@ -344,10 +344,14 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\aceraSPController.cs" />
+    <Compile Include="Controllers\aguaSPController.cs" />
+    <Compile Include="Controllers\alumPubSPController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\AvaluoEdificacionesController.cs" />
     <Compile Include="Controllers\AvaluoRuralController.cs" />
     <Compile Include="Controllers\AvaluoUrbanoController.cs" />
+    <Compile Include="Controllers\calleSPController.cs" />
     <Compile Include="Controllers\CaracteristicasPropiedadController.cs" />
     <Compile Include="Controllers\claseDominioController.cs" />
     <Compile Include="Controllers\ColindantesController.cs" />
@@ -355,7 +359,9 @@
     <Compile Include="Controllers\DatosDesarrolloController.cs" />
     <Compile Include="Controllers\DatosLegalesController.cs" />
     <Compile Include="Controllers\DetallesAdicionalesController.cs" />
+    <Compile Include="Controllers\drenajeSPController.cs" />
     <Compile Include="Controllers\EdificacionesEspecialesController.cs" />
+    <Compile Include="Controllers\electricidadSPController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\FactoresRuralesController.cs" />
     <Compile Include="Controllers\FichasCatastralesController.cs" />
@@ -373,6 +379,8 @@
     <Compile Include="Controllers\registroController.cs" />
     <Compile Include="Controllers\servicioController.cs" />
     <Compile Include="Controllers\ServiciosPublicosController.cs" />
+    <Compile Include="Controllers\telefonoSPController.cs" />
+    <Compile Include="Controllers\tenAsSPController.cs" />
     <Compile Include="Controllers\tipoDocumentoController.cs" />
     <Compile Include="Controllers\tipoEmpresaController.cs" />
     <Compile Include="Controllers\tipoMedidaController.cs" />
@@ -382,9 +390,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\aceraSP.cs" />
+    <Compile Include="Models\aguaSP.cs" />
+    <Compile Include="Models\alumPubSP.cs" />
     <Compile Include="Models\AvaluoEdificaciones.cs" />
     <Compile Include="Models\AvaluoRural.cs" />
     <Compile Include="Models\AvaluoUrbano.cs" />
+    <Compile Include="Models\calleSP.cs" />
     <Compile Include="Models\CaracteristicasPropiedad.cs" />
     <Compile Include="Models\CaracteristicasVecindad.cs" />
     <Compile Include="Models\claseDominio.cs" />
@@ -395,7 +407,9 @@
     <Compile Include="Models\DatosDesarrollo.cs" />
     <Compile Include="Models\DatosLegales.cs" />
     <Compile Include="Models\DetallesAdicionales.cs" />
+    <Compile Include="Models\drenajeSP.cs" />
     <Compile Include="Models\EdificacionesEspeciales.cs" />
+    <Compile Include="Models\electricidadSP.cs" />
     <Compile Include="Models\Empleado.cs" />
     <Compile Include="Models\FactoresRurales.cs" />
     <Compile Include="Models\FichasCatastrales.cs" />
@@ -413,9 +427,11 @@
     <Compile Include="Models\RequestModels\DatosLegalesRequestModel.cs" />
     <Compile Include="Models\servicio.cs" />
     <Compile Include="Models\ServiciosPublicos.cs" />
+    <Compile Include="Models\telefonoSP.cs" />
     <Compile Include="Models\tipoDocumento.cs" />
     <Compile Include="Models\tipoEmpresa.cs" />
     <Compile Include="Models\tipoMedida.cs" />
+    <Compile Include="Models\trenAsSP.cs" />
     <Compile Include="Models\unidadArea.cs" />
     <Compile Include="Models\UsoTierra.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
