@@ -145,26 +145,29 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.propietarios SET nombres=@nombres," +
+                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.propietarios SET " +
+                                                            "id = @id, "+
+                                                            "nombres=@nombres," +
                                                             "apellidos = @apellidos," +
                                                             "telefono = @telefono," +
                                                             "identidad = @identidad," +
                                                             "rtn = @rtn," +
                                                             "sexo = @sexo," +
-                                                            "nacionalidad = @nacionalidad where id = @id";
+                                                            "nacionalidad = @nacionalidad where id = " + id;
 
                 query.Prepare();
-                query.Parameters.AddWithValue("@id", id);
+                query.Parameters.AddWithValue("@id", propietario.id);
                 query.Parameters.AddWithValue("@nombres", propietario.nombres);
                 query.Parameters.AddWithValue("@apellidos", propietario.apellidos);
                 query.Parameters.AddWithValue("@telefono", propietario.telefono);
+                query.Parameters.AddWithValue("@identidad", propietario.identidad);
                 query.Parameters.AddWithValue("@rtn", propietario.rtn);
                 query.Parameters.AddWithValue("@sexo", propietario.sexo);
                 query.Parameters.AddWithValue("@nacionalidad", propietario.nacionalidad);
                 query.ExecuteNonQuery();
 
                 conn.Close();
-                propietario.id = id;
+
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietario);
                 return response;
 
