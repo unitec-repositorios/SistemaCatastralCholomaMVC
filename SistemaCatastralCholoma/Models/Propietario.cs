@@ -21,7 +21,7 @@ namespace SistemaCatastralCholoma.Models
 
         }
 
-        public Propietario(int id, string nombres, string apellidos, string telefono, string rtn, string sexo, string nacionalidad, string iden)
+        public Propietario(int id, string nombres, string apellidos, string iden, string rtn, string telefono, string sexo, string nacionalidad)
         {
 
             this.id = id;
