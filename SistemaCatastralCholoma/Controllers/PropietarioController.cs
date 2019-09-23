@@ -31,8 +31,8 @@ namespace SistemaCatastralCholoma.Controllers
 
                 while (reader.Read())
                 {
-                    propietarios.Add(new Propietario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(5),
-                        reader.GetString(4), reader.GetString(6), reader.GetString(7)));
+                    propietarios.Add(new Propietario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4),
+                        reader.GetString(5), reader.GetString(6), reader.GetString(7)));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, propietarios);
@@ -67,8 +67,8 @@ namespace SistemaCatastralCholoma.Controllers
                 Propietario propietario = new Propietario();
                 while (reader.Read())
                 {
-                    propietario = new Propietario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(5),
-                        reader.GetString(4), reader.GetString(6), reader.GetString(7));
+                    propietario = new Propietario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4),
+                        reader.GetString(5), reader.GetString(6), reader.GetString(7));
                 }
                 conn.Close();
                 if (propietario.id.ToString() == null)
