@@ -13,7 +13,7 @@ namespace SistemaCatastralCholoma.Controllers
     {
 
         private SqlConnection conn = WebApiConfig.conn();
-
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[avaluourbano]";
         // GET: api/AvaluoUrbano
         [HttpGet]
         public HttpResponseMessage listAvaluosUrbanos()
@@ -24,7 +24,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluourbano";
+                query.CommandText = $"Select * from {DatabaseReference} ";
 
                 SqlDataReader reader = query.ExecuteReader();
                 AvaluoUrbano avaluo;
@@ -62,7 +62,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluourbano where idavaluourbano = '" + id + "'";
+                query.CommandText = $"Select * from {DatabaseReference} where idavaluourbano = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -105,7 +105,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.avaluourbano VALUES (@id," +
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@id," +
                                                                "@esquina," +
                                                                "@topografia);";
 
@@ -143,7 +143,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.avaluourbano SET Esquina = @esquina," +
+                query.CommandText = $"UPDATE {DatabaseReference} SET Esquina = @esquina," +
                                                       "Topografia = @topografia " +
                                                       "where idavaluourbano = @id";
 
@@ -177,7 +177,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.avaluourbano where idavaluourbano = @id";
+                query.CommandText = $"Delete from {DatabaseReference} where idavaluourbano = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

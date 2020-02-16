@@ -12,6 +12,8 @@ namespace SistemaCatastralCholoma.Controllers
     public class ColindantesController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[colindantes]";
+        String DataDiferentTableRef = WebApiConfig.DatabaseName();
 
         // GET api/<controller>
         [HttpGet]
@@ -23,7 +25,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.colindantes";
+                query.CommandText = $"Select * from {DatabaseReference}";
 
                 SqlDataReader reader = query.ExecuteReader();
                 Colindantes colindante;
@@ -65,7 +67,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.colindantes where id = '" + id + "'";
+                query.CommandText = $"Select * from {DatabaseReference} where id = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -111,7 +113,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.colindantes VALUES (@idcolindante,@Norte,@Sur,@Este,@Oeste,@idDatosComplementarios);";
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@idcolindante,@Norte,@Sur,@Este,@Oeste,@idDatosComplementarios);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idcolindantes", p.idcolindantes);
@@ -150,7 +152,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.caracteristicaspropiedad SET id = @id, Norte = @Norte,"
+                query.CommandText = $"UPDATE {DataDiferentTableRef}.[caracteristicaspropiedad] SET id = @id, Norte = @Norte,"
                                                     + "Sur = @Sur, Este = @Este, Oeste = @Oeste,"
                                                     + "idDatosComplementarios = @idDatosComplementarios " +
                                                       "where idcolindantes = @idcolindantes";
@@ -192,7 +194,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.colindante where id = @id";
+                query.CommandText = $"Delete from {DataDiferentTableRef}.[colindante] where id = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idcolindantes", id);

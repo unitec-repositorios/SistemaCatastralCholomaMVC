@@ -13,6 +13,7 @@ namespace SistemaCatastralCholoma.Controllers
     {
 
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[datosdesarrollo]";
         // GET: api/DatosDesarrollo
         [HttpGet]
         public HttpResponseMessage listDatosDesarrollo()
@@ -23,7 +24,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datosdesarrollo";
+                query.CommandText = $"Select * from {DatabaseReference}";
 
                 SqlDataReader reader = query.ExecuteReader();
                 DatosDesarrollo datosDes = new DatosDesarrollo();
@@ -63,7 +64,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datosdesarrollo where iddatosdesarrollo = '" + id + "'";
+                query.CommandText = $"Select * from {DatabaseReference} where iddatosdesarrollo = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -107,7 +108,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.datosdesarrollo VALUES (@iddatosdesarrollo," + "@area," 
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@iddatosdesarrollo," + "@area," 
                                                                         + "@servicios," 
                                                                         + "@topografia," +
                                                                         "@configuracion)";
@@ -148,7 +149,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.datosdesarrollo SET area = @area, servicios = @servicios, topografia = @topografia, configuracion = @configuracion" +
+                query.CommandText = $"UPDATE {DatabaseReference} SET area = @area, servicios = @servicios, topografia = @topografia, configuracion = @configuracion" +
                                                       "where iddatosdesarrollo = @id";
 
                 query.Prepare();
@@ -183,7 +184,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.datosdesarrollo where iddatosdesarrollo = @id";
+                query.CommandText = $"Delete from {DatabaseReference} where iddatosdesarrollo = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

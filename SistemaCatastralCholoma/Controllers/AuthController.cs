@@ -13,6 +13,7 @@ namespace SistemaCatastralCholoma.Controllers
     {
 
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[empleado]";
 
         // POST: api/Auth
         [HttpPost]
@@ -21,7 +22,7 @@ namespace SistemaCatastralCholoma.Controllers
             try {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "select * from empleado where nombre = @nombre and password = @pass";
+                query.CommandText = $"select * from {DatabaseReference} where nombre = @nombre and password = @pass";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@nombre", empleado.nombre);

@@ -12,7 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class UsoTierraController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
-
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[usotierra]";
         [HttpGet]
         public HttpResponseMessage listUsoTierra()
         {
@@ -21,7 +21,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "select * from bkmilcp6nvs1hgkadyz6.usotierra";
+                cmd.CommandText = $"select * from {DatabaseReference}";
                 SqlDataReader reader = cmd.ExecuteReader();
                 UsoTierra ut;
                 while (reader.Read())
@@ -59,7 +59,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.usotierra where idusotierra = '" + id + "'";
+                query.CommandText = $"select * from {DatabaseReference} where idusotierra = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
                 UsoTierra ut = null;
@@ -102,7 +102,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.usotierra VALUES (@idusotierra," +
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@idusotierra," +
                                                                "@uso," +
                                                                "@codigo," +
                                                                "idCaracRural);";
@@ -136,7 +136,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.usotierra SET uso = @uso," +
+                query.CommandText = $"UPDATE {DatabaseReference} SET uso = @uso," +
                                                       "codigo = @codigo," +
                                                       "idCaracRural = @idCaracRural " +
                                                       "where idusotierra = @idusotierra";
@@ -167,7 +167,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.usotierra where idusotierra = @id";
+                query.CommandText = $"delete from {DatabaseReference} where idusotierra = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

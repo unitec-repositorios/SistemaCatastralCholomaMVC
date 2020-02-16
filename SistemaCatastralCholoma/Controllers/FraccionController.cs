@@ -13,6 +13,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class FraccionController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[fraccion]";
         // GET: api/
         [HttpGet]
         public HttpResponseMessage listFraccion()
@@ -21,7 +22,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlDataReader reader;
-                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.fraccion", conn);
+                SqlCommand cmd = new SqlCommand($"select * from {DatabaseReference}", conn);
                 reader = cmd.ExecuteReader();
                 List<Fraccion> f = new List<Fraccion>();
                 while (reader.Read())
@@ -56,7 +57,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from fraccion where bkmilcp6nvs1hgkadyz6.idfraccion = " + id;
+                query.CommandText = $"Select * from fraccion where bkmilcp6nvs1hgkadyz6.idfraccion = " + id;
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -92,7 +93,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.fraccion VALUES (@idfraccion,@Valor,@Area,@parcelaTipica,@factorModificado,@Frente,@idAvaluoUrbano);";
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@idfraccion,@Valor,@Area,@parcelaTipica,@factorModificado,@Frente,@idAvaluoUrbano);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idfraccion", f.idfraccion );
@@ -132,7 +133,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.fraccion SET Valor=@Valor," +
+                query.CommandText = $"UPDATE {DatabaseReference} SET Valor=@Valor," +
                                                             "Area = @Area," +
                                                             "parcelaTipica = @parcelaTipica," +
                                                             "factorModificado = @factorModificado," +
@@ -175,7 +176,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.fraccion where idfraccion = @id";
+                query.CommandText = $"Delete from {DatabaseReference} where idfraccion = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

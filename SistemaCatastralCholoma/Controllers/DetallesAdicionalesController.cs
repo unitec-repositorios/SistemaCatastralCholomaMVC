@@ -12,7 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class DetallesAdicionalesController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
-
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[detallesadicionales]";
         [HttpGet]
         public HttpResponseMessage listDetallesAdicionales()
         {
@@ -21,7 +21,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "select * from bkmilcp6nvs1hgkadyz6.detallesadicionales";
+                cmd.CommandText = $"select * from {DatabaseReference}";
                 SqlDataReader reader = cmd.ExecuteReader();
                 DetallesAdicionales detalle = new DetallesAdicionales();
                 while (reader.Read())
@@ -62,7 +62,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.detallesadicionales where idDetallesAdicionales = '" + id + "'";
+                query.CommandText = $"select * from {DatabaseReference} where idDetallesAdicionales = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
                 DetallesAdicionales detalle = new DetallesAdicionales();
@@ -108,7 +108,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.detallesadicionales VALUES (@idDetallesAdicionales, @codigo," +
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@idDetallesAdicionales, @codigo," +
                                                                "@codEdificacion," +
                                                                "@area," +
                                                                "@porcentaje," +
@@ -155,7 +155,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.detallesadicionales SET codigo = @codigo," +
+                query.CommandText = $"UPDATE {DatabaseReference} SET codigo = @codigo," +
                                                       "codEdificacion = @codEdificacion," +
                                                       "area = @area," +
                                                       "porcentaje = @porcentaje," +
@@ -200,7 +200,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.detallesadicionales where idDetallesAdicionales = @id";
+                query.CommandText = $"delete from {DatabaseReference} where idDetallesAdicionales = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

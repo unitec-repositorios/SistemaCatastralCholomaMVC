@@ -12,7 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class tipoDocumentoController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
-
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[tipoDocumento]";
         [HttpGet]
         public HttpResponseMessage listManPropietarios()
         {
@@ -21,7 +21,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.tipoDocumento";
+                query.CommandText = $"select * from {DatabaseReference}";
                 SqlDataReader reader = query.ExecuteReader();
                 while (reader.Read())
                 {
@@ -51,7 +51,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "selec * from bkmilcp6nvs1hgkadyz6.tipoDocumento where tipoDoc = " + tipoDoc;
+                query.CommandText = $"select * from {DatabaseReference} where tipoDoc = " + tipoDoc;
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -81,7 +81,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "insert into bkmilcp6nvs1hgkadyz6.tipoDocumento values (@tipoDoc)";
+                query.CommandText = $"insert into {DatabaseReference} values (@tipoDoc)";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@tipoDoc", mp.tipoDoc);
@@ -109,7 +109,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "update bkmilcp6nvs1hgkadyz6.tipoDocumento set tipoDoc = @tipoDoc where tipoDoc = " + old;
+                query.CommandText = $"update {DatabaseReference} set tipoDoc = @tipoDoc where tipoDoc = " + old;
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@tipoDoc", mp.tipoDoc);
@@ -138,7 +138,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.tipoDocumento where tipoDoc = @tipoDoc";
+                query.CommandText = $"delete from {DatabaseReference} where tipoDoc = @tipoDoc";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@tipoDoc", old);

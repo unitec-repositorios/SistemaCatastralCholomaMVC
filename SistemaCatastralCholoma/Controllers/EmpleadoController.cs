@@ -13,6 +13,7 @@ namespace SistemaCatastralCholoma.Controllers
     {
 
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[empleado]";
 
         // GET: api/Empleado
         [HttpGet]
@@ -22,7 +23,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlDataReader reader;
-                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.empleado", conn);
+                SqlCommand cmd = new SqlCommand($"select * from {DatabaseReference}", conn);
                 reader = cmd.ExecuteReader();
                 List<Empleado> empleados = new List<Empleado>();
                 while (reader.Read())
@@ -57,7 +58,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
 
                 SqlDataReader reader;
-                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.empleado where nombre = '" + id + "'", conn);
+                SqlCommand cmd = new SqlCommand($"select * from {DatabaseReference} where nombre = '" + id + "'", conn);
                 reader = cmd.ExecuteReader();
 
                 Empleado empleado = new Empleado();
@@ -94,7 +95,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
 
                 SqlCommand cmd = conn.CreateCommand();
-                string query = "insert into bkmilcp6nvs1hgkadyz6.empleado values (@nombre, @pass, @tip)";
+                string query = $"insert into {DatabaseReference} values (@nombre, @pass, @tip)";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@nombre", empleado.nombre);
                 cmd.Parameters.AddWithValue("@pass", empleado.password);
@@ -133,7 +134,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
-                string query = "update bkmilcp6nvs1hgkadyz6.empleado set password = @pass where nombre = @nomb";
+                string query = $"update {DatabaseReference} set password = @pass where nombre = @nomb";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@nomb", id);
                 cmd.Parameters.AddWithValue("@pass", empleado.password);
@@ -169,7 +170,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
-                string query = "delete from bkmilcp6nvs1hgkadyz6.empleado where nombre = @nomb";
+                string query = $"delete from {DatabaseReference} where nombre = @nomb";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@nomb", id);
                 cmd.ExecuteNonQuery();

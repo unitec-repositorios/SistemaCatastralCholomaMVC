@@ -13,7 +13,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class PredioController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
-
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[predios]";
         // GET api/<controller>
         [HttpGet]
         public HttpResponseMessage listPredios()
@@ -24,7 +24,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.predios";
+                query.CommandText = $"Select * from {DatabaseReference}";
 
                 SqlDataReader reader = query.ExecuteReader();
                 Predio predio;
@@ -78,7 +78,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.predios where idPredio = '" + id + "'";
+                query.CommandText = $"Select * from {DatabaseReference} where idPredio = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -138,7 +138,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.predios where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " order by numeroPredio desc limit 1";
+                query.CommandText = $"Select * from {DatabaseReference} where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " order by numeroPredio desc limit 1";
                 SqlDataReader reader = query.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -159,7 +159,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 reader.Close();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.predios VALUES (@id," +
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@id," +
                                                                 "@mapa," +
                                                                 "@bloque," +
                                                                 "@numeroPredio," +
@@ -206,7 +206,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 query.ExecuteNonQuery();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.predios where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " and numeroPredio = '" + p.numeroPredio + "'";
+                query.CommandText = $"Select * from {DatabaseReference} where mapa = '" + p.mapa + "' and bloque = " + p.bloque + " and numeroPredio = '" + p.numeroPredio + "'";
                 reader = query.ExecuteReader();
                 reader.Read();
                 p.idPredio = reader.GetString(0);
@@ -240,7 +240,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.predios SET numeroPredio = @numeroPredio, " +
+                query.CommandText = $"UPDATE {DatabaseReference} SET numeroPredio = @numeroPredio, " +
                                                         "mapa = @mapa, " +
                                                         "bloque = @bloque, " +
                                                         "barrio = @barrio,"
@@ -313,7 +313,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.predios where idPredio = @id";
+                query.CommandText = $"Delete from {DatabaseReference} where idPredio = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

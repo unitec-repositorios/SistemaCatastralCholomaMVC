@@ -12,6 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class nacionalidadController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[nacionalidad]";
 
         [HttpGet]
         public HttpResponseMessage listManPropietarios()
@@ -21,7 +22,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.nacionalidad";
+                query.CommandText = $"select * from {DatabaseReference}";
                 SqlDataReader reader = query.ExecuteReader();
                 while (reader.Read())
                 {
@@ -51,7 +52,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "selec * from bkmilcp6nvs1hgkadyz6.nacionalidad where pais = " + pais;
+                query.CommandText = $"selec * from {DatabaseReference} where pais = " + pais;
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -81,7 +82,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "insert into bkmilcp6nvs1hgkadyz6.nacionalidad values (@pais)";
+                query.CommandText = $"insert into {DatabaseReference} values (@pais)";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@pais", mp.pais);
@@ -109,7 +110,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "update bkmilcp6nvs1hgkadyz6.nacionalidad set pais = @pais where pais = " + old;
+                query.CommandText = $"update {DatabaseReference} set pais = @pais where pais = " + old;
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@pais", mp.pais);
@@ -138,7 +139,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.nacionalidad where pais = @pais";
+                query.CommandText = $"delete from {DatabaseReference} where pais = @pais";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@pais", old);

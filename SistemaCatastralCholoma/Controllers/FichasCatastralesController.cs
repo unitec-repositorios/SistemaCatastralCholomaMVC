@@ -13,6 +13,7 @@ namespace SistemaCatastralCholoma.Controllers
     {
 
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[FichasCatastrales]";
         // GET: api/
         [HttpGet]
         public List<FichasCatastrales> listFichaCatastral()
@@ -21,7 +22,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlDataReader reader;
-                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.FichasCatastrales", conn);
+                SqlCommand cmd = new SqlCommand($"select * from {DatabaseReference}", conn);
                 reader = cmd.ExecuteReader();
                 List<FichasCatastrales> fichas = new List<FichasCatastrales>();
                 while (reader.Read())
@@ -60,7 +61,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlDataReader reader;
-                SqlCommand cmd = new SqlCommand("select * from bkmilcp6nvs1hgkadyz6.FichasCatastrales where cocata = '" + cocata + "'", conn);
+                SqlCommand cmd = new SqlCommand($"select * from {DatabaseReference} where cocata = '" + cocata + "'", conn);
                 reader = cmd.ExecuteReader();
                 FichasCatastrales ficha = new FichasCatastrales();
 
@@ -94,7 +95,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
-                string query = "insert into bkmilcp6nvs1hgkadyz6.FichasCatastrales values (@cocata, @depto,@municipio,@aldea,@mapa,@bolque,@predio,@num,@maq,@st,@codProp,@codHab," +
+                string query = $"insert into {DatabaseReference} values (@cocata, @depto,@municipio,@aldea,@mapa,@bolque,@predio,@num,@maq,@st,@codProp,@codHab," +
                     "@noLinea,@noFoto,@poblacion,@identidadPropietario,@tomo,@asiento)";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@cocata", ficha.depto+ficha.municipio+ficha.aldea+ficha.mapa+ficha.bolque+ficha.predio+ficha.num);
@@ -142,7 +143,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
-                string query = "UPDATE bkmilcp6nvs1hgkadyz6.FichasCatastrales SET cocata = @cocata, depto = @depto, municipio = @municipio, aldea = @aldea," +
+                string query = $"UPDATE {DatabaseReference} SET cocata = @cocata, depto = @depto, municipio = @municipio, aldea = @aldea," +
                     "mapa = @mapa, bolque = @bolque, predio = @predio, num = @num,maq = @maq,st = @st,codProp = @codProp, codHab = @codHab," +
                     " noLinea = @noLinea, noFoto = @noFoto, poblacion = @poblacion, identidadPropietario = @identidadPropietario, tomo = @tomo," +
                     "FichasCatastrales.asiento = @asiento WHERE cocata = @cocataCode";
@@ -191,7 +192,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
-                string query = "delete from bkmilcp6nvs1hgkadyz6.FichasCatastrales where cocata = @cocata";
+                string query = $"delete from {DatabaseReference} where cocata = @cocata";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@cocata", cocata);
                 cmd.ExecuteNonQuery();

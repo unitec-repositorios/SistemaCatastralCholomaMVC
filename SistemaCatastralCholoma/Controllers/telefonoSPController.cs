@@ -12,6 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class telefonoSPController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[telefonoSP]";
 
         [HttpGet]
         public HttpResponseMessage listManPropietarios()
@@ -21,7 +22,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.telefonoSP";
+                query.CommandText = $"select * from {DatabaseReference}";
                 SqlDataReader reader = query.ExecuteReader();
                 while (reader.Read())
                 {
@@ -51,7 +52,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "selec * from bkmilcp6nvs1hgkadyz6.telefonoSP where tipo = " + tipo;
+                query.CommandText = $"select * from {DatabaseReference} where tipo = " + tipo;
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -81,7 +82,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "insert into bkmilcp6nvs1hgkadyz6.telefonoSP values (@tipo)";
+                query.CommandText = $"insert into {DatabaseReference} values (@tipo)";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@tipo", mp.tipo);
@@ -109,7 +110,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "update bkmilcp6nvs1hgkadyz6.telefonoSP set tipo = @tipo where tipo = " + old;
+                query.CommandText = $"update {DatabaseReference} set tipo = @tipo where tipo = " + old;
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@tipo", mp.tipo);
@@ -138,7 +139,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.telefonoSP where tipo = @tipo";
+                query.CommandText =$"delete from {DatabaseReference} where tipo = @tipo";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@tipo", old);

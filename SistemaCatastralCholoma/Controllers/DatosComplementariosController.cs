@@ -13,6 +13,7 @@ namespace SistemaCatastralCholoma.Controllers
     {
 
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[datoscomplementarios]";
         // GET: api/DatosComplementarios
         [HttpGet]
         public HttpResponseMessage listDatosComplementarios()
@@ -23,7 +24,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datoscomplementarios";
+                query.CommandText = $"Select * from {DatabaseReference}";
 
                 SqlDataReader reader = query.ExecuteReader();
                 DatosComplementarios datosComplementarios;
@@ -74,7 +75,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.datoscomplementarios where idClaveCatastral = '" + id + "'";
+                query.CommandText = $"Select * from {DatabaseReference} where idClaveCatastral = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -128,7 +129,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.datoscomplementarios VALUES                                        (@idClaveCatastral,"
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES                                        (@idClaveCatastral,"
                                      + "@adquisicion," 
                                      + "@montoTransaccion,"
                                      + "@claseTransaccion,"
@@ -192,7 +193,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.datoscomplementarios SET adquisicion = @adquisicion," +
+                query.CommandText = $"UPDATE {DatabaseReference} SET adquisicion = @adquisicion," +
                                                             "montoTransaccion = @montoTransaccion," +
                                                             "claseTransaccion = @claseTransaccion," +
                                                             "maquinaria = @maquinaria," +
@@ -251,7 +252,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.datoscomplementarios where idClaveCatastral = @id";
+                query.CommandText = $"Delete from {DatabaseReference} where idClaveCatastral = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

@@ -12,6 +12,13 @@ namespace SistemaCatastralCholoma
 {
     public static class WebApiConfig
     {
+        public static String DatabaseName()
+        {
+            //[DatabaseName].[dboofDatabaseUseradminName]  retrurnedhere
+            return "[cholomatest].[dbo]";
+            //if there is no need for server name use the next line. 
+            //return "";
+        }
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de API web
@@ -35,7 +42,7 @@ namespace SistemaCatastralCholoma
 
         public static SqlConnection conn()
         {
-            string conn_string = "Server=sqlservercatastro.database.windows.net; Database=CatastroCholomaDB;User Id=cholomauser; Password=Catastro2019; ";//server=bkmilcp6nvs1hgkadyz6-Sql.services.clever-cloud.com;port=3306;database=bkmilcp6nvs1hgkadyz6;Uid=uedhxkzl6doratlh;Pwd=xDdW8Ro6Rg01GUnJsjLW;
+            string conn_string = "Server=DESKTOP-BNO2SU0;Database=cholomatest;Integrated Security=true;";//server=bkmilcp6nvs1hgkadyz6-Sql.services.clever-cloud.com;port=3306;database=bkmilcp6nvs1hgkadyz6;Uid=uedhxkzl6doratlh;Pwd=xDdW8Ro6Rg01GUnJsjLW;
 
 
             SqlConnection conn = new SqlConnection(conn_string);

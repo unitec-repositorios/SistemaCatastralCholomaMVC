@@ -12,7 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class unidadAreaController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
-
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[unidadArea]";
         [HttpGet]
         public HttpResponseMessage listManPropietarios()
         {
@@ -21,7 +21,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.unidadArea";
+                query.CommandText = $"select * from {DatabaseReference}";
                 SqlDataReader reader = query.ExecuteReader();
                 while (reader.Read())
                 {
@@ -51,7 +51,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "selec * from bkmilcp6nvs1hgkadyz6.unidadArea where area = " + area;
+                query.CommandText = $"select * from {DatabaseReference} where area = " + area;
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -81,7 +81,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "insert into bkmilcp6nvs1hgkadyz6.unidadArea values (@area)";
+                query.CommandText = $"insert into {DatabaseReference} values (@area)";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@area", mp.area);
@@ -109,7 +109,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "update bkmilcp6nvs1hgkadyz6.unidadArea set area = @area where area = " + old;
+                query.CommandText = $"update {DatabaseReference} set area = @area where area = " + old;
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@area", mp.area);
@@ -138,7 +138,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.unidadArea where area = @area";
+                query.CommandText = $"delete from {DatabaseReference} where area = @area";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@area", old);

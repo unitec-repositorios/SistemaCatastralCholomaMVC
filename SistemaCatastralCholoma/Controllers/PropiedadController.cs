@@ -12,7 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class PropiedadController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
-
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[propiedad]";
         // GET: api/Propietario
         [HttpGet]
         public HttpResponseMessage listPropiedades()
@@ -23,7 +23,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propiedad";
+                query.CommandText = $"Select * from {DatabaseReference}";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -79,7 +79,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propiedad where claveCatastral = '" + id + "'";
+                query.CommandText = $"Select * from {DatabaseReference} where claveCatastral = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -135,7 +135,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand my = conn.CreateCommand();
-                my.CommandText = "SELECT count(predio) from bkmilcp6nvs1hgkadyz6.propiedad where mapa = '" + propiedad.mapa + "' AND bloque = '" + propiedad.bloque + "';";
+                my.CommandText = $"SELECT count(predio) from {DatabaseReference} where mapa = '" + propiedad.mapa + "' AND bloque = '" + propiedad.bloque + "';";
 
 
                 int cant = Convert.ToInt32(my.ExecuteScalar());
@@ -161,9 +161,9 @@ namespace SistemaCatastralCholoma.Controllers
                 string claveC = propiedad.claveCatastral + strca;
 
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "SELECT numeroPredio FROM bkmilcp6nvs1hgkadyz6.predio WHERE mapa = '" + propiedad.mapa+"' AND bloque = '"+propiedad.bloque+"' ORDER BY numeroPredio DESC LIMIT 1;";
+                query.CommandText = $"SELECT numeroPredio FROM bkmilcp6nvs1hgkadyz6.predio WHERE mapa = '" + propiedad.mapa+"' AND bloque = '"+propiedad.bloque+"' ORDER BY numeroPredio DESC LIMIT 1;";
 
-                query.CommandText = "INSERT INTO propiedad VALUES (@claveCatastral,"
+                query.CommandText = $"INSERT INTO propiedad VALUES (@claveCatastral,"
                                                                 + "@mapa,"
                                                                 + "@bloque,"
                                                                 + "@predio,"
@@ -209,7 +209,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.propiedad SET propietarioPrincipal = @propietarioPrincipal,"
+                query.CommandText = $"UPDATE {DatabaseReference} SET propietarioPrincipal = @propietarioPrincipal,"
                                                         + "propietarios = @propietarios,"
                                                         + "tipo = @tipo,"
                                                         + "estadoPredio = @estadoPredio "
@@ -248,7 +248,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.propiedad where claveCatastral = @claveCatastral";
+                query.CommandText = $"Delete from {DatabaseReference} where claveCatastral = @claveCatastral";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@claveCatastral", id);

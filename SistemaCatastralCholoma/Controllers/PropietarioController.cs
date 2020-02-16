@@ -14,7 +14,7 @@ namespace SistemaCatastralCholoma.Controllers
     {
 
         private SqlConnection conn = WebApiConfig.conn();
-
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[propietarios]";
         // GET: api/Propietario
         [HttpGet]
         public HttpResponseMessage listPropietarios()
@@ -25,7 +25,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propietarios";
+                query.CommandText = $"Select * from {DatabaseReference}";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -59,7 +59,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.propietarios where id = '" + id + "'";
+                query.CommandText = $"Select * from {DatabaseReference} where id = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -105,7 +105,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.propietarios VALUES (@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@nombres,@apellidos,@identidad,@rtn,@telefono,@sexo,@nacionalidad);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@nombres", propietario.nombres);
@@ -145,15 +145,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.propietarios SET " +
-                                                            "id = @id, "+
-                                                            "nombres=@nombres," +
-                                                            "apellidos = @apellidos," +
-                                                            "telefono = @telefono," +
-                                                            "identidad = @identidad," +
-                                                            "rtn = @rtn," +
-                                                            "sexo = @sexo," +
-                                                            "nacionalidad = @nacionalidad where id = " + id;
+                query.CommandText = $"UPDATE {DatabaseReference} SET nombres=@nombres, apellidos = @apellidos, telefono = @telefono, identidad = @identidad, rtn = @rtn, sexo = @sexo, @nacionalidad = @nacionalidad WHERE id = @id; ";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", propietario.id);
@@ -193,7 +185,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
 
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.propietarios where id = @id";
+                query.CommandText = $"Delete from {DatabaseReference} where id = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

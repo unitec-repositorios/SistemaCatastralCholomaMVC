@@ -12,6 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class tipoEmpresaController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[tipoEmpresa]";
 
         [HttpGet]
         public HttpResponseMessage listManPropietarios()
@@ -21,7 +22,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.tipoEmpresa";
+                query.CommandText = $"select * from {DatabaseReference}";
                 SqlDataReader reader = query.ExecuteReader();
                 while (reader.Read())
                 {
@@ -51,7 +52,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "selec * from bkmilcp6nvs1hgkadyz6.tipoEmpresa where empresa = " + empresa;
+                query.CommandText = $"select * from {DatabaseReference} where empresa = " + empresa;
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -81,7 +82,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "insert into bkmilcp6nvs1hgkadyz6.tipoEmpresa values (@empresa)";
+                query.CommandText = $"insert into {DatabaseReference} values (@empresa)";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@empresa", mp.empresa);
@@ -109,7 +110,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "update bkmilcp6nvs1hgkadyz6.tipoEmpresa set empresa = @empresa where empresa = " + old;
+                query.CommandText = $"update {DatabaseReference} set empresa = @empresa where empresa = " + old;
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@empresa", mp.empresa);
@@ -138,7 +139,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.tipoEmpresa where empresa = @empresa";
+                query.CommandText = $"delete from {DatabaseReference} where empresa = @empresa";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@empresa", old);

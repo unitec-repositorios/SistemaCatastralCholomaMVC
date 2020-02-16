@@ -12,6 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class NegociosController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[negocios]";
 
         // GET api/<controller>
         [HttpGet]
@@ -23,7 +24,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.negocios";
+                query.CommandText = $"Select * from {DatabaseReference}";
 
                 SqlDataReader reader = query.ExecuteReader();
                 Negocios negocio;
@@ -74,7 +75,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.negocios where id = '" + id + "'";
+                query.CommandText = $"Select * from {DatabaseReference} where id = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -131,7 +132,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.negocios VALUES (@idnegocios,@nombre,@direccion,@tipo,@deuda,@cofundadores,@fechaFundacion,@idclavecatastral_n);";
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@idnegocios,@nombre,@direccion,@tipo,@deuda,@cofundadores,@fechaFundacion,@idclavecatastral_n);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idnegocios", p.idnegocios);
@@ -172,7 +173,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.negocios SET idnegocios = @idnegocios, nombre = @nombre,"
+                query.CommandText = $"UPDATE {DatabaseReference} SET idnegocios = @idnegocios, nombre = @nombre,"
                                                     + "direccion = @direccion, tipo = @tipo, deuda = @deuda,"
                                                     + "cofundadores = @cofundadores, fechaFundacion = @fechaFundacion,"
                                                     + "ididclavecatastral_n = @idclavecatastral_n";
@@ -216,7 +217,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.negocio where idnegocios = @idnegocios";
+                query.CommandText = $"Delete from {DatabaseReference} where idnegocios = @idnegocios";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idnegocios", id);

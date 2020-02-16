@@ -12,6 +12,8 @@ namespace SistemaCatastralCholoma.Controllers
     public class FactoresRuralesController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[factoresrurales]";
+
 
         // GET api/<controller>
         [HttpGet]
@@ -23,7 +25,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.factoresrurales";
+                query.CommandText = $"Select * from {DatabaseReference}";
 
                 SqlDataReader reader = query.ExecuteReader();
                 FactoresRurales factoresrurales;
@@ -63,7 +65,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.factoresrurales where id = '" + id + "'";
+                query.CommandText = $"Select * from {DatabaseReference} where id = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -109,7 +111,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.factoresrurales VALUES (@id,@area,@ubicacion,@servicios,@acceso,@agua);";
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@id,@area,@ubicacion,@servicios,@acceso,@agua);";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@idFactoresRurales", p.idFactoresRurales);
@@ -148,7 +150,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.factoresrurales SET area = @area, ubicacion = @ubicacion,"
+                query.CommandText = $"UPDATE {DatabaseReference} SET area = @area, ubicacion = @ubicacion,"
                                                     + "servicios = @servicios, acceso = @acceso, agua = @agua";
 
                 p.idFactoresRurales = id;
@@ -188,7 +190,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.factoresrurales where id = @id";
+                query.CommandText = $"Delete from {DatabaseReference} where id = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

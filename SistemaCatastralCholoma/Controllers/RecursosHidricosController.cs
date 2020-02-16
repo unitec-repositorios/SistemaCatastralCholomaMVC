@@ -12,7 +12,7 @@ namespace SistemaCatastralCholoma.Controllers
     public class RecursosHidricosController : ApiController
     {
         private SqlConnection conn = WebApiConfig.conn();
-
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[recursoshidricos]";
         [HttpGet]
         public HttpResponseMessage listRecursosHidricos()
         {
@@ -21,7 +21,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "select * from bkmilcp6nvs1hgkadyz6.usotierra";
+                cmd.CommandText = $"select * from {DatabaseReference}";
                 SqlDataReader reader = cmd.ExecuteReader();
                 RecursosHidricos rh;
                 while (reader.Read())
@@ -69,7 +69,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "select * from bkmilcp6nvs1hgkadyz6.recursoshidricos where idrecursoshidricos = '" + id + "'";
+                query.CommandText = $"select * from {DatabaseReference} where idrecursoshidricos = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
                 RecursosHidricos rh = null;
@@ -122,7 +122,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.recursoshidricos VALUES (@idrecursoshidricos," +
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@idrecursoshidricos," +
                                                                "@fuente," +
                                                                "@riego," +
                                                                "@sistemaIrrigacion," +
@@ -166,7 +166,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.recursoshidricos SET fuente = @fuente," +
+                query.CommandText = $"UPDATE {DatabaseReference} SET fuente = @fuente," +
                                                       "riego = @riego," +
                                                       "sistemaIrrigacion = @sistemaIrrigacion," +
                                                       "distancia = @distancia," +
@@ -207,7 +207,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "delete from bkmilcp6nvs1hgkadyz6.recursoshidricos where idusotierra = @id";
+                query.CommandText = $"delete from {DatabaseReference} where idusotierra = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);

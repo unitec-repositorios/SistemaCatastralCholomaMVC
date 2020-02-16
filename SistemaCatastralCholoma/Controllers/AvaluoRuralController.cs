@@ -11,7 +11,7 @@ namespace SistemaCatastralCholoma.Controllers
 {
     public class AvaluoRuralController : ApiController
     {
-
+        String DatabaseReference = WebApiConfig.DatabaseName() + ".[avaluorural]";
         private SqlConnection conn = WebApiConfig.conn();
         // GET: api/AvaluoRural
         [HttpGet]
@@ -23,7 +23,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluorural";
+                query.CommandText = $"Select * from {DatabaseReference}";
 
                 SqlDataReader reader = query.ExecuteReader();
                 AvaluoRural avaluoRural;
@@ -60,7 +60,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "Select * from bkmilcp6nvs1hgkadyz6.avaluorural where idavaluorural = '" + id + "'";
+                query.CommandText = $"Select * from {DatabaseReference} where idavaluorural = '" + id + "'";
 
                 SqlDataReader reader = query.ExecuteReader();
 
@@ -101,7 +101,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "INSERT INTO bkmilcp6nvs1hgkadyz6.avaluorural VALUES (@idavaluorural," +
+                query.CommandText = $"INSERT INTO {DatabaseReference} VALUES (@idavaluorural," +
                                                                "@valorTerrenoRural)";
 
                 query.Prepare();
@@ -139,7 +139,7 @@ namespace SistemaCatastralCholoma.Controllers
 
                 SqlCommand query = conn.CreateCommand();
 
-                query.CommandText = "UPDATE bkmilcp6nvs1hgkadyz6.avaluorural SET valorTerrenoRural = @valorTerrenoRural," +
+                query.CommandText = $"UPDATE {DatabaseReference} SET valorTerrenoRural = @valorTerrenoRural," +
                                                       "where idavaluorural = @id";
 
                 query.Prepare();
@@ -171,7 +171,7 @@ namespace SistemaCatastralCholoma.Controllers
             {
                 conn.Open();
                 SqlCommand query = conn.CreateCommand();
-                query.CommandText = "Delete from bkmilcp6nvs1hgkadyz6.avaluorural where idavaluorural = @id";
+                query.CommandText = $"Delete from {DatabaseReference} where idavaluorural = @id";
 
                 query.Prepare();
                 query.Parameters.AddWithValue("@id", id);
