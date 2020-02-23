@@ -96,7 +96,7 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
                 string query = $"insert into {DatabaseReference} values (@cocata, @depto,@municipio,@aldea,@mapa,@bolque,@predio,@num,@maq,@st,@codProp,@codHab," +
-                    "@noLinea,@noFoto,@poblacion,@identidadPropietario,@tomo,@asiento)";
+                    "@noLinea,@noFoto,@poblacion,@identidadPropietario,@tomo,@asiento,@tipo)";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@cocata", ficha.depto+ficha.municipio+ficha.aldea+ficha.mapa+ficha.bolque+ficha.predio+ficha.num);
                 cmd.Parameters.AddWithValue("@depto", ficha.depto);
@@ -116,6 +116,7 @@ namespace SistemaCatastralCholoma.Controllers
                 cmd.Parameters.AddWithValue("@identidadPropietario", ficha.identidadPropietario);
                 cmd.Parameters.AddWithValue("@tomo", ficha.tomo);
                 cmd.Parameters.AddWithValue("@asiento", ficha.asiento);
+                cmd.Parameters.AddWithValue("@tipo", DBNull.Value);
                 cmd.ExecuteNonQuery();
 
                 var response = Request.CreateResponse(HttpStatusCode.OK);
