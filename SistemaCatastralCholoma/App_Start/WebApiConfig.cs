@@ -44,7 +44,7 @@ namespace SistemaCatastralCholoma
         {
             string conn_string = "Server=DESKTOP-BNO2SU0;Database=cholomatest;Integrated Security=true";//server=bkmilcp6nvs1hgkadyz6-Sql.services.clever-cloud.com;port=3306;database=bkmilcp6nvs1hgkadyz6;Uid=uedhxkzl6doratlh;Pwd=xDdW8Ro6Rg01GUnJsjLW;
             //Server=WIN-RJQFJ758DS1;Database=cholomatest;User Id=DBA;Password=Hello123; servidor
-            //"Server=DESKTOP-BNO2SU0;Database=cholomatest;Integrated Security=true;" local
+            //Server=DESKTOP-BNO2SU0;Database=cholomatest;Integrated Security=true;" local
 
             SqlConnection conn = new SqlConnection(conn_string);
 

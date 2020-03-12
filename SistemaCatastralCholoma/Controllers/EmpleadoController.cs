@@ -31,7 +31,8 @@ namespace SistemaCatastralCholoma.Controllers
                     string nombre = reader.GetString(0);
                     string pass = reader.GetString(1);
                     int tip = reader.GetInt16(2);
-                    empleados.Add(new Empleado(nombre, pass, tip));
+                    string usertype = reader.GetString(3);
+                    empleados.Add(new Empleado(nombre, pass, tip, usertype));
                 }
                 conn.Close();
                 var response = Request.CreateResponse(HttpStatusCode.OK, empleados);
@@ -67,6 +68,7 @@ namespace SistemaCatastralCholoma.Controllers
                     empleado.nombre = reader.GetString(0);
                     empleado.password = reader.GetString(1);
                     empleado.tipo = reader.GetInt16(2);
+                    empleado.usertype = reader.GetString(3);
                 }
                 conn.Close();
                 if (empleado.nombre==null)
@@ -95,11 +97,12 @@ namespace SistemaCatastralCholoma.Controllers
                 conn.Open();
 
                 SqlCommand cmd = conn.CreateCommand();
-                string query = $"insert into {DatabaseReference} values (@nombre, @pass, @tip)";
+                string query = $"insert into {DatabaseReference} values (@nombre, @pass, @tip, @UserType)";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@nombre", empleado.nombre);
                 cmd.Parameters.AddWithValue("@pass", empleado.password);
                 cmd.Parameters.AddWithValue("@tip", empleado.tipo);
+                cmd.Parameters.AddWithValue("@UserType", empleado.usertype);
                 cmd.ExecuteNonQuery();
 
                 conn.Close();
